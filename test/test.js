@@ -1,0 +1,1 @@
+let wmvm = require('../src/wmvm.js');
