@@ -1,4 +1,4 @@
-const Binaryen = require("binaryen");
+const Binaryen = require("../binaryen.js/index.js");
 class wmvm {
     constructor(data, type) {
         if (!data) {
