@@ -1,4 +1,4 @@
-const binaryen = require("binaryen");
+const Binaryen = require("binaryen");
 class wmvm {
     constructor(data, type) {
         if (!data) {
