@@ -1,0 +1,7 @@
+{
+    "name": "wmvm",
+    "description": "A pure JavaScript WebAssembly virtual machine designed for debugging",
+    "dependencies": {
+        "binaryen": "*"
+    }
+}
