@@ -1,3 +1,0 @@
-[submodule "binaryen.js"]
-	path = binaryen.js/
-	url = https://github.com/AssemblyScript/binaryen.js
