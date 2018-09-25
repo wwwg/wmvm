@@ -13,6 +13,8 @@ class wmvm {
                 this.isBinary = false;
             } else if (data instanceof Buffer || data instanceof Uint8Array) {
                 this.isBinary = true;
+            } else {
+                throw new TypeError("I don't know how to interpret the input data");
             }
         }
         // Generate a binaryen module
