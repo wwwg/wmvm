@@ -15,7 +15,17 @@ class wmvm {
                 this.isBinary = true;
             }
         }
-        
+        // Generate a binaryen module
+        if (!this.isBinary) {
+            this.module = Binaryen.parseText(this.data);
+        } else {
+            if (data instanceof Buffer) {
+                let u8 = new Uint8Array(data);
+                this.module = Binaryen.readBinary(u8);
+            } else {
+                this.module = Binaryen.readBinary(this.data);
+            }
+        }
     }
 }
 Module.exports = wmvm;
