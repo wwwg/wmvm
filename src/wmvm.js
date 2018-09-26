@@ -33,7 +33,9 @@ class wmvm {
             this._main = this.module.getFunction('_main');
         } catch (e) {
             console.log('failed to find main');
+            return;
         }
+        
     }
 }
 module.exports = wmvm;
