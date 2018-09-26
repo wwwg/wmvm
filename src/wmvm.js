@@ -38,9 +38,37 @@ class wmvm {
             console.log('failed to find main');
             return;
         }
-    }
-    importGlue(glueRaw) {
-        // todo
+        let mem = new WebAssembly.Memory({
+            'initial': 16777216 / 65536,
+            'maximum': 16777216 / 65536
+        });
+        let table = new WebAssembly.Table({
+            'initial': 1024,
+            'maximum': 10,
+            'element': 'anyfunc'
+        });
+        this.wasmMemory = mem;
+        this.wasmTable = table;
+        this.wasmImports = {
+            global: {
+                'NaN': NaN,
+                'Infinity': Infinity,
+                'Math': Math
+            },
+            env: {
+                'memory': mem,
+                'table': table,
+                'tableBase': 0,
+                'memoryBase': 1024,
+            },
+            asm2wasm: {
+                "f64-rem": (x, y) => {
+                    return x % y;
+                },
+                "debugger": () => { debugger; }
+            },
+            parent: { }
+        }
     }
 }
 module.exports = wmvm;
