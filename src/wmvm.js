@@ -20,12 +20,15 @@ class wmvm {
         // Generate a binaryen module
         if (!this.isBinary) {
             this.module = Binaryen.parseText(this.data);
+            this.binary = this.module.emitBinary();
         } else {
             if (data instanceof Buffer) {
                 let u8 = new Uint8Array(data);
                 this.module = Binaryen.readBinary(u8);
+                this.binary = u8;
             } else {
                 this.module = Binaryen.readBinary(this.data);
+                this.binary = data;
             }
         }
         this._main = null;
@@ -35,7 +38,6 @@ class wmvm {
             console.log('failed to find main');
             return;
         }
-        
     }
 }
 module.exports = wmvm;
