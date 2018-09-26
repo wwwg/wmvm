@@ -39,5 +39,8 @@ class wmvm {
             return;
         }
     }
+    importGlue(glueRaw) {
+        // todo
+    }
 }
 module.exports = wmvm;
