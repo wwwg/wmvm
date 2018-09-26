@@ -1,4 +1,5 @@
-const Binaryen = require('binaryen');
+const Binaryen = require('binaryen'),
+    MetaBlock = require('./MetaBlock');
 // a more useful function class
 module.exports = class MetaFunction {
     constructor(module, name) {
@@ -9,8 +10,8 @@ module.exports = class MetaFunction {
             return;
         }
         this.info = Binaryen.getFunctionInfo(this.fptr);
-        console.log(this.info);
         this.bodyptr = this.info.body;
-        this.body = Binaryen.getExpressionInfo(this.bodyptr);
+        this.bodyInfo = Binaryen.getExpressionInfo(this.bodyptr);
+        this.body = new MetaBlock(this.bodyInfo);
     }
 }

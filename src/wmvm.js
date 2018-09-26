@@ -36,8 +36,7 @@ class wmvm {
             }
         }
         this._main = new MetaFunction(this.module, '_main');
-        fnMap._main = this._main;
-        console.log(this._main.body);
+        this.fnMap._main = this._main;
     }
 }
 module.exports = wmvm;
