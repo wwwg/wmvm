@@ -8,6 +8,8 @@ class wmvm {
             return;
         }
         this.data = data;
+        // A map of all currently parsed functions
+        this.fnMap = {};
         if (type) {
             this.isBinary = (type === 'wasm');
         } else {
@@ -34,6 +36,7 @@ class wmvm {
             }
         }
         this._main = new MetaFunction(this.module, '_main');
+        fnMap._main = this._main;
         console.log(this._main.body);
     }
 }
