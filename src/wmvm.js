@@ -28,6 +28,12 @@ class wmvm {
                 this.module = Binaryen.readBinary(this.data);
             }
         }
+        this._main = null;
+        try {
+            this._main = this.module.getFunction('_main');
+        } catch (e) {
+            console.log('failed to find main');
+        }
     }
 }
 module.exports = wmvm;
