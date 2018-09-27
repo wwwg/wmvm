@@ -1,4 +1,5 @@
-const Binaryen = require('binaryen');
+const Binaryen = require('binaryen'),
+    MetaFunction = require('./expressions').MetaFunction;
 class ExpressionInterpreter {
     constructor(vm) {
         this.vm = vm;
@@ -22,7 +23,10 @@ class ExpressionInterpreter {
         }
     }
     interpretFunction(fn) {
-        //
+        if (!fn instanceof MetaFunction) {
+            this.vm.dbg(`interpreter: I can't interpret a function that isn't a function!`);
+            return 0;
+        }
     }
 }
 module.exports = ExpressionInterpreter;
