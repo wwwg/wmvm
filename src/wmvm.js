@@ -95,7 +95,7 @@ class wmvm {
         } else {
             for (let i = 0; i < initialMemory.length; ++i) {
                 let byte = initialMemory.charCodeAt(i);
-                initialMemory[i] = byte;
+                this.mem[i] = byte;
             }
             this.dbg('Sucessfully set initial memory');
         }
