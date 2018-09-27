@@ -40,6 +40,7 @@ class wmvm {
             }
         }
         this.module.dbg = this.dbg.bind(this);
+        this.module._fnMap = this.fnMap;
         this._main = new MetaFunction(this.module, '_main');
         this.fnMap._main = this._main;
     }

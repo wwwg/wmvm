@@ -59,7 +59,7 @@ let parse = (expr, mod) => {
         rexpr.target = parse(rexpr.target, mod);
     if (rexpr.target && typeof rexpr.target === 'string') {
         mod.dbg('discovered function: "' + rexpr.target + '"');
-        mod.fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
+        mod._fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
     }
     if (rexpr.value && typeof rexpr.value === 'number') {
         if (rexpr.id !== Binaryen.ConstId)
