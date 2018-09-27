@@ -7,6 +7,7 @@ module.exports = (expr, mod) => {
     } else {
         rexpr = expr;
     }
+    mod.dbg(rexpr);
     // block
     if (rexpr.children) {
         for (let i = 0; i < rexpr.children.length; ++i) {
