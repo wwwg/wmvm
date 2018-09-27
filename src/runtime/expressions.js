@@ -16,6 +16,7 @@ class MetaFunction {
         this.parameterTypes = this.typeInfo.params;
         this.name = this.info.name;
         this.bodyptr = this.info.body;
+        this.ctx = {};
         if (!this.bodyptr) {
             vm.dbg(`Discovered import "${this.name}":`);
             vm.dbg(`\t- returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
