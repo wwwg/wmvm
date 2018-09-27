@@ -21,7 +21,7 @@ class MetaFunction {
             this.isImport = true;
             this.importModule = this.info.module;
             this.importBase = this.info.base;
-            mod.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}`);
+            mod.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}"`);
             return;
         }
         this.body = parse(this.bodyptr, mod);
