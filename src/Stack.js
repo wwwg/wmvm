@@ -9,4 +9,7 @@ module.exports = class VirtualStack extends Array {
         // Before a function is interpreted, it's added to the stack
         let frame = new StackFrame(fn);
     }
+    popFrame() {
+        return this.pop();
+    }
 }
