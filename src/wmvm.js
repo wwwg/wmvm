@@ -88,16 +88,18 @@ class wmvm {
         this.virtualImports = [];
         // Memory
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
+        this.memPtrName = null;
         // Find initial memory
-        let initialMemory = getInitialMemory(this.wast);
-        if (!initialMemory) {
+        let initialMemoryData = getInitialMemory(this.wast);
+        if (!initialMemoryData.mem || !initialMemoryData.ptr) {
             this.dbg('Failed to find initial memory in module, ignoring');
         } else {
+            this.memPtrName = initialMemoryData.ptr;
             for (let i = 0; i < initialMemory.length; ++i) {
                 let byte = initialMemory.charCodeAt(i);
                 this.mem[i] = byte;
             }
-            this.dbg('Sucessfully set initial memory');
+            this.dbg('Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
         }
         
         this.dbg('Input parsed successfully');
