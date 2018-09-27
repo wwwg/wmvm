@@ -10,6 +10,7 @@ class MetaFunction {
         }
         this.module = mod;
         this.info = Binaryen.getFunctionInfo(this.fptr);
+        this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
         this.name = this.info.name;
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
