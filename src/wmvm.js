@@ -1,5 +1,7 @@
 const Binaryen = require("binaryen"),
-    MetaFunction = require("./runtime/MetaFunction");
+    expression = require("./runtime/expressions"),
+    MetaFunction = expression.MetaFunction,
+    parse = expression.parse;
 class wmvm {
     dbg(...args) {
         console.log.apply(console, args);

@@ -1,5 +1,20 @@
-const Binaryen = require('binaryen'),
-    MetaFunction = require('./runtime/MetaFunction.js');
+const Binaryen = require('binaryen');
+
+class MetaFunction {
+    constructor(mod, name) {
+        try {
+            this.fptr = mod.getFunction(name);
+        } catch(e) {
+            mod.dbg('failed to lookup function "' + name + '"');
+            return;
+        }
+        this.module = mod;
+        this.info = Binaryen.getFunctionInfo(this.fptr);
+        this.bodyptr = this.info.body;
+        this.body = parse(this.bodyptr, mod);
+    }
+}
+
 let parse = (expr, mod) => {
     let rexpr;
     if (typeof expr === 'number') {
@@ -7,7 +22,7 @@ let parse = (expr, mod) => {
     } else {
         rexpr = expr;
     }
-    mod.dbg(rexpr);
+    // mod.dbg(rexpr);
     // block
     if (rexpr.children) {
         for (let i = 0; i < rexpr.children.length; ++i) {
@@ -48,4 +63,7 @@ let parse = (expr, mod) => {
 
     return rexpr;
 }
-module.exports = parse;
+module.exports = {
+    parse: parse,
+    MetaFunction: MetaFunction
+}
