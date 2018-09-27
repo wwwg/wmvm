@@ -16,6 +16,8 @@ class MetaFunction {
         if (!this.bodyptr) {
             mod.dbg(`Discovered import "${this.name}":`);
             mod.dbg(this.info);
+            mod.dbg(`With signature:`);
+            mod.dbg(this.typeInfo);
             this.isImport = true;
             return;
         }
@@ -61,8 +63,12 @@ let parse = (expr, mod) => {
     if (rexpr.target && typeof rexpr.target === 'number')
         rexpr.target = parse(rexpr.target, mod);
     if (rexpr.target && typeof rexpr.target === 'string') {
-        mod.dbg('discovered function: "' + rexpr.target + '"');
-        mod._fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
+        if (!mod._fnMap[rexpr.target]) {
+            mod.dbg('Discovered function: "' + rexpr.target + '"');
+            mod._fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
+        } else {
+            mod.dbg(`Found already discovered function "${rexpr.target}"`);
+        }
     }
     if (rexpr.value && typeof rexpr.value === 'number') {
         if (rexpr.id !== Binaryen.ConstId)
