@@ -61,6 +61,7 @@ class wmvm {
         this.fnMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = {};
+        this.dbg('Input parsed successfully');
     }
     run(overrideMain) {
         if (!overrideMain) {
