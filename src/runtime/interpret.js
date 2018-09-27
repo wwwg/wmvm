@@ -22,3 +22,4 @@ class ExpressionInterpreter {
         }
     }
 }
+module.exports = ExpressionInterpreter;
