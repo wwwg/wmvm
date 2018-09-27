@@ -38,7 +38,7 @@ module.exports = (expr, mod) => {
         rexpr.ptr = Binaryen.getExpressionInfo(rexpr.ptr);
     if (rexpr.target && typeof rexpr.target === 'number')
         rexpr.target = Binaryen.getExpressionInfo(rexpr.target);
-    else if (typeof rexpr.target === 'string') {
+    if (rexpr.target && typeof rexpr.target === 'string') {
         mod.dbg('discovered function: "' + rexpr.target + '"');
         mod.fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
     }
