@@ -11,6 +11,11 @@ class MetaFunction {
         this.module = mod;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.bodyptr = this.info.body;
+        if (!this.bodyptr) {
+            mod.dbg('WARN: Discovered import (currently unsupported)');
+            this.isImport = true;
+            return;
+        }
         this.body = parse(this.bodyptr, mod);
     }
 }
