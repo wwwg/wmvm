@@ -88,6 +88,10 @@ class wmvm {
         this.virtualImports = [];
         // Memory
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
+        // Find initial memory
+        let initialMemory = getInitialMemory(this.wast);
+        console.log(initialMemory);
+        
         this.dbg('Input parsed successfully');
     }
     discover(overrideMain) {
