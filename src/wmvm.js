@@ -31,6 +31,8 @@ class wmvm {
             name: fnName,
             jsFunc: fn
         }
+        this.virtualImports.push(virtualImport);
+        this.dbg(`added import "${fnName}" in import module "${moduleName}"`);
     }
     constructor(data, type) {
         if (!data) {
