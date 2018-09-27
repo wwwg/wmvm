@@ -90,7 +90,9 @@ class wmvm {
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
         // Find initial memory
         let initialMemory = getInitialMemory(this.wast);
-        console.log(initialMemory);
+        if (!initialMemory) {
+            this.dbg('Failed to find initial memory in module, ignoring');
+        }
         
         this.dbg('Input parsed successfully');
     }
