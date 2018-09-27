@@ -27,6 +27,7 @@ class wmvm {
                 return _import;
             }
         }
+        this.dbg(`lookupVirtualImport: failed lookup import "${name}" in "${mod}"`);
         return null;
     }
     addStaticImport(moduleName, fnName, fn) {
