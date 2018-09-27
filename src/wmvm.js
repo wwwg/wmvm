@@ -1,7 +1,6 @@
 const Binaryen = require("binaryen"),
     expression = require("./runtime/expressions"),
-    MetaFunction = expression.MetaFunction,
-    parse = expression.parse;
+    MetaFunction = expression.MetaFunction;
 class wmvm {
     dbg(...args) {
         console.log.apply(console, args);
@@ -26,6 +25,7 @@ class wmvm {
             }
         }
         // Generate a binaryen module
+        this.dbg('Parsing input data..');
         if (!this.isBinary) {
             this.module = Binaryen.parseText(this.data);
             this.binary = this.module.emitBinary();
@@ -41,6 +41,7 @@ class wmvm {
         }
         this.module.dbg = this.dbg.bind(this);
         this.module._fnMap = this.fnMap;
+        this.dbg('Binary parsing finished. Performing expression parsing and function discovery...');
         this._main = new MetaFunction(this.module, '_main');
         this.fnMap._main = this._main;
         this.dbg(`Expression parsing finished.`);
