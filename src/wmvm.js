@@ -124,7 +124,7 @@ class wmvm {
             this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
     }
     run() {
-        //
+        console.log(this._main.body);
     }
 }
 module.exports = wmvm;
