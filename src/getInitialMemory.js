@@ -2,7 +2,7 @@
 module.exports = (wast) => {
     let findMem = new RegExp(/(\(data \(get_global \$memoryBase\) ")(.*?)(?=\"\))/gim);
     let found = findMem.exec(wast);
-    if (!found[0])
+    if (!found || !found[0])
         return null;
     let mem = found[0];
     mem = decodeURIComponent(JSON.parse('"' + mem + '"'));
