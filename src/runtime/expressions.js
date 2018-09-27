@@ -11,13 +11,14 @@ class MetaFunction {
         this.module = mod;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
+        this.returnType = this.typeInfo.result;
+        this.parameterTypes = this.typeInfo.params;
         this.name = this.info.name;
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
             mod.dbg(`Discovered import "${this.name}":`);
             mod.dbg(this.info);
-            mod.dbg(`With signature:`);
-            mod.dbg(this.typeInfo);
+            mod.dbg(`"${this.name}" : returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
             this.isImport = true;
             return;
         }
