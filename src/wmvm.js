@@ -43,6 +43,8 @@ class wmvm {
         this.module._fnMap = this.fnMap;
         this._main = new MetaFunction(this.module, '_main');
         this.fnMap._main = this._main;
+        this.dbg(`Expression parsing finished.`);
+        this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
     }
 }
 module.exports = wmvm;
