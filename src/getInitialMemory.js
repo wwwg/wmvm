@@ -23,7 +23,7 @@ module.exports = (wast) => {
         ptr = ptr.replace(/\).*/gim, '');
     }
     return {
-        memory: mem,
-        ptrName: ptr
+        mem: mem,
+        ptr: ptr
     };
 }
