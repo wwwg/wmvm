@@ -17,9 +17,11 @@ class MetaFunction {
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
             mod.dbg(`Discovered import "${this.name}":`);
-            mod.dbg(this.info);
-            mod.dbg(`"${this.name}" : returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
+            mod.dbg(`\t- returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
             this.isImport = true;
+            this.importModule = this.info.module;
+            this.importBase = this.info.base;
+            mod.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}`);
             return;
         }
         this.body = parse(this.bodyptr, mod);
