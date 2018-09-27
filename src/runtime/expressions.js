@@ -8,6 +8,7 @@ class MetaFunction {
             vm.dbg('failed to lookup function "' + name + '"');
             return;
         }
+        this.exists = true;
         this.module = vm.module;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
