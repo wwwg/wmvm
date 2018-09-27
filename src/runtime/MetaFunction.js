@@ -9,8 +9,9 @@ module.exports = class MetaFunction {
             mod.dbg('failed to lookup function "' + name + '"');
             return;
         }
+        this.module = mod;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.bodyptr = this.info.body;
-        this.body = parse(this.bodyptr);
+        this.body = parse(this.bodyptr, mod);
     }
 }
