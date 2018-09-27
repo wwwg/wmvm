@@ -21,5 +21,8 @@ class ExpressionInterpreter {
             return null;
         }
     }
+    interpretFunction(fn) {
+        //
+    }
 }
 module.exports = ExpressionInterpreter;
