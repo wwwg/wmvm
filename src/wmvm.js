@@ -116,6 +116,8 @@ class wmvm {
             }
             this.dbg('Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
         }
+        // stack
+        this.stack = [];
         
         this.dbg('Input parsed successfully');
     }
