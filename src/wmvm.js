@@ -84,26 +84,29 @@ class wmvm {
         this.virtualImports = [];
         this.dbg('Input parsed successfully');
     }
-    run(overrideMain) {
+    discover(overrideMain) {
         if (!overrideMain) {
-            this.dbg('Trying to find _main()...');
-            this._main = new MetaFunction(this, '_main');
-            if (!this._main.exists) {
-                this.dbg('FATAL: failed to find _main(), aborting');
-                return;
+                this.dbg('Trying to find _main()...');
+                this._main = new MetaFunction(this, '_main');
+                if (!this._main.exists) {
+                    this.dbg('FATAL: failed to find _main(), aborting');
+                    return;
+                }
+            } else {
+                this.dbg(`Trying to find "${overrideMain}"...`);
+                this._main = new MetaFunction(this, overrideMain);
+                if (!this._main.exists) {
+                    this.dbg(`FATAL: failed to find override main "${overrideMain}", aborting`);
+                    return;
+                }
             }
-        } else {
-            this.dbg(`Trying to find "${overrideMain}"...`);
-            this._main = new MetaFunction(this, overrideMain);
-            if (!this._main.exists) {
-                this.dbg(`FATAL: failed to find override main "${overrideMain}", aborting`);
-                return;
-            }
+            
+            this.fnMap._main = this._main;
+            this.dbg(`Expression parsing finished.`);
+            this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
         }
-        
-        this.fnMap._main = this._main;
-        this.dbg(`Expression parsing finished.`);
-        this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
+    run() {
+        //
     }
 }
 module.exports = wmvm;
