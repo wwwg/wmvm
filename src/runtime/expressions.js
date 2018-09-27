@@ -1,14 +1,14 @@
 const Binaryen = require('binaryen');
 
 class MetaFunction {
-    constructor(mod, name) {
+    constructor(vm, name) {
         try {
-            this.fptr = mod.getFunction(name);
+            this.fptr = vm.module.getFunction(name);
         } catch(e) {
-            mod.dbg('failed to lookup function "' + name + '"');
+            vm.dbg('failed to lookup function "' + name + '"');
             return;
         }
-        this.module = mod;
+        this.module = vm.module;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
         this.returnType = this.typeInfo.result;
@@ -16,66 +16,66 @@ class MetaFunction {
         this.name = this.info.name;
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
-            mod.dbg(`Discovered import "${this.name}":`);
-            mod.dbg(`\t- returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
+            vm.dbg(`Discovered import "${this.name}":`);
+            vm.dbg(`\t- returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
             this.isImport = true;
             this.importModule = this.info.module;
             this.importBase = this.info.base;
-            mod.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}"`);
+            vm.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}"`);
             return;
         }
-        this.body = parse(this.bodyptr, mod);
+        this.body = parse(this.bodyptr, vm);
     }
 }
 
-let parse = (expr, mod) => {
+let parse = (expr, vm) => {
     let rexpr;
     if (typeof expr === 'number') {
         rexpr = Binaryen.getExpressionInfo(expr);
     } else {
         rexpr = expr;
     }
-    // mod.dbg(rexpr);
+    // vm.dbg(rexpr);
     // block
     if (rexpr.children) {
         for (let i = 0; i < rexpr.children.length; ++i) {
-            rexpr.children[i] = parse(rexpr.children[i], mod);
+            rexpr.children[i] = parse(rexpr.children[i], vm);
         }
     }
     // Call operands
     if (rexpr.operands) {
         for (let i = 0; i < rexpr.operands.length; ++i) {
-            rexpr.operands[i] = parse(rexpr.operands[i], mod);
+            rexpr.operands[i] = parse(rexpr.operands[i], vm);
         }
     }
 
     if (rexpr.condition) 
-        rexpr.condition = parse(rexpr.condition, mod);
+        rexpr.condition = parse(rexpr.condition, vm);
     if (rexpr.ifTrue)
-        rexpr.ifTrue = parse(rexpr.ifTrue, mod);
+        rexpr.ifTrue = parse(rexpr.ifTrue, vm);
     if (rexpr.ifFalse)
-        rexpr.ifFalse = parse(rexpr.ifFalse, mod);
+        rexpr.ifFalse = parse(rexpr.ifFalse, vm);
     if (rexpr.body)
-        rexpr.body = parse(rexpr.body, mod);
+        rexpr.body = parse(rexpr.body, vm);
     if (rexpr.left)
-        rexpr.left = parse(rexpr.left, mod);
+        rexpr.left = parse(rexpr.left, vm);
     if (rexpr.right)
-        rexpr.right = parse(rexpr.right, mod);
+        rexpr.right = parse(rexpr.right, vm);
     if (rexpr.ptr)
-        rexpr.ptr = parse(rexpr.ptr, mod);
+        rexpr.ptr = parse(rexpr.ptr, vm);
     if (rexpr.target && typeof rexpr.target === 'number')
-        rexpr.target = parse(rexpr.target, mod);
+        rexpr.target = parse(rexpr.target, vm);
     if (rexpr.target && typeof rexpr.target === 'string') {
-        if (!mod._fnMap[rexpr.target]) {
-            mod.dbg('Discovered function: "' + rexpr.target + '"');
-            mod._fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
+        if (!vm.fnMap[rexpr.target]) {
+            vm.dbg('Discovered function: "' + rexpr.target + '"');
+            vm.fnMap[rexpr.target] = new MetaFunction(vm, rexpr.target);
         } else {
-            mod.dbg(`Found already discovered function "${rexpr.target}"`);
+            vm.dbg(`Found already discovered function "${rexpr.target}"`);
         }
     }
     if (rexpr.value && typeof rexpr.value === 'number') {
         if (rexpr.id !== Binaryen.ConstId)
-            rexpr.value = parse(rexpr.value, mod);
+            rexpr.value = parse(rexpr.value, vm);
     }
 
     return rexpr;

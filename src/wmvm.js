@@ -61,9 +61,8 @@ class wmvm {
         this.fnMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = {};
-        this.module._fnMap = this.fnMap;
         this.dbg('Binary parsing finished. Performing expression parsing and function discovery...');
-        this._main = new MetaFunction(this.module, '_main');
+        this._main = new MetaFunction(this, '_main');
         this.fnMap._main = this._main;
         this.dbg(`Expression parsing finished.`);
         this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
