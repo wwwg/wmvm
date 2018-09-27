@@ -27,6 +27,7 @@ class wmvm {
                 return _import;
             }
         }
+        return null;
     }
     addStaticImport(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
