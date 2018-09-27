@@ -4,8 +4,10 @@ const runtime = {
         return 0;
     }
 }
+
 const fs = require('fs');
 let inData = fs.readFileSync('test/emcc.wasm');
 let vm = new wmvm(inData);
 vm.addStaticImport('env', 'abortStackOverflow', runtime.abortStackOverflow);
+vm.discover();
 vm.run();

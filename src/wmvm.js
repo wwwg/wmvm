@@ -104,7 +104,7 @@ class wmvm {
             this.fnMap._main = this._main;
             this.dbg(`Expression parsing finished.`);
             this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
-        }
+    }
     run() {
         //
     }
