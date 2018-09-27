@@ -37,6 +37,7 @@ class wmvm {
                 this.binary = data;
             }
         }
+        this.module.dbg = this.dbg.bind(this);
         this._main = new MetaFunction(this.module, '_main');
         this.fnMap._main = this._main;
     }
