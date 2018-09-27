@@ -1,0 +1,1 @@
+const Binaryen = require('binaryen');
