@@ -12,7 +12,7 @@ class MetaFunction {
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
-            mod.dbg('WARN: Discovered import (currently unsupported)');
+            mod.dbg(`WARN: Constructed import "${this.info.name}", imports are currently unsupported.`);
             this.isImport = true;
             return;
         }
