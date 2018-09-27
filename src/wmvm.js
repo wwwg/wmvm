@@ -20,6 +20,9 @@ class wmvm {
             return null;
         }
     }
+    addStaticImport() {
+        // Static imports have to be added before the vm starts
+    }
     constructor(data, type) {
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
