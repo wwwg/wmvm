@@ -13,7 +13,21 @@ class wmvm {
         if (this.fnMap[symbol]) {
             let fn = this.fnMap[symbol];
             if (fn.isImport) {
-                // todo
+                if (fn.virtualImport) {
+                    // function has a virtual import mapped to it, return it
+                    return fn;
+                } else {
+                    let mappedImport = this.lookupVirtualImport(fn.importModule, fn.name);
+                    if (!mappedImport) {
+                        this.dbg(`lookupFunction: failed to resolve import function "${fn.name}"`);
+                        return null;
+                    }
+                    if (!fn.virtualImport) {
+                        this.dbg(`lookupFunction: mapped new import function "${fn.name}" to it's respective import`);
+                        fn.virtualImport = mappedImport;
+                    }
+                    return fn;
+                }
             } else {
                 this.dbg(`lookupFunction: successfully resolved local function "${fn.name}"`);
                 return fn;
