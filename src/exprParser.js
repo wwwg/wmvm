@@ -29,8 +29,6 @@ let parse = (expr, mod) => {
         rexpr.ifFalse = parse(rexpr.ifFalse, mod);
     if (rexpr.body)
         rexpr.body = parse(rexpr.body, mod);
-    if (rexpr.value)
-        rexpr.value = parse(rexpr.value, mod);
     if (rexpr.left)
         rexpr.left = parse(rexpr.left, mod);
     if (rexpr.right)
