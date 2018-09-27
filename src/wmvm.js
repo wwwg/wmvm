@@ -65,6 +65,7 @@ class wmvm {
         this.dbg('Parsing input data..');
         if (!this.isBinary) {
             this.module = Binaryen.parseText(this.data);
+            this.wast = this.data;
             this.binary = this.module.emitBinary();
         } else {
             if (data instanceof Buffer) {
@@ -75,6 +76,7 @@ class wmvm {
                 this.module = Binaryen.readBinary(this.data);
                 this.binary = data;
             }
+            this.wast = this.module.emitText();
         }
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
