@@ -63,7 +63,12 @@ class wmvm {
         this.virtualImports = {};
     }
     run() {
+        this.dbg('Trying to find _main()...');
         this._main = new MetaFunction(this, '_main');
+        if (!this._main) {
+            this.dbg('FATAL: failed to find _main(), aborting');
+            return;
+        }
         this.fnMap._main = this._main;
         this.dbg(`Expression parsing finished.`);
         this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
