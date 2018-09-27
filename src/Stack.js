@@ -1,3 +1,3 @@
-module.exports = class Stack extends Array {
+module.exports = class VirtualStack extends Array {
     //
 }

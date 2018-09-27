@@ -1,6 +1,7 @@
 const Binaryen = require("binaryen"),
     expression = require("./runtime/expressions"),
     getInitialMemory = require('./getInitialMemory'),
+    Stack = require('./Stack');
     ExpressionInterpreter = require('./runtime/interpret'),
     MetaFunction = expression.MetaFunction;
 const INITIAL_MEMORY_SIZE = 10000;
