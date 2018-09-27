@@ -1,4 +1,3 @@
-
 const Binaryen = require("binaryen"),
     MetaFunction = require("./runtime/MetaFunction");
 class wmvm {
