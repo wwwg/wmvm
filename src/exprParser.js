@@ -1,5 +1,6 @@
-const Binaryen = require('binaryen');
-module.exports = expr => {
+const Binaryen = require('binaryen'),
+    MetaFunction = require('./runtime/MetaFunction.js');
+module.exports = (expr, mod) => {
     let rexpr;
     if (typeof expr === 'number') {
         rexpr = Binaryen.getExpressionInfo(expr);
@@ -37,6 +38,10 @@ module.exports = expr => {
         rexpr.ptr = Binaryen.getExpressionInfo(rexpr.ptr);
     if (rexpr.target && typeof rexpr.target === 'number')
         rexpr.target = Binaryen.getExpressionInfo(rexpr.target);
+    else if (typeof rexpr.target === 'string') {
+        console.log('discovered function: "' + rexpr.target + '"');
+        mod.fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
+    }
     if (rexpr.value && typeof rexpr.value === 'number') {
         if (rexpr.id !== Binaryen.ConstId)
             rexpr.value = Binaryen.getExpressionInfo(rexpr.value);
