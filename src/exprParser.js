@@ -39,7 +39,7 @@ module.exports = (expr, mod) => {
     if (rexpr.target && typeof rexpr.target === 'number')
         rexpr.target = Binaryen.getExpressionInfo(rexpr.target);
     else if (typeof rexpr.target === 'string') {
-        console.log('discovered function: "' + rexpr.target + '"');
+        mod.dbg('discovered function: "' + rexpr.target + '"');
         mod.fnMap[rexpr.target] = new MetaFunction(mod, rexpr.target);
     }
     if (rexpr.value && typeof rexpr.value === 'number') {

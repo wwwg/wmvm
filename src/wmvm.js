@@ -1,6 +1,9 @@
 const Binaryen = require("binaryen"),
     MetaFunction = require("./runtime/MetaFunction");
 class wmvm {
+    dbg(...args) {
+        console.log.apply(console, args);
+    }
     constructor(data, type) {
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
