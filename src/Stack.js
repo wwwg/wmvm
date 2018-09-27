@@ -5,7 +5,7 @@ module.exports = class VirtualStack extends Array {
         super();
         this.vm = vm;
     }
-    addFrame(fn) {
+    pushFrame(fn) {
         // Before a function is interpreted, it's added to the stack
         let frame = new StackFrame(fn);
     }
