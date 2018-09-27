@@ -20,6 +20,14 @@ class wmvm {
             return null;
         }
     }
+    lookupVirtualImport(mod, name) {
+        for (let i = 0; i < this.virtualImports.length; ++i) {
+            let _import = this.virtualImports[i];
+            if (_import.name == name && _import.module == mod) {
+                return _import;
+            }
+        }
+    }
     addStaticImport(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
         if (!fn instanceof Function) {
