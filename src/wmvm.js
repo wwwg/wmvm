@@ -26,8 +26,6 @@ class wmvm {
             return;
         }
         this.data = data;
-        // A map of all currently parsed functions
-        this.fnMap = {};
         if (type) {
             this.isBinary = (type === 'wasm');
         } else {
@@ -54,7 +52,12 @@ class wmvm {
                 this.binary = data;
             }
         }
+        // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
+        // A map of all currently parsed functions
+        this.fnMap = {};
+        // A table of virtual imports for the binary to call
+        this.virtualImports = {};
         this.module._fnMap = this.fnMap;
         this.dbg('Binary parsing finished. Performing expression parsing and function discovery...');
         this._main = new MetaFunction(this.module, '_main');
