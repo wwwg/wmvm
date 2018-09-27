@@ -1,6 +1,8 @@
 const Binaryen = require("binaryen"),
     expression = require("./runtime/expressions"),
+    getInitialMemory = require('./getInitialMemory'),
     MetaFunction = expression.MetaFunction;
+const INITIAL_MEMORY_SIZE = 10000;
 class wmvm {
     dbg(...args) {
         console.log.apply(console, args);
@@ -84,6 +86,8 @@ class wmvm {
         this.fnMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = [];
+        // Memory
+        this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
         this.dbg('Input parsed successfully');
     }
     discover(overrideMain) {
