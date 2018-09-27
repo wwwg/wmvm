@@ -1,6 +1,6 @@
 const Binaryen = require('binaryen'),
     MetaFunction = require('./runtime/MetaFunction.js');
-module.exports = (expr, mod) => {
+let parse = (expr, mod) => {
     let rexpr;
     if (typeof expr === 'number') {
         rexpr = Binaryen.getExpressionInfo(expr);
@@ -50,3 +50,4 @@ module.exports = (expr, mod) => {
 
     return rexpr;
 }
+module.exports = parse;
