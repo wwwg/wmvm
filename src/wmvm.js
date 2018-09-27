@@ -20,8 +20,12 @@ class wmvm {
             return null;
         }
     }
-    addStaticImport() {
+    addStaticImport(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
+        if (!fn instanceof Function) {
+            this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
+            return;
+        }
     }
     constructor(data, type) {
         if (!data) {
