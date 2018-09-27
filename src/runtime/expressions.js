@@ -23,6 +23,15 @@ class MetaFunction {
             this.importModule = this.info.module;
             this.importBase = this.info.base;
             vm.dbg(`\t- from module "${this.importModule}" and base "${this.importBase}"`);
+            let vimport = vm.lookupVirtualImport(this.importModule, this.name);
+            if (vimport) {
+                // Import found!
+                vm.dbg(`import "${this.name}" resolved successfully.`);
+                this.importFunction = vimport.jsFunc;
+            } else {
+                vm.dbg(`WARN: import "${this.name}" wasn't imported statically!`);
+                this.importFunction = null;
+            }
             return;
         }
         this.body = parse(this.bodyptr, vm);
