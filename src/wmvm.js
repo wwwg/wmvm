@@ -26,6 +26,11 @@ class wmvm {
             this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
             return;
         }
+        let virtualImport = {
+            module: moduleName,
+            name: fnName,
+            jsFunc: fn
+        }
     }
     constructor(data, type) {
         if (!data) {
