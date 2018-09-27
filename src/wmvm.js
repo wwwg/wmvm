@@ -5,6 +5,21 @@ class wmvm {
     dbg(...args) {
         console.log.apply(console, args);
     }
+    lookupFunction(symbol) {
+        // Returns the MetaFunction the symbol points to, and locates imports if they exist
+        if (this.fnMap[symbol]) {
+            let fn = this.fnMap[symbol];
+            if (fn.isImport) {
+                // todo
+            } else {
+                this.dbg(`lookupFunction: successfully resolved local function "${fn.name}"`);
+                return fn;
+            }
+        } else {
+            this.dbg(`lookupFunction: failed to resolve function "${fn.name}"`);
+            return null;
+        }
+    }
     constructor(data, type) {
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
