@@ -92,6 +92,12 @@ class wmvm {
         let initialMemory = getInitialMemory(this.wast);
         if (!initialMemory) {
             this.dbg('Failed to find initial memory in module, ignoring');
+        } else {
+            for (let i = 0; i < initialMemory.length; ++i) {
+                let byte = initialMemory.charCodeAt(i);
+                initialMemory[i] = byte;
+            }
+            this.dbg('Sucessfully set initial memory');
         }
         
         this.dbg('Input parsed successfully');
