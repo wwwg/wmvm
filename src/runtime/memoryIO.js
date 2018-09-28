@@ -25,7 +25,7 @@ memio[Binaryen.SetLocalId] = ex => {
         vm.dbg("WARN: encountered unsupported tee SetLocal. ignoring.");
     }
     let res = ip.interpret(ex.value);
-    if (!res.value) {
+    if (!res || !res.value) {
         vm.dbg("WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
         frame.setLocal(ex.index, 0x0);
         return;
