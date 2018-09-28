@@ -13,6 +13,7 @@ module.exports = class DynamicStackFrame {
     }
     constructor(fn) {
         this.fn = fn;
+        this.returnedValue = null;
         if (!fn.isImport) {
             // map of local names to their values
             this.localMap = {};
