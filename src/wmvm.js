@@ -1,5 +1,5 @@
 const Binaryen = require("binaryen"),
-    wasmjsParse = require("@webassemblyjs/wast-parser").parse,
+    wasmjsParse = require("@webassemblyjs/wasm-parser").parse,
     expression = require("./runtime/expressions"),
     getInitialMemory = require('./getInitialMemory'),
     Stack = require('./Stack');
@@ -99,6 +99,8 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
+        // generate wasm.js AST
+        this.wasmjsAST = wasmjsParse(this.wast);
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
         // A map of all currently parsed functions
