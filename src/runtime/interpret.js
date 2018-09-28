@@ -7,18 +7,18 @@ class ExpressionInterpreter {
     constructor(vm) {
         this.vm = vm;
         // import expression interpreter maps
-        this.controlFlow = controlFlow;
+        this.controlFlow = controlFlow.bind;
         this.operations = operations;
         this.memio = memio;
     }
     interpret(expr) {
         let id = expr.id;
         if (this.controlFlow[id]) {
-            return this.controlFlow[id](expr);
+            return this.controlFlow[id].apply(this.vm, expr);
         } else if (this.operations[id]) {
-            return this.operations[id](expr);
+            return this.operations[id].apply(this.vm, expr);
         } else if (this.memio[id]) {
-            return this.memio[id](expr);
+            return this.memio[id].apply(this.vm, expr);
         } else {
             this.vm.dbg("WARN: I don't know how to interpret an expression:");
             this.vm.dbg(expr);
