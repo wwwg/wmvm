@@ -5,6 +5,7 @@ module.exports = class VirtualStack extends Array {
         super();
         this.vm = vm;
         this.currentFrame = null;
+        this.history = []; // a chronological list of every stack frame ever called
     }
     pushFrame(fn) {
         this.vm.dbg(`stack: pushed stack frame for "${fn.name}"`);
