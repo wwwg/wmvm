@@ -14,6 +14,7 @@ class ExpressionInterpreter {
     interpret(expr) {
         let id = expr.id;
         expr.vm = this.vm;
+        expr.interpreter = this;
         if (this.controlFlow[id]) {
             return this.controlFlow[id](expr);
         } else if (this.operations[id]) {
