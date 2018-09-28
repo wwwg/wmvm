@@ -33,7 +33,14 @@ class ExpressionInterpreter {
         }
         this.vm.stack.pushFrame(fn);
         this.interpret(fn.body);
+        // frame can now be disposed of
+        let lastFrame = this.vm.currentFrame;
+        let returnValue;
+        if (lastFrame.returnedValue) {
+            returnValue = lastFrame.returnedValue;
+        }
         this.vm.stack.popFrame(fn);
+        return returnValue;
     }
 }
 module.exports = ExpressionInterpreter;
