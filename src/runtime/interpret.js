@@ -27,6 +27,7 @@ class ExpressionInterpreter {
             this.vm.dbg(`interpreter: I can't interpret a function that isn't a function!`);
             return 0;
         }
+        this.vm.stack.pushFrame(fn);
     }
 }
 module.exports = ExpressionInterpreter;
