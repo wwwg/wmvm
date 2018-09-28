@@ -22,8 +22,7 @@ class ExpressionInterpreter {
         } else if (this.memio[id]) {
             return this.memio[id](expr);
         } else {
-            this.vm.dbg("WARN: I don't know how to interpret an expression:");
-            this.vm.dbg(expr);
+            this.vm.dbg(`WARN: I don't know how to interpret expression with id ${expr.id}`);
             return null;
         }
     }
