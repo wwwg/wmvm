@@ -2,6 +2,7 @@
     "name": "wmvm",
     "description": "wasm virtual machine designed for debugging",
     "dependencies": {
-        "binaryen": "*"
+        "binaryen": "*",
+        "@webassemblyjs/wast-parser": "*"
     }
 }

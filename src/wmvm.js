@@ -1,9 +1,11 @@
 const Binaryen = require("binaryen"),
+    wasmjsParse = require("@webassemblyjs/wast-parser").parse,
     expression = require("./runtime/expressions"),
     getInitialMemory = require('./getInitialMemory'),
     Stack = require('./Stack');
     ExpressionInterpreter = require('./runtime/interpret'),
     MetaFunction = expression.MetaFunction;
+
 const INITIAL_MEMORY_SIZE = 10000;
 class wmvm {
     dbg(...args) {
