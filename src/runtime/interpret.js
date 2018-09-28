@@ -34,12 +34,11 @@ class ExpressionInterpreter {
         this.vm.stack.pushFrame(fn);
         this.interpret(fn.body);
         // frame can now be disposed of
-        let lastFrame = this.vm.currentFrame;
         let returnValue;
-        if (lastFrame.returnedValue) {
-            returnValue = lastFrame.returnedValue;
+        if (this.vm.stack.currentFrame.returnedValue) {
+            returnValue = this.vm.stack.currentFrame.returnedValue;
         }
-        this.vm.stack.history.push(lastFrame);
+        this.vm.stack.history.push(this.vm.stack.currentFrame);
         this.vm.stack.popFrame(fn);
         return returnValue;
     }
