@@ -1,4 +1,4 @@
-const Binaryen = require('binaryen'),;
+const Binaryen = require('binaryen'),
 let controlFlow = {};
 controlFlow[Binaryen.BlockId] = ex => {
     let vm = ex.vm;
