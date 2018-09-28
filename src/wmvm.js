@@ -100,7 +100,7 @@ class wmvm {
             this.wast = this.module.emitText();
         }
         // generate wasm.js AST
-        this.wasmjsAST = wasmjsParse(this.wast);
+        this.wasmjsAST = wasmjsParse(this.binary);
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
         // A map of all currently parsed functions
