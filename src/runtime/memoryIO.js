@@ -37,4 +37,7 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     frame.setLocal(ex.index, res.value);
 }
+memio[Binaryen.GetGlobalId] = ex => {
+    //
+}
 module.exports = memio;
