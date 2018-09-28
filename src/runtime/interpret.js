@@ -2,7 +2,7 @@ const Binaryen = require('binaryen'),
     MetaFunction = require('./expressions').MetaFunction,
     controlFlow = require('./controlFlow'),
     operations = require('./operations'),
-    memio = require("./memIO");
+    memio = require("./memoryIO");
 class ExpressionInterpreter {
     constructor(vm) {
         this.vm = vm;
