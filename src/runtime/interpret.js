@@ -7,7 +7,7 @@ class ExpressionInterpreter {
     constructor(vm) {
         this.vm = vm;
         // import expression interpreter maps
-        this.controlFlow = controlFlow.bind;
+        this.controlFlow = controlFlow;
         this.operations = operations;
         this.memio = memio;
     }
