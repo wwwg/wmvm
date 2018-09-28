@@ -40,7 +40,10 @@ class ExpressionInterpreter {
         }
         this.vm.stack.history.push(this.vm.stack.currentFrame);
         this.vm.stack.popFrame(fn);
-        return returnValue;
+        return {
+            type: fn.info.result,
+            value: returnValue
+        };
     }
 }
 module.exports = ExpressionInterpreter;
