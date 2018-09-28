@@ -1,12 +1,15 @@
 const Binaryen = require('binaryen'),
-    MetaFunction = require('./expressions').MetaFunction;
+    MetaFunction = require('./expressions').MetaFunction,
+    controlFlow = require('./controlFlow'),
+    operations = require('./operations'),
+    memio = require("./memIO");
 class ExpressionInterpreter {
     constructor(vm) {
         this.vm = vm;
         // import expression interpreter maps
-        this.controlFlow = require('./controlFlow');
-        this.operations = require('./operations');
-        this.memio = require("./memIO");
+        this.controlFlow = controlFlow;
+        this.operations = operations;
+        this.memio = memio;
     }
     interpret(expr) {
         let id = expr.id;
