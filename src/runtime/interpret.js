@@ -28,6 +28,8 @@ class ExpressionInterpreter {
             return 0;
         }
         this.vm.stack.pushFrame(fn);
+        this.interpret(fn.body);
+        this.vm.stack.popFrame(fn);
     }
 }
 module.exports = ExpressionInterpreter;
