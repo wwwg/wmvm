@@ -39,6 +39,7 @@ class ExpressionInterpreter {
         if (lastFrame.returnedValue) {
             returnValue = lastFrame.returnedValue;
         }
+        this.vm.stack.history.push(lastFrame);
         this.vm.stack.popFrame(fn);
         return returnValue;
     }
