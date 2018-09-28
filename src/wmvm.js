@@ -1,11 +1,10 @@
 const Binaryen = require("binaryen"),
-    wasmjsParse = require("@webassemblyjs/wasm-parser").parse,
+    wasmjsParse = require("@webassemblyjs/wasm-parser").decode,
     expression = require("./runtime/expressions"),
     getInitialMemory = require('./getInitialMemory'),
     Stack = require('./Stack');
     ExpressionInterpreter = require('./runtime/interpret'),
     MetaFunction = expression.MetaFunction;
-
 const INITIAL_MEMORY_SIZE = 10000;
 class wmvm {
     dbg(...args) {
@@ -99,12 +98,16 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
-        // generate wasm.js AST
+        // generate wasm.js AST (for import detection)
+        this.binary = this.module.emitBinary();
         this.wasmjsAST = wasmjsParse(this.binary);
+        let wasmjsBase = this.wasmjsAST.body[0].fields;
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
         // A map of all currently parsed functions
         this.fnMap = {};
+        // A map of all globals
+        this.globals = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = [];
         // Memory
