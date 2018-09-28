@@ -15,4 +15,7 @@ module.exports = class VirtualStack extends Array {
         this.vm.dbg(`stack: popped stack frame for "${fn.name}"`);
         return this.pop();
     }
+    currentFrame() {
+        return this[this.length - 1];
+    }
 }
