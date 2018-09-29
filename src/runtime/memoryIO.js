@@ -26,7 +26,6 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     let res = ip.interpret(ex.value);
     if (!res) {
-        console.log(ex.value);
         vm.dbg("WARN: interpret result doesn't exist! the value expression probably isnt supported.");
         frame.setLocal(ex.index, 0x0);
         return;
