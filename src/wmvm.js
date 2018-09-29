@@ -86,9 +86,9 @@ class wmvm {
     }
     addImport(moduleName, name, value, type = null) {
         if (value instanceof Function) {
-            this.addStaticImportFunction(moduleName, name, value);
+            this.addImportFunction(moduleName, name, value);
         } else {
-            this.addStaticImportVariable(moduleName, name, value, type);
+            this.addImportVariable(moduleName, name, value, type);
         }
         return this;
     }
