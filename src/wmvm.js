@@ -92,6 +92,22 @@ class wmvm {
         }
         return this;
     }
+    addImports(importArray) {
+        for (let i = 0; i < importArray.length; ++i) {
+            let importObj = importArray[i];
+            if (importObj.module && importObj.name && importObj.value) {
+                if (importObj.type) {
+                    this.addImport(importObj.module, importObj.name, importObj.value, importObj.type);
+                } else {
+                    this.addImport(importObj.module, importObj.name, importObj.value);
+                }
+            } else {
+                console.log('wmvm: WARN: ignoring bad import object');
+                continue;
+            }
+        }
+        return this;
+    }
     setImport(mod, name, value, type = null) {
         for (let i = 0; i < this.virtualImports.length; ++i) {
             let _import = this.virtualImports[i];
