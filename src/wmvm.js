@@ -154,7 +154,7 @@ class wmvm {
         
         this.dbg('Input parsed successfully');
     }
-    discover(overrideMain) {
+    link(overrideMain) {
         if (!overrideMain) {
                 this.dbg('Trying to find _main()...');
                 this._main = new MetaFunction(this, '_main');
