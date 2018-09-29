@@ -41,6 +41,7 @@ module.exports = wast => {
                 console.log('WARN: couldnt parse global:');
                 console.log(global);
             }
+            globals.push(global);
         }
     }
     return globals;

@@ -172,12 +172,49 @@ class wmvm {
             }
 
             this.fnMap._main = this._main;
-            this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
+            this.dbg(`link: Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
 
             // Setup global map
             // This is in the linking routine because static imports are sometimes required by globals
-            for (let i = 0; i < this.parsedGlobals; ++i) {
+            for (let i = 0; i < this.parsedGlobals.length; ++i) {
                 let global = this.parsedGlobals[i];
+                if (global.isConst) {
+                    this.dbg(`Mapping cost global "${global.name}" with value ${global.value}`);
+                    this.globals[global.name] = {
+                        type: global.type,
+                        value: global.value
+                    }
+                } else {
+                    // static import
+                    let mappedParsedImport = null;
+                    for (let i = 0; i < this.parsedImports.length; ++i) {
+                        let parsedImport = this.parsedImports[i];
+                        if (parsedImport.importedAs == '$' + global.importName) {
+                            mappedParsedImport = parsedImport;
+                            break;
+                        }
+                    }
+                   if (!mappedParsedImport) {
+                       this.dbg(`WARN: failed to map parsedGlobal "${global.importName}" to it's import`);
+                   } else {
+                        let imodule = mappedParsedImport.module,
+                            iname = mappedParsedImport.name,
+                            virtualImport = this.lookupVirtualImport(imodule, iname);
+                        if (!virtualImport) {
+                            this.dbg(`WARN: link: failed to lookup variable import ${iname} for global ${global.name}, setting to NULL`);
+                            this.globals[global.name] = {
+                                type: 1,
+                                value: 0x0
+                            }
+                        } else {
+                            this.dbg(`link: linked import ${iname} / module ${imodule} to global ${global.name}`);
+                            this.globals[global.name] = {
+                                type: virtualImport.type,
+                                value: virtualImport.value
+                            }
+                        }
+                   }
+                }
             }
 
             this.dbg(`link: Linking finished`);
