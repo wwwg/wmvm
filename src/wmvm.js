@@ -1,10 +1,11 @@
 const Binaryen = require("binaryen"),
-    wasmjsParse = require("@webassemblyjs/wast-parser").parse,
     expression = require("./runtime/expressions"),
-    getInitialMemory = require('./getInitialMemory'),
+    getInitialMemory = require('./parse/getInitialMemory'),
     Stack = require('./Stack');
     ExpressionInterpreter = require('./runtime/interpret'),
+    getImports = require('./parse/parseImports'),
     MetaFunction = expression.MetaFunction;
+
 const INITIAL_MEMORY_SIZE = 10000;
 class wmvm {
     dbg(...args) {
@@ -98,11 +99,9 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
-        // generate wasm.js AST (for global detection)
-        let _wast = this.wast;
-        _wast = _wast.replace(/\(import "(.*)\)/gim, '');
-        this.wasmjsAST = wasmjsParse(_wast);
-        let wasmjsBase = this.wasmjsAST.body[0].fields;
+        let outObj = getImports(this.binary);
+        console.log(outObj);
+
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
         // A map of all currently parsed functions
@@ -128,23 +127,6 @@ class wmvm {
         }
         // stack
         this.stack = new Stack(this);
-        // generate global table
-        for (let i = 0; i < wasmjsBase.length; ++i) {
-            let node = wasmjsBase[i];
-            if (node.type == 'Global') {
-                let globalName = node.name.value;
-                let init = node.init[0];
-                console.log('global name: ' + globalName);
-                if (init.id == 'const') {
-                    let globalValue = init.args[0].value;
-                    let globalType = init.object;
-                    console.log('global type: ' + init.object);
-                    console.log('global const value: ' + globalValue);
-                } else {
-                    console.log('global import variable:');
-                }
-            }
-        }
         
         this.dbg('Input parsed successfully');
     }
