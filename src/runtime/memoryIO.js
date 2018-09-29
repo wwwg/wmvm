@@ -6,7 +6,7 @@ memio[Binaryen.GetLocalid] = ex => {
         frame = vm.stack.currentFrame,
         local = frame.getLocal(ex.index);
     if (!local) {
-        vm.dbg("WARN: getLocal was called on a local that doesn't exist. Something is terribly wrong.");
+        vm.dbg("interpret: WARN: getLocal was called on a local that doesn't exist. Something is terribly wrong.");
         return {
             type: 0,
             value: 0
@@ -25,7 +25,7 @@ memio[Binaryen.GetGlobalId] = ex => {
             value: vm.globals[globalName].value
         }
     } else {
-        vm.dbg(`WARN: get_global was called on "${globalName}", which doesn't exist, returning NULL.`);
+        vm.dbg(`interpret: WARN: get_global was called on "${globalName}", which doesn't exist, returning NULL.`);
         return {
             type: 0,
             value: 0
@@ -38,16 +38,16 @@ memio[Binaryen.SetLocalId] = ex => {
         frame = vm.stack.currentFrame;
     if (ex.isTee) {
         // todo: support this
-        vm.dbg("WARN: encountered unsupported tee SetLocal. ignoring.");
+        vm.dbg("interpret: WARN: encountered unsupported tee SetLocal. ignoring.");
     }
     let res = ip.interpret(ex.value);
     if (!res) {
-        vm.dbg("WARN: interpret result doesn't exist! the value expression probably isnt supported.");
+        vm.dbg("interpret: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
         frame.setLocal(ex.index, 0x0);
         return;
     }
     if (!res.value) {
-        vm.dbg("WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
+        vm.dbg("interpret: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
         frame.setLocal(ex.index, 0x0);
         return;
     }
@@ -59,14 +59,14 @@ memio[Binaryen.SetGlobalId] = ex => {
         setName = ex.name,
         result = ip.interpret(ex.value);
     if (!result || !result.value) {
-        vm.dbg("WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        vm.dbg("interpret: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
         vm.globals[setName] = 0x0;
         return;
     } else {
         if (vm.globals[globalName]) {
             vm.globals[globalName].value = result.value;
         } else {
-            vm.dbg(`WARN: set_global was called on "${globalName}", which doesn't exist. ignoring.`);
+            vm.dbg(`interpret: WARN: set_global was called on "${globalName}", which doesn't exist. ignoring.`);
             return;
         }
     }

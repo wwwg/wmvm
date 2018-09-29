@@ -22,13 +22,13 @@ class ExpressionInterpreter {
         } else if (this.memio[id]) {
             return this.memio[id](expr);
         } else {
-            this.vm.dbg(`WARN: I don't know how to interpret expression with id ${expr.id}`);
+            this.vm.dbg(`interpret: WARN: I don't know how to interpret expression with id ${expr.id}`);
             return null;
         }
     }
     interpretFunction(fn) {
         if (!fn instanceof MetaFunction) {
-            this.vm.dbg(`interpreter: I can't interpret a function that isn't a function!`);
+            this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
         }
         this.vm.stack.pushFrame(fn);
