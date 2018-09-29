@@ -26,6 +26,7 @@ module.exports = wast => {
         if (node.type == 'Global') {
             let name = node.name.value;
             let initInstruction = node.init[0];
+            global.name = name;
             if (initInstruction.id == 'const') {
                 let initializer = initInstruction.args[0];
                 let type = toBinaryenType(initInstruction.object);
