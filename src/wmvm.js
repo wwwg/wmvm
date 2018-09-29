@@ -95,7 +95,7 @@ class wmvm {
     addImports(importArray) {
         for (let i = 0; i < importArray.length; ++i) {
             let importObj = importArray[i];
-            if (importObj.module && importObj.name && importObj.value) {
+            if (importObj.module && importObj.name) {
                 if (importObj.type) {
                     this.addImport(importObj.module, importObj.name, importObj.value, importObj.type);
                 } else {
