@@ -59,7 +59,7 @@ class wmvm {
         // Static imports have to be added before the vm starts
         if (!fn instanceof Function) {
             this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
-            return;
+            return this;
         }
         fn = fn.bind(this);
         let virtualImport = {
@@ -70,6 +70,7 @@ class wmvm {
         }
         this.virtualImports.push(virtualImport);
         this.dbg(`added import "${fnName}" in import module "${moduleName}"`);
+        return this;
     }
     addStaticImportVariable(moduleName, name, value, type = null) {
         let virtualImport = {
@@ -81,6 +82,7 @@ class wmvm {
         }
         this.virtualImports.push(virtualImport);
         this.dbg(`added variable import "${fnName}" / module "${moduleName}", value: ${value}`);
+        return this;
     }
     addStaticImport(moduleName, name, value, type = null) {
         if (value instanceof Function) {
@@ -88,6 +90,7 @@ class wmvm {
         } else {
             this.addStaticImportVariable(moduleName, name, value, type);
         }
+        return this;
     }
     setImport(mod, name, value, type = null) {
         for (let i = 0; i < this.virtualImports.length; ++i) {
@@ -101,11 +104,11 @@ class wmvm {
                         _import.type = type;
                     }
                 }
-                return;
+                return this;
             }
         }
         this.dbg(`setImport: failed to update import "${name}" in "${mod}", ignoring`);
-        return;
+        return this;
     }
     constructor(data, type) {
         if (!data) {
