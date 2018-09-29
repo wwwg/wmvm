@@ -8,6 +8,16 @@ const wmvm = require('../src/wmvm.js'),
                 console.log("runtime: abortStackOverflow called, ignoring");
                 return 0;
             }
+        },
+        {
+            "module": "global",
+            "name": "NaN",
+            "value": NaN
+        },
+        {
+            "module": "global",
+            "name": "Infinity",
+            "value": Infinity
         }
     ];
 
