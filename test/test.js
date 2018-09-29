@@ -1,13 +1,17 @@
-let wmvm = require('../src/wmvm.js');
-const runtime = {
-    abortStackOverflow: () => {
-        return 0;
-    }
-}
+const wmvm = require('../src/wmvm.js'),
+    fs = require('fs'),
+    imports = [
+        {
+            "module": "env",
+            "name": "abortStackOverflow",
+            "value": () => {
+                console.log("runtime: abortStackOverflow called, ignoring");
+                return 0;
+            }
+        }
+    ];
 
-const fs = require('fs');
-let inData = fs.readFileSync('test/emcc.wasm');
-let vm = new wmvm(inData);
-vm.addStaticImport('env', 'abortStackOverflow', runtime.abortStackOverflow);
-vm.link();
-vm.run();
+let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
+vm.addImports(imports)
+    .link()
+    .run();
