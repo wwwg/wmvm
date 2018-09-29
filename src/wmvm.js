@@ -82,6 +82,13 @@ class wmvm {
         this.virtualImports.push(virtualImport);
         this.dbg(`added variable import "${fnName}" / module "${moduleName}", value: ${value}`);
     }
+    addStaticImport(moduleName, name, value, type = null) {
+        if (value instanceof Function) {
+            this.addStaticImportFunction(moduleName, name, value);
+        } else {
+            this.addStaticImportVariable(moduleName, name, value, type);
+        }
+    }
     constructor(data, type) {
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
