@@ -123,8 +123,8 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
-        let parsedImports = getImports(this.wast),
-            parsedGlobals = getGlobals(this.wast);
+        this.parsedImports = getImports(this.wast);
+        this.parsedGlobals = getGlobals(this.wast);
 
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
@@ -170,10 +170,17 @@ class wmvm {
                     return;
                 }
             }
-            
+
             this.fnMap._main = this._main;
-            this.dbg(`Expression parsing finished.`);
             this.dbg(`Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
+
+            // Setup global map
+            // This is in the linking routine because static imports are sometimes required by globals
+            for (let i = 0; i < this.parsedGlobals; ++i) {
+                let global = this.parsedGlobals[i];
+            }
+
+            this.dbg(`link: Linking finished`);
     }
     run() {
         this.interpreter = new ExpressionInterpreter(this);
