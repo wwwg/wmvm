@@ -89,6 +89,24 @@ class wmvm {
             this.addStaticImportVariable(moduleName, name, value, type);
         }
     }
+    setImport(mod, name, value, type = null) {
+        for (let i = 0; i < this.virtualImports.length; ++i) {
+            let _import = this.virtualImports[i];
+            if (_import.name == name && _import.module == mod) {
+                if (_import.isFn) {
+                    _import.jsFunc = value;
+                } else {
+                    _import.value = value;
+                    if (type) {
+                        _import.type = type;
+                    }
+                }
+                return;
+            }
+        }
+        this.dbg(`setImport: failed to update import "${name}" in "${mod}", ignoring`);
+        return;
+    }
     constructor(data, type) {
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");

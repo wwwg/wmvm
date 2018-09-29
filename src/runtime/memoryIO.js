@@ -26,6 +26,7 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     let res = ip.interpret(ex.value);
     if (!res) {
+        console.log(ex.value);
         vm.dbg("WARN: interpret result doesn't exist! the value expression probably isnt supported.");
         frame.setLocal(ex.index, 0x0);
         return;
@@ -38,7 +39,19 @@ memio[Binaryen.SetLocalId] = ex => {
     frame.setLocal(ex.index, res.value);
 }
 memio[Binaryen.GetGlobalId] = ex => {
-    let globalName = ex.name;
-    console.log(Binaryen.getGlobalInfo(globalName));
+    let vm = ex.vm,
+        globalName = ex.name;
+    if (vm.globals[globalName]) {
+        return {
+            type: (vm.globals[globalName].type || 1),
+            value: vm.globals[globalName].value
+        }
+    } else {
+        vm.dbg(`WARN: get_global was called on "${globalName}", which doesn't exist, returning NULL.`);
+        return {
+            type: 0,
+            value: 0
+        }
+    }
 }
 module.exports = memio;
