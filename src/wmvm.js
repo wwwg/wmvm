@@ -81,7 +81,7 @@ class wmvm {
             isFn: false
         }
         this.virtualImports.push(virtualImport);
-        this.dbg(`added variable import "${fnName}" / module "${moduleName}", value: ${value}`);
+        this.dbg(`added variable import "${name}" / module "${moduleName}", value: ${value}`);
         return this;
     }
     addImport(moduleName, name, value, type = null) {
