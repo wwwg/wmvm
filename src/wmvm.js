@@ -193,17 +193,17 @@ class wmvm {
     }
     link(overrideMain) {
         if (!overrideMain) {
-                this.dbg('Trying to find _main()...');
+                this.dbg('link: Trying to find _main()...');
                 this._main = new MetaFunction(this, '_main');
                 if (!this._main.exists) {
-                    this.dbg('FATAL: failed to find _main(), aborting');
+                    this.dbg('link: FATAL: failed to find _main(), aborting');
                     return;
                 }
             } else {
-                this.dbg(`Trying to find "${overrideMain}"...`);
+                this.dbg(`link: Trying to find "${overrideMain}"...`);
                 this._main = new MetaFunction(this, overrideMain);
                 if (!this._main.exists) {
-                    this.dbg(`FATAL: failed to find override main "${overrideMain}", aborting`);
+                    this.dbg(`link: FATAL: failed to find override main "${overrideMain}", aborting`);
                     return;
                 }
             }
@@ -216,7 +216,7 @@ class wmvm {
             for (let i = 0; i < this.parsedGlobals.length; ++i) {
                 let global = this.parsedGlobals[i];
                 if (global.isConst) {
-                    this.dbg(`Mapping cost global "${global.name}" with value ${global.value}`);
+                    this.dbg(`link: Mapping cost global "${global.name}" with value ${global.value}`);
                     this.globals[global.name] = {
                         type: global.type,
                         value: global.value
@@ -232,13 +232,13 @@ class wmvm {
                         }
                     }
                    if (!mappedParsedImport) {
-                       this.dbg(`WARN: failed to map parsedGlobal "${global.importName}" to it's import`);
+                       this.dbg(`link: WARN: failed to map parsedGlobal "${global.importName}" to it's import`);
                    } else {
                         let imodule = mappedParsedImport.module,
                             iname = mappedParsedImport.name,
                             virtualImport = this.lookupVirtualImport(imodule, iname);
                         if (!virtualImport) {
-                            this.dbg(`WARN: link: failed to lookup variable import ${iname} for global ${global.name}, setting to NULL`);
+                            this.dbg(`link: WARN: link: failed to lookup variable import ${iname} for global ${global.name}, setting to NULL`);
                             this.globals[global.name] = {
                                 type: 1,
                                 value: 0x0
