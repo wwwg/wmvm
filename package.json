@@ -3,6 +3,7 @@
     "description": "wasm virtual machine designed for debugging",
     "dependencies": {
         "binaryen": "*",
-        "wasmparser": "*"
+        "wasmparser": "*",
+        "@webassembly/wast-parser": "*"
     }
 }
