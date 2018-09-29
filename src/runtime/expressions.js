@@ -29,7 +29,7 @@ class MetaFunction {
                 vm.dbg(`import "${this.name}" resolved successfully.`);
                 this.importFunction = vimport.jsFunc;
             } else {
-                vm.dbg(`WARN: import "${this.name}" wasn't imported statically!`);
+                vm.dbg(`MetaFunction: WARN: import "${this.name}" wasn't imported before linking! ignoring.`);
                 this.importFunction = null;
             }
             return;
