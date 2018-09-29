@@ -16,6 +16,22 @@ memio[Binaryen.GetLocalid] = ex => {
         return local;
     }
 }
+memio[Binaryen.GetGlobalId] = ex => {
+    let vm = ex.vm,
+        globalName = ex.name;
+    if (vm.globals[globalName]) {
+        return {
+            type: (vm.globals[globalName].type || 1),
+            value: vm.globals[globalName].value
+        }
+    } else {
+        vm.dbg(`WARN: get_global was called on "${globalName}", which doesn't exist, returning NULL.`);
+        return {
+            type: 0,
+            value: 0
+        }
+    }
+}
 memio[Binaryen.SetLocalId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
@@ -37,19 +53,21 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     frame.setLocal(ex.index, res.value);
 }
-memio[Binaryen.GetGlobalId] = ex => {
+memio[Binaryen.SetGlobalId] = ex => {
     let vm = ex.vm,
-        globalName = ex.name;
-    if (vm.globals[globalName]) {
-        return {
-            type: (vm.globals[globalName].type || 1),
-            value: vm.globals[globalName].value
-        }
+        ip = ex.interpreter,
+        setName = ex.name,
+        result = ip.interpret(ex.value);
+    if (!result || !result.value) {
+        vm.dbg("WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        vm.globals[setName] = 0x0;
+        return;
     } else {
-        vm.dbg(`WARN: get_global was called on "${globalName}", which doesn't exist, returning NULL.`);
-        return {
-            type: 0,
-            value: 0
+        if (vm.globals[globalName]) {
+            vm.globals[globalName].value = result.value;
+        } else {
+            vm.dbg(`WARN: set_global was called on "${globalName}", which doesn't exist. ignoring.`);
+            return;
         }
     }
 }
