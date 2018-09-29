@@ -5,7 +5,7 @@ class MetaFunction {
         try {
             this.fptr = vm.module.getFunction(name);
         } catch(e) {
-            vm.dbg('failed to lookup function "' + name + '"');
+            vm.dbg('MetaFunction: failed to lookup function "' + name + '"');
             return;
         }
         this.exists = true;
@@ -17,7 +17,7 @@ class MetaFunction {
         this.name = this.info.name;
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
-            vm.dbg(`Discovered import "${this.name}":`);
+            vm.dbg(`MetaFunction: Discovered import "${this.name}":`);
             vm.dbg(`\t- returns ${this.returnType} with params ${(this.parameterTypes.toString() || '(none)')}`);
             this.isImport = true;
             this.importModule = this.info.module;
@@ -26,7 +26,7 @@ class MetaFunction {
             let vimport = vm.lookupVirtualImport(this.importModule, this.name);
             if (vimport) {
                 // Import found!
-                vm.dbg(`import "${this.name}" resolved successfully.`);
+                vm.dbg(`MetaFunction: import "${this.name}" resolved successfully.`);
                 this.importFunction = vimport.jsFunc;
             } else {
                 vm.dbg(`MetaFunction: WARN: import "${this.name}" wasn't imported before linking! ignoring.`);
@@ -77,10 +77,10 @@ let parse = (expr, vm) => {
         rexpr.target = parse(rexpr.target, vm);
     if (rexpr.target && typeof rexpr.target === 'string') {
         if (!vm.fnMap[rexpr.target]) {
-            vm.dbg('Discovered function: "' + rexpr.target + '"');
+            vm.dbg('parse: Discovered function: "' + rexpr.target + '"');
             vm.fnMap[rexpr.target] = new MetaFunction(vm, rexpr.target);
         } else {
-            vm.dbg(`Found already discovered function "${rexpr.target}"`);
+            vm.dbg(`parse: Found already discovered function "${rexpr.target}"`);
         }
     }
     if (rexpr.value && typeof rexpr.value === 'number') {

@@ -58,7 +58,7 @@ class wmvm {
     addImportFunction(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
         if (!fn instanceof Function) {
-            this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
+            this.dbg(`addImportFunction: failed to add import "${fnName}" - fn isn't a function`);
             return this;
         }
         fn = fn.bind(this);
@@ -69,7 +69,7 @@ class wmvm {
             jsFunc: fn
         }
         this.virtualImports.push(virtualImport);
-        this.dbg(`added import "${fnName}" in import module "${moduleName}"`);
+        this.dbg(`addImportFunction: added import "${fnName}" in import module "${moduleName}"`);
         return this;
     }
     addImportVariable(moduleName, name, value, type = null) {
@@ -81,7 +81,7 @@ class wmvm {
             isFn: false
         }
         this.virtualImports.push(virtualImport);
-        this.dbg(`added variable import "${name}" / module "${moduleName}", value: ${value}`);
+        this.dbg(`addImportVariable: added variable import "${name}" / module "${moduleName}", value: ${value}`);
         return this;
     }
     addImport(moduleName, name, value, type = null) {
@@ -144,7 +144,7 @@ class wmvm {
             }
         }
         // Generate a binaryen module
-        this.dbg('Parsing input data..');
+        this.dbg('construct: Parsing input data..');
         if (!this.isBinary) {
             this.module = Binaryen.parseText(this.data);
             this.wast = this.data;
@@ -177,19 +177,19 @@ class wmvm {
         // Find initial memory
         let initialMemoryData = getInitialMemory(this.wast);
         if (!initialMemoryData.mem || !initialMemoryData.ptr) {
-            this.dbg('Failed to find initial memory in module, ignoring');
+            this.dbg('construct: Failed to find initial memory in module, ignoring');
         } else {
             this.memPtrName = initialMemoryData.ptr;
             for (let i = 0; i < initialMemoryData.mem.length; ++i) {
                 let byte = initialMemoryData.mem.charCodeAt(i);
                 this.mem[i] = byte;
             }
-            this.dbg('Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
+            this.dbg('construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
         }
         // stack
         this.stack = new Stack(this);
         
-        this.dbg('Input parsed successfully');
+        this.dbg('construct: Input parsed successfully');
     }
     link(overrideMain) {
         if (!overrideMain) {
