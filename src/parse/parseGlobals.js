@@ -1,4 +1,4 @@
-const parser = require("@webassembly/wast-parser");
+const parser = require("@webassemblyjs/wast-parser");
 
 module.exports = wast => {
     //

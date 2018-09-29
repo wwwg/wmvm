@@ -4,6 +4,6 @@
     "dependencies": {
         "binaryen": "*",
         "wasmparser": "*",
-        "@webassembly/wast-parser": "*"
+        "@webassemblyjs/wast-parser": "*"
     }
 }

@@ -4,6 +4,7 @@ const Binaryen = require("binaryen"),
     Stack = require('./Stack');
     ExpressionInterpreter = require('./runtime/interpret'),
     getImports = require('./parse/parseImports'),
+    getGlobals = require('./parse/parseGlobals'),
     MetaFunction = expression.MetaFunction;
 
 const INITIAL_MEMORY_SIZE = 10000;
@@ -99,8 +100,9 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
-        let outObj = getImports(this.binary);
-        console.log(outObj);
+
+        let parsedImports = getImports(this.binary),
+            parsedGlobals = getGlobals(this.wast);
 
         // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
