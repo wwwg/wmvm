@@ -26,6 +26,10 @@ class wmvm {
                         this.dbg(`lookupFunction: failed to resolve import function "${fn.name}"`);
                         return null;
                     }
+                    if (!mappedImport.isFn) {
+                        this.dbg(`lookupFunction: looked up an import function that isn't a function: "${fn.name}"`);
+                        return null;
+                    }
                     if (!fn.virtualImport) {
                         this.dbg(`lookupFunction: mapped new import function "${fn.name}" to it's respective import`);
                         fn.virtualImport = mappedImport;
@@ -51,7 +55,7 @@ class wmvm {
         this.dbg(`lookupVirtualImport: failed lookup import "${name}" in "${mod}"`);
         return null;
     }
-    addStaticImport(moduleName, fnName, fn) {
+    addStaticImportFunction(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
         if (!fn instanceof Function) {
             this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
@@ -61,6 +65,7 @@ class wmvm {
         let virtualImport = {
             module: moduleName,
             name: fnName,
+            isFn: true,
             jsFunc: fn
         }
         this.virtualImports.push(virtualImport);
