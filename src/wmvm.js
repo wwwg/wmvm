@@ -55,7 +55,7 @@ class wmvm {
         this.dbg(`lookupVirtualImport: failed lookup import "${name}" in "${mod}"`);
         return null;
     }
-    addStaticImportFunction(moduleName, fnName, fn) {
+    addImportFunction(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
         if (!fn instanceof Function) {
             this.dbg(`failed to add import "${fnName}" - fn isn't a function`);
@@ -72,7 +72,7 @@ class wmvm {
         this.dbg(`added import "${fnName}" in import module "${moduleName}"`);
         return this;
     }
-    addStaticImportVariable(moduleName, name, value, type = null) {
+    addImportVariable(moduleName, name, value, type = null) {
         let virtualImport = {
             module: moduleName,
             name: name,
@@ -84,7 +84,7 @@ class wmvm {
         this.dbg(`added variable import "${fnName}" / module "${moduleName}", value: ${value}`);
         return this;
     }
-    addStaticImport(moduleName, name, value, type = null) {
+    addImport(moduleName, name, value, type = null) {
         if (value instanceof Function) {
             this.addStaticImportFunction(moduleName, name, value);
         } else {
