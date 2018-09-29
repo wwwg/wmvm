@@ -1,23 +1,29 @@
-var WasmParser = require('wasmparser');
-let readu8 = u8 => {
-    return String.fromCharCode.apply(null, u8);
+let toBinaryenType = type => {
+    switch (type) {
+        case 'i32':
+            return 1;
+        case 'i64':
+            return 2;
+        case 'f32':
+            return 3;
+        case 'f64':
+            return 4;
+        default:
+            return 0;
+    }
 }
-module.exports = binary => {
+module.exports = wast => {
     let res = [];
-    let reader = new WasmParser.BinaryReader();
-    reader.setData(binary.buffer, 0, binary.length);
-    while (reader.read()) {
-        let state = reader.state;
-        let pos = reader.position;
-        let info = reader.result;
-        if (state == WasmParser.BinaryReaderState.IMPORT_SECTION_ENTRY) {
-            let iobj = {
-                module: readu8(info.module),
-                name: readu8(info.field),
-                isFunction: !!(info.funcTypeIndex)
-            };
-            res.push(iobj);
+    let importData = new RegExp(/\(import "(.*)" "(.*)" \(global (.*) (.*)\)\)/gm);
+    let execData;
+    while (execData = importData.exec(wast)) {
+        let importObject = {
+            module: execData[1],
+            name: execData[2],
+            importedAs: execData[3],
+            type: toBinaryenType(execData[4])
         }
+        res.push(importObject);
     }
     return res;
 }

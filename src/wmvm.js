@@ -100,8 +100,7 @@ class wmvm {
             }
             this.wast = this.module.emitText();
         }
-
-        let parsedImports = getImports(this.binary),
+        let parsedImports = getImports(this.wast),
             parsedGlobals = getGlobals(this.wast);
 
         // start doing vm things once input parsing is taken care of
