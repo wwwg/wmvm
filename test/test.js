@@ -10,6 +10,14 @@ const wmvm = require('../src/wmvm.js'),
             }
         },
         {
+            "module": "env",
+            "name": "ABORT",
+            "value": () => {
+                console.log("runtime: ABORT called, ignoring for debugging purposes");
+                return 1;
+            }
+        },
+        {
             "module": "global",
             "name": "NaN",
             "value": NaN
@@ -18,6 +26,16 @@ const wmvm = require('../src/wmvm.js'),
             "module": "global",
             "name": "Infinity",
             "value": Infinity
+        },
+        {
+            "module": "env",
+            "name": "DYNAMICTOP_PTR",
+            "value": 0x0
+        },
+        {
+            "module": "env",
+            "name": "tempDoublePtr",
+            "value": 0.0
         }
     ];
 
