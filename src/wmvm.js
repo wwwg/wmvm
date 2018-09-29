@@ -72,9 +72,6 @@ class wmvm {
         this.dbg(`added import "${fnName}" in import module "${moduleName}"`);
     }
     addStaticImportVariable(moduleName, name, value, type = null) {
-        if (value instanceof Function) {
-            this.addStaticImportFunction(module, name, value);
-        }
         let virtualImport = {
             module: moduleName,
             name: name,
