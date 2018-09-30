@@ -82,7 +82,7 @@ controlFlow[Binaryen.LoopId] = ex => {
         // loops are infinite until broken
         ip.interpret(ex.body);
         // if the loop is disabled on the vm's map, it needs to break
-        if (!vm.loopMap) {
+        if (!vm.loopMap[ex.name]) {
             break;
         }
     }
@@ -90,5 +90,26 @@ controlFlow[Binaryen.LoopId] = ex => {
 controlFlow[Binaryen.BreakId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
+    if (ex.condition) {
+        let res = ip.interpret(ex.condition);
+        if (!res || (typeof res === 'undefined')) {
+            vm.dbg(`controlFlow/break: WARN: break condition for "${ex.name}" has no result, I'll break anyway`);
+            if (vm.loopMap[ex.name]) {
+                vm.loopMap[ex.name] = false;
+            } else {
+                vm.dbg(`controlFlow/break: loop "${ex.name}" can't be broken!`);
+            }
+        }
+        if (res.value) {
+            // conditional break can happen
+            vm.dbg(`controlFlow/break: conditional break loop "${ex.name}"`);
+            vm.loopMap[ex.name] = false;
+        }
+    } else {
+        // unconditionally break
+        // disable loop on the loopMap
+        vm.dbg(`controlFlow/break: unconditional break loop "${ex.name}"`);
+        vm.loopMap[ex.name] = false;
+    }
 }
 module.exports = controlFlow;
