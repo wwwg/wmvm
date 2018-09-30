@@ -112,4 +112,9 @@ controlFlow[Binaryen.BreakId] = ex => {
         vm.loopMap[ex.name] = false;
     }
 }
+controlFlow[Binaryen.ReturnId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter;
+    // todo: parse return expressions
+}
 module.exports = controlFlow;
