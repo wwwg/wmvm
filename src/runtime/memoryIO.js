@@ -110,4 +110,38 @@ memio[Binaryen.LoadId] = ex => {
     }
     // todo : finish load expression interpreting
 }
+memio[Binaryen.StoreId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter,
+        size = ex.bytes,
+        ptrRes = ip.interpret(ex.ptr),
+        valueRes = ip.interpret(ex.value);
+    if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
+        vm.dbg("memio/store: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        return;
+    }
+    if (!valueRes || (typeof valueRes.value === 'undefined')) {
+        vm.dbg("memio/store: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        return;
+    }
+    // The actual offset for virtual linear memory is pointer + offset
+    let actualOffset = ex.offset + ptrRes.value,
+        storeData = valueRes.value,
+        view = new DataView(vm.mem.buffer, actualOffset, size);
+    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset ${actualOffset}, data: ${storeData}`);
+    switch (size) {
+        case 1:
+            view.setUint8(0, storeData);
+            break;
+        case 2:
+            view.setUint16(0, storeData);
+            break;
+        case 4:
+            view.setUint32(0, storeData);
+            break;
+        case 8:
+            view.setFloat64(0, storeData);
+            break;
+    }
+}
 module.exports = memio;
