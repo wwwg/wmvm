@@ -210,6 +210,10 @@ class wmvm {
         this.dbg('construct: Input parsed successfully');
     }
     // Primary API methods
+    enableDebug() {
+        this.enableDbg = true;
+        return this;
+    }
     link(overrideMain) {
         // @@!@$(&^!@$&) IM PUTTING A BUNCH OF RANDOM CHARACTERS HERE SO I DON'T FORGET THIS COMMENT $&@@#&$(%^@(&@#))
 
