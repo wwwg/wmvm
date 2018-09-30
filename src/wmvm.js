@@ -359,6 +359,9 @@ class wmvm {
             return view.getUint8(0);
         }
     }
+    memoryAccessByte(ptr) {
+        return this.memoryAccessInt8(ptr, false);
+    }
     memoryAccessInt32(ptr, signed) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
