@@ -22,19 +22,24 @@ controlFlow[Binaryen.IfId] = ex => {
         return null;
     }
     // execute the actual conditional
+    vm.dbg(`controlFlow/if: if(${res.value})`);
     if (res.value) {
         // ifTrue
+        vm.dbg(`\t=> true`);
         let ifTrueRes = ip.interpret(ex.ifTrue);
         if (ifTrueRes && typeof ifTrueRes.value !== 'undefined') {
             return ifTrueRes;
         }
     } else {
         // ifFalse
+        vm.dbg(`\t=> false`);
         if (ex.ifFalse) {
             let ifFalseRes = ip.interpret(ex.ifTrue);
             if (ifFalseRes && typeof ifFalseRes.value !== 'undefined') {
                 return ifFalseRes;
             }
+        } else {
+            vm.dbg(`controlFlow/if: (ifFalse for conditional doesn't exist)`);
         }
     }
 }
