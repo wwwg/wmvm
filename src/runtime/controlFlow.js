@@ -79,7 +79,7 @@ controlFlow[Binaryen.CallId] = ex => {
                 vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", operand ${i} has no value`);
                 return;
             }
-            vm.dbg(`\t=> ${res.value}`);
+            vm.dbg(`controlFlow/call: operand #${i} for "${fn.name}" => ${res.value}`);
             callArgs.push(res.value);
         }
         vm.dbg(`controlFlow/call: call ${ex.target}() with ${ex.operands.length} arguments`);
