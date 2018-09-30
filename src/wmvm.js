@@ -192,11 +192,35 @@ class wmvm {
         this.dbg('construct: Input parsed successfully');
     }
     link(overrideMain) {
+        // TODO : Parse names of all functions via @webassemblyjs/wast-parser before linking, and add each of them to the function map
+        this.dbg(`link: Checking if module is emscripten-compiled...`);
         try {
             this.module.getFunction('runPostSets');
             this.isEmcc = true;
         } catch (e) {
             this.isEmcc = false;
+        }
+        this.dbg(`link: isEmcc=${this.isEmcc}`);
+        if (this.isEmcc) {
+            // Call MetaFunction constructors on default emcc functions, and link them
+            this.dbg(`link: mapping emscripten functions..`);
+            this._stackAlloc = new MetaFunction(this, 'stackAlloc');
+            if (this._stackAlloc.exists) {
+                this.fnMap['stackAlloc'] = this._stackAlloc;
+            }
+            this._stackSave = new MetaFunction(this, 'stackSave');
+            if (this._stackSave.exists) {
+                this.fnMap['stackSave'] = this._stackSave;
+            }
+            this._establishStackSpace = new MetaFunction(this, 'establishStackSpace');
+            if (this._establishStackSpace.exists) {
+                this.fnMap['establishStackSpace'] = this._establishStackSpace;
+            }
+            this._setThrew = new MetaFunction(this, 'setThrew');
+            if (this._setThrew.exists) {
+                this.fnMap['setThrew'] = this._setThrew;
+            }
+            this.dbg(`link: emscripten functions mapped!`);
         }
         if (!overrideMain) {
                 this.dbg('link: Trying to find _main()...');
