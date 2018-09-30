@@ -259,7 +259,7 @@ class wmvm {
     }
     run() {
         this.interpreter = new ExpressionInterpreter(this);
-        this.interpreter.interpretFunction(this._main);
+        this.interpreter.call(this._main);
     }
 }
 module.exports = wmvm;
