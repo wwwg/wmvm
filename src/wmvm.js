@@ -263,7 +263,7 @@ class wmvm {
             this.dbg(`link: Linking finished`);
             return this;
     }
-    run() {
+    runMain() {
         this.interpreter = new ExpressionInterpreter(this);
         this.interpreter.call(this._main);
     }
