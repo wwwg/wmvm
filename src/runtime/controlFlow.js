@@ -72,4 +72,10 @@ controlFlow[Binaryen.CallId] = ex => {
         ip.call(fn, callArgs);
     }
 }
+controlFlow[Binaryen.LoopId] = ex => {
+    // todo
+}
+controlFlow[Binaryen.BreakId] = ex => {
+    // todo
+}
 module.exports = controlFlow;
