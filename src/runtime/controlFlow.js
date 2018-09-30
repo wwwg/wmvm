@@ -131,7 +131,16 @@ controlFlow[Binaryen.ReturnId] = ex => {
         ip = ex.interpreter;
     vm.stack.currentFrame.isReturned = true;
     if (ex.value) {
-        //
+        let res = ip.interpret(ex.value);
+        if (!res || typeof res.value === 'undefined') {
+            vm.dbg(`controlFlow/return: WARN: return value has no result, returning NULL`);
+            vm.stack.currentFrame.returnedValue = 0x0;
+            return {
+                value: 0x0
+            };
+        }
+        vm.stack.currentFrame.returnedValue = res.value;
+        return res;
     } else {
         vm.dbg(`controlFlow/return: returning with no value`);
         vm.stack.currentFrame.returnedValue = undefined;
