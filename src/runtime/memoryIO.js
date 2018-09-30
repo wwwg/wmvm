@@ -75,4 +75,24 @@ memio[Binaryen.SetGlobalId] = ex => {
         }
     }
 }
+memio[Binaryen.ConstId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter;
+    if (typeof ex.value === 'number') {
+        return {
+            value: ex.value
+        };
+    } else if (ex.value.low) {
+        return {
+            value: ex.value.low
+        };
+    } else if (ex.value.high) {
+        return {
+            value: ex.value.high
+        };
+    } else {
+        vm.dbg(`interpret/memio: const: WARN: unknown const value`);
+        return;
+    }
+}
 module.exports = memio;
