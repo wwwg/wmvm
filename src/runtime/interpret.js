@@ -27,7 +27,7 @@ class ExpressionInterpreter {
             return null;
         }
     }
-    interpretFunction(fn, args = []) {
+    call(fn, args = []) {
         if (!fn instanceof MetaFunction) {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
