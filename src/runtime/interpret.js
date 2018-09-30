@@ -51,7 +51,7 @@ class ExpressionInterpreter {
             this.vm.stack.pushFrame(fn, args);
             if (fn.importFunction) {
                 // Call the imported javascript function
-                let importReturn = fn.importFunction.apply(this.vm, args);  
+                importReturn = fn.importFunction.apply(this.vm, args);  
             } else {
                 this.vm.dbg(`interpret/call: CRITICAL: I can't call a non-existent import! attempting to ignore...`);
                 return;
