@@ -176,6 +176,13 @@ memio[Binaryen.StoreId] = ex => {
     }
 }
 memio[Binaryen.DropId] = ex => {
-    //
+    let vm = ex.vm,
+        ip = ex.interpreter,
+        res = ip.interpret(ex.value);
+    if (!res || (typeof res.value === 'undefined')) {
+        vm.dbg("memio/drop: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        return;
+    }
+    return res;
 }
 module.exports = memio;
