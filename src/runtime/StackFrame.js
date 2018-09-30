@@ -1,7 +1,7 @@
 const Binaryen = require('binaryen');
 module.exports = class DynamicStackFrame {
     getLocal(index) {
-        return (this.localMap[index] || null);
+        return this.localMap[index];
     }
     setLocal(index, value) {
         if (!this.localMap[index]) {
