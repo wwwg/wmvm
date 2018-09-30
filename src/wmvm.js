@@ -23,7 +23,7 @@ class wmvm {
                 } else {
                     let mappedImport = this.lookupVirtualImport(fn.importModule, fn.name);
                     if (!mappedImport) {
-                        this.dbg(`lookupFunction: failed to resolve import function "${fn.name}"`);
+                        this.dbg(`lookupFunction: CRITICAL: failed to resolve import function "${fn.name}"`);
                         return null;
                     }
                     if (!mappedImport.isFn) {
@@ -41,7 +41,7 @@ class wmvm {
                 return fn;
             }
         } else {
-            this.dbg(`lookupFunction: failed to resolve function "${fn.name}"`);
+            this.dbg(`lookupFunction: CRITICAL: failed to resolve function "${fn.name}"`);
             return null;
         }
     }
