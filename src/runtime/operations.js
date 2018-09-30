@@ -195,7 +195,30 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.GeUInt64:
             out = left >= right;
             break;
-
+        case Binaryen.RemSInt64:
+        case Binaryen.RemUInt64:
+        case Binaryen.RemSInt32:
+        case Binaryen.RemUInt32:
+            out = left % right;
+            break;
+        case ShlInt32:
+        case ShlInt64:
+            out = left << right;
+            break;
+        case ShrUInt32:
+        case ShrSInt32:
+        case ShrUInt64:
+        case ShrSInt64:
+            out = left >> right;
+            break;
+        case MinFloat32:
+        case MinFloat64:
+            out = Math.min(left, right);
+            break;
+        case MaxFloat32:
+        case MaxFloat64:
+            out = Math.max(left, right);
+            break;
         default:
             vm.dbg("interpret/operations binary: WARN: unknown binary op, returning null");
             return null;
