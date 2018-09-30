@@ -35,7 +35,7 @@ class ExpressionInterpreter {
         if (!fn.isImport) {
             this.vm.stack.pushFrame(fn, args);
             fn.body.isFnBody = true;
-            this.interpret(fn.body);
+            let fallthroughStatement = this.interpret(fn.body);
             // frame can now be disposed of
             let returnValue;
             if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
