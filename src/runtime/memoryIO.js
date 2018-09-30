@@ -98,4 +98,15 @@ memio[Binaryen.ConstId] = ex => {
         return;
     }
 }
+memio[Binaryen.LoadId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter,
+        offset = ex.offset,
+        size = ex.bytes,
+        ptrRes = ip.interpret(ex.ptr),
+        loadedBytes;
+    if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
+        vm.dbg("memio/load: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+    }
+}
 module.exports = memio;
