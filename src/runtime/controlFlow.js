@@ -83,7 +83,14 @@ controlFlow[Binaryen.CallId] = ex => {
             callArgs.push(res.value);
         }
         vm.dbg(`controlFlow/call: call ${ex.target}() with ${ex.operands.length} arguments`);
-        ip.call(fn, callArgs);
+        let retVal = ip.call(fn, callArgs);
+        if (!retVal) {
+            vm.dbg(`\t=> return void`);
+            return;
+        } else {
+            vm.dbg(`\t=> return ${retVal.value}`);
+            return retVal;
+        }
     }
 }
 controlFlow[Binaryen.LoopId] = ex => {
