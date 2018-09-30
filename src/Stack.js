@@ -7,10 +7,10 @@ module.exports = class VirtualStack extends Array {
         this.currentFrame = null;
         this.history = []; // a chronological list of every stack frame ever called
     }
-    pushFrame(fn) {
+    pushFrame(fn, args = null) {
         this.vm.dbg(`stack: pushed stack frame for "${fn.name}"`);
         // Before a function is interpreted, it's added to the stack
-        let frame = new StackFrame(fn);
+        let frame = new StackFrame(fn, args);
         this.push(frame);
         this.currentFrame = this.top();
     }
