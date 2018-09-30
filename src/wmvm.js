@@ -328,5 +328,15 @@ class wmvm {
             this.dbg(`wmvm/remoteCall: "${fnName}" doesn't exist - ignoring`);
         }
     }
+    memoryAccessString(ptr) {
+        // Gets a string from virtual memory and returns as a js string
+        let i = ptr,
+            out = '';
+        while (this.mem[i] != 0) {
+            out += String.fromCharCode(this.mem[i]);
+            ++i;
+        }
+        return out;
+    }
 }
 module.exports = wmvm;
