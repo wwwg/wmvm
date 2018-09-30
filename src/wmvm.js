@@ -340,5 +340,15 @@ class wmvm {
         }
         return out;
     }
+    memoryAccessStringRaw(ptr) {
+        // Gets a string from virtual memory and returns as a js byte array
+        let i = ptr,
+            out = [];
+        while (this.mem[i] != 0) {
+            out.push(this.mem[i]);
+            ++i;
+        }
+        return out;
+    }
 }
 module.exports = wmvm;
