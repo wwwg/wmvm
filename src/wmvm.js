@@ -10,7 +10,11 @@ const Binaryen = require("binaryen"),
 const INITIAL_MEMORY_SIZE = 10000;
 class wmvm {
     dbg(...args) {
-        console.log.apply(console, args);
+        let arg1 = args[0];
+        // Filter everything but critical information and warnings
+        if (arg1.includes('WARN') || arg1.includes('CRITICAL')) {
+            console.log.apply(console, args);
+        }
     }
     lookupFunction(symbol) {
         // Returns the MetaFunction the symbol points to, and locates imports if they exist
