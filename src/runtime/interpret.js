@@ -27,12 +27,12 @@ class ExpressionInterpreter {
             return null;
         }
     }
-    interpretFunction(fn) {
+    interpretFunction(fn, args = []) {
         if (!fn instanceof MetaFunction) {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
         }
-        this.vm.stack.pushFrame(fn);
+        this.vm.stack.pushFrame(fn, args);
         this.interpret(fn.body);
         // frame can now be disposed of
         let returnValue;
