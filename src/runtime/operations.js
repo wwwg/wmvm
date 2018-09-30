@@ -82,7 +82,7 @@ ops[Binaryen.UnaryId] = ex => {
             vm.dbg(`operations/unary: unknown unary operation ${opId}`);
             break;
     }
-    vm.dbg(`operations/unary: \t=> ${opSource}`);
+    vm.dbg(`\t=> ${opSource}`);
     return {
         value: opSource
     };
@@ -241,7 +241,7 @@ ops[Binaryen.BinaryId] = ex => {
             vm.dbg(`operations/binary: WARN: unknown binary op "${opId}", returning null`);
             return null;
     }
-    vm.dbg(`operations/binary: \t=> ${out}`);
+    vm.dbg(`\t=> ${out}`);
     return {
         value: out
     }
