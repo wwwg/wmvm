@@ -7,6 +7,11 @@ controlFlow[Binaryen.BlockId] = ex => {
     // interpret children consecutively
     for (let i = 0; i < ex.children.length; ++i) {
         let child = ex.children[i];
+        if (ex.isFnBody && vm.stack.currentFrame.isReturned) {
+            // stop interpreting - this frame has returned
+            vm.dbg(`controlFlow/block: Stop intrepreting function body - stack frame is returned`);
+            return;
+        }
         ip.interpret(child);
     }
 }
