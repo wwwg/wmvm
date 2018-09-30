@@ -17,5 +17,9 @@ controlFlow[Binaryen.IfId] = ex => {
     if (!res) {
         vm.dbg("controlFlow/if: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
     }
+    if (typeof res.value === 'undefined') {
+        vm.dbg("controlFlow/if: WARN: interpret result value doesn't exist! the value expression probably isnt supported.");
+        return null;
+    }
 }
 module.exports = controlFlow;
