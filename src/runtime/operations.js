@@ -109,5 +109,97 @@ ops[Binaryen.BinaryId] = ex => {
         vm.dbg("interpret/operations binary: WARN: interpret(right) result value doesn't exist! the value expression probably isnt supported.");
         return null;
     }
+    let out = 0,
+        left = resl.value,
+        right = resr.value;
+    switch (opId) {
+        case Binaryen.AddInt32:
+        case Binaryen.AddInt64:
+        case Binaryen.AddFloat32:
+        case Binaryen.AddFloat64:
+            out = left + right;
+            break;
+        case Binaryen.SubInt32:
+        case Binaryen.SubInt64:
+        case Binaryen.SubFloat32:
+        case Binaryen.SubFloat64:
+            out = left - right;
+            break;
+        case Binaryen.XorInt64:
+        case Binaryen.XorInt32:
+            out = left ^ right;
+            break;
+        case Binaryen.OrInt64:
+        case Binaryen.OrInt32:
+            out = left || right;
+            break;
+        case Binaryen.MulInt32:
+        case Binaryen.MulInt64:
+        case Binaryen.MulFloat32:
+        case Binaryen.MulFloat64:
+            out = left * right;
+            break;
+        case Binaryen.EqInt32:
+        case Binaryen.EqInt64:
+        case Binaryen.EqFloat32:
+        case Binaryen.EqFloat64:
+            out = left == right;
+            break;
+        case Binaryen.NeInt32:
+        case Binaryen.NeInt64:
+        case Binaryen.NeFloat32:
+        case Binaryen.NeFloat64:
+            out = left != right;
+            break;
+        case Binaryen.AndInt32:
+        case Binaryen.AndInt64:
+            out = left && right;
+            break;
+        case Binaryen.LeSInt64:
+        case Binaryen.LeSInt32:
+        case Binaryen.LeUInt32:
+        case Binaryen.LeFloat32:
+        case Binaryen.LeFloat64:
+        case Binaryen.LeUInt64:
+            out = left <= right;
+            break;
+        case Binaryen.LtUInt32:
+        case Binaryen.LtSInt32:
+        case Binaryen.LtSInt64:
+        case Binaryen.LtFloat32:
+        case Binaryen.LtFloat64:
+            out = left < right;
+            break;
+        case Binaryen.DivSInt32:
+        case Binaryen.DivUInt32:
+        case Binaryen.DivSInt64:
+        case Binaryen.DivUInt64:
+        case Binaryen.DivFloat32:
+        case Binaryen.DivFloat64:
+            out = left / right;
+            break;
+        case Binaryen.GtSInt64:
+        case Binaryen.GtUInt64:
+        case Binaryen.GtFloat64:
+        case Binaryen.GtFloat32:
+        case Binaryen.GtSInt32:
+        case Binaryen.GtUInt32:
+        case Binaryen.LtUInt64:
+            out = left > right;
+            break;
+        case Binaryen.GeSInt64:
+        case Binaryen.GeSInt32:
+        case Binaryen.GeFloat64:
+        case Binaryen.GeFloat32:
+        case Binaryen.GeUInt32:
+        case Binaryen.GeUInt64:
+            out = left >= right;
+            break;
+
+        default:
+            vm.dbg("interpret/operations binary: WARN: unknown binary op, returning null");
+            return null;
+            break;
+    }
 }
 module.exports = ops;
