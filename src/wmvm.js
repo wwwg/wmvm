@@ -374,5 +374,9 @@ class wmvm {
         let view = new DataView(this.mem.buffer, ptr);
         return view.getFloat32(0);
     }
+    memoryAccessFloat64(ptr) {
+        let view = new DataView(this.mem.buffer, ptr);
+        return view.getFloat64(0);
+    }
 }
 module.exports = wmvm;
