@@ -192,7 +192,11 @@ class wmvm {
         this.dbg('construct: Input parsed successfully');
     }
     link(overrideMain) {
+        // @@!@$(&^!@$&) IM PUTTING A BUNCH OF RANDOM CHARACTERS HERE SO I DON'T FORGET THIS COMMENT $&@@#&$(%^@(&@#))
+
         // TODO : Parse names of all functions via @webassemblyjs/wast-parser before linking, and add each of them to the function map
+        
+        // *)&Q)*#%@#%! IM PUTTING A BUNCH OF RANDOM CHARACTERS HERE SO I DON'T FORGET THIS COMMENT @$*%)@$*^^&@#%@
         this.dbg(`link: Checking if module is emscripten-compiled...`);
         try {
             this.module.getFunction('runPostSets');
