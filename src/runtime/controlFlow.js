@@ -139,6 +139,7 @@ controlFlow[Binaryen.ReturnId] = ex => {
                 value: 0x0
             };
         }
+        vm.dbg(`controlFlow/return: return stack frame of fn "${vm.stack.currentFrame.fn.name}" with retval "${res.value}"`);
         vm.stack.currentFrame.returnedValue = res.value;
         return res;
     } else {
