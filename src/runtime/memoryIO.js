@@ -180,10 +180,10 @@ memio[Binaryen.DropId] = ex => {
         ip = ex.interpreter,
         res = ip.interpret(ex.value);
     if (!res || (typeof res.value === 'undefined')) {
-        vm.dbg("memio/drop: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
-        vm.stack.printStackTrace();
+        vm.dbg("memio/drop: drop result doesn't exist, ignore");
         return;
     }
+    vm.dbg(`memio/drop: dropped value ${res.value}`);
     return res;
 }
 module.exports = memio;
