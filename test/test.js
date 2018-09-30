@@ -67,6 +67,6 @@ const wmvm = require('../src/wmvm.js'),
 
 let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.addImports(imports)
-    // .enableDebug()
+    .enableDebug()
     .link()
     .runMain();
