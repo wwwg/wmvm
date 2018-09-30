@@ -13,7 +13,7 @@ memio[Binaryen.GetLocalid] = ex => {
         }
     } else {
         local.isGetLocal = true;
-        vm.dbg(`interpret/memio: get_local "${ex.index}"`);
+        vm.dbg(`memio: get_local "${ex.index}"`);
         return local;
     }
 }
@@ -21,7 +21,7 @@ memio[Binaryen.GetGlobalId] = ex => {
     let vm = ex.vm,
         globalName = ex.name;
     if (!(typeof vm.globals[globalName] === 'undefined')) {
-        vm.dbg(`interpret/memio: get_global "${globalName}"`);
+        vm.dbg(`memio: get_global "${globalName}"`);
         return {
             type: (vm.globals[globalName].type || 1),
             value: vm.globals[globalName].value
@@ -44,16 +44,16 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     let res = ip.interpret(ex.value);
     if (!res) {
-        vm.dbg("interpret/memio set_local: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
+        vm.dbg("memio set_local: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
         frame.setLocal(ex.index, 0x0);
         return;
     }
     if (typeof res.value === 'undefined') {
-        vm.dbg("interpret/memio set_local: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
+        vm.dbg("memio set_local: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
         frame.setLocal(ex.index, 0x0);
         return;
     }
-    vm.dbg(`interpret/memio: set_local "${ex.index}" => ${res.value}`);
+    vm.dbg(`memio: set_local "${ex.index}" => ${res.value}`);
     frame.setLocal(ex.index, res.value);
 }
 memio[Binaryen.SetGlobalId] = ex => {
@@ -62,12 +62,12 @@ memio[Binaryen.SetGlobalId] = ex => {
         globalName = ex.name,
         result = ip.interpret(ex.value);
     if (!result || typeof result.value === 'undefined') {
-        vm.dbg("interpret/memio set_global: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        vm.dbg("memio set_global: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
         vm.globals[globalName] = 0x0;
         return;
     } else {
         if (vm.globals[globalName]) {
-            vm.dbg(`interpret/memio: set_global "${globalName}" => ${result.value}`);
+            vm.dbg(`memio: set_global "${globalName}" => ${result.value}`);
             vm.globals[globalName].value = result.value;
         } else {
             vm.dbg(`interpret: WARN: set_global was called on "${globalName}", which doesn't exist. ignoring.`);
@@ -79,22 +79,22 @@ memio[Binaryen.ConstId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
     if (typeof ex.value === 'number') {
-        vm.dbg(`interpret/memio: const val => ${ex.value}`);
+        vm.dbg(`memio: const val => ${ex.value}`);
         return {
             value: ex.value
         };
     } else if (ex.value.low) {
-        vm.dbg(`interpret/memio: const low => ${ex.value.low}`);
+        vm.dbg(`memio: const low => ${ex.value.low}`);
         return {
             value: ex.value.low
         };
     } else if (ex.value.high) {
-        vm.dbg(`interpret/memio: const high => ${ex.value.high}`);
+        vm.dbg(`memio: const high => ${ex.value.high}`);
         return {
             value: ex.value.high
         };
     } else {
-        vm.dbg(`interpret/memio: const: WARN: unknown const value`);
+        vm.dbg(`memio: const: WARN: unknown const value`);
         return;
     }
 }
