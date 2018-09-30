@@ -295,5 +295,20 @@ class wmvm {
         this.interpreter = new ExpressionInterpreter(this);
         this.interpreter.call(this._main);
     }
+    remoteCall(fnName, args) {
+        if (!this.interpreter) {
+            // runMain() wasn't called - thats okay
+            this.interpreter = new ExpressionInterpreter(this);
+        }
+        if (this.fnMap[fnName]) {
+            let fn = this.fnMap[fnName],
+                result = this.interpreter.call(fn, args);
+            if (result && result.value) {
+                return result.value;
+            }
+        } else {
+            this.dbg(`wmvm/remoteCall: "${fnName}" doesn't exist - ignoring`);
+        }
+    }
 }
 module.exports = wmvm;
