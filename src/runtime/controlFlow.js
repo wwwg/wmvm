@@ -73,9 +73,11 @@ controlFlow[Binaryen.CallId] = ex => {
     }
 }
 controlFlow[Binaryen.LoopId] = ex => {
-    // todo
+    let vm = ex.vm,
+        ip = ex.interpreter;
 }
 controlFlow[Binaryen.BreakId] = ex => {
-    // todo
+    let vm = ex.vm,
+        ip = ex.interpreter;
 }
 module.exports = controlFlow;
