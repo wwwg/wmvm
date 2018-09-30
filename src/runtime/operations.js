@@ -223,5 +223,8 @@ ops[Binaryen.BinaryId] = ex => {
             vm.dbg("interpret/operations binary: WARN: unknown binary op, returning null");
             return null;
     }
+    return {
+        value: out
+    }
 }
 module.exports = ops;
