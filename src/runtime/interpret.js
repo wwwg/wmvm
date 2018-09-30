@@ -40,6 +40,9 @@ class ExpressionInterpreter {
             let returnValue;
             if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
                 returnValue = this.vm.stack.currentFrame.returnedValue;
+            } else if (fallthroughStatement) {
+                // If there is no return value a statement could have fell through
+                returnValue = fallthroughStatement;
             }
             // add to stack history - for debugging
             this.vm.stack.history.push(this.vm.stack.currentFrame);
