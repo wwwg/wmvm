@@ -45,7 +45,6 @@ const wmvm = require('../src/wmvm.js'),
             "name": "_printf",
             "value": function(formatPtr, ptr1) {
                 // super basic printf which you should never practically use
-                // console.log(`runtime: _printf(${formatPtr}, ${ptr1})`);
                 let format = this.memoryAccessString(formatPtr),
                     formatArg;
                 if (format.includes('%d')) {
@@ -56,6 +55,7 @@ const wmvm = require('../src/wmvm.js'),
                     console.log("runtime: not printf-ing unknown format:");
                     console.log(format);
                     console.log(`(argPtr: ${formatArg})`);
+                    console.log(`(called as: _printf(${formatPtr}, ${ptr1}))`);
                     return 0;
                 }
                 let out = util.format(format, formatArg);
