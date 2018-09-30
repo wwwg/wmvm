@@ -49,7 +49,7 @@ memio[Binaryen.SetLocalId] = ex => {
         return;
     }
     if (!res.value) {
-        vm.dbg("interpret: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
+        vm.dbg("interpret/memio set_local: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
         frame.setLocal(ex.index, 0x0);
         return;
     }
