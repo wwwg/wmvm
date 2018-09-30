@@ -79,14 +79,17 @@ memio[Binaryen.ConstId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
     if (typeof ex.value === 'number') {
+        vm.dbg(`interpret/memio: const val => ${ex.value}`);
         return {
             value: ex.value
         };
     } else if (ex.value.low) {
+        vm.dbg(`interpret/memio: const low => ${ex.value.low}`);
         return {
             value: ex.value.low
         };
     } else if (ex.value.high) {
+        vm.dbg(`interpret/memio: const high => ${ex.value.high}`);
         return {
             value: ex.value.high
         };
