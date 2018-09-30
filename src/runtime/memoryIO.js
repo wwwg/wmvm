@@ -59,11 +59,11 @@ memio[Binaryen.SetLocalId] = ex => {
 memio[Binaryen.SetGlobalId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
-        setName = ex.name,
+        globalName = ex.name,
         result = ip.interpret(ex.value);
     if (!result || typeof result.value === 'undefined') {
         vm.dbg("interpret/memio set_global: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
-        vm.globals[setName] = 0x0;
+        vm.globals[globalName] = 0x0;
         return;
     } else {
         if (vm.globals[globalName]) {
