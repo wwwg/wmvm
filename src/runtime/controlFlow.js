@@ -43,6 +43,7 @@ controlFlow[Binaryen.IfId] = ex => {
         }
     }
 }
+controlFlow[Binaryen.SelectId] = controlFlow[Binaryen.IfId];
 controlFlow[Binaryen.CallId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
