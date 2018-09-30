@@ -17,7 +17,10 @@ class wmvm {
             console.log.apply(console, args);
         }
         */
-       console.log.apply(console, args);
+       args[0] = "wmvm.dbg:" + args[0];
+       if (this.enableDbg) {
+        console.log.apply(console, args);
+       }
     }
     lookupFunction(symbol) {
         // Returns the MetaFunction the symbol points to, and locates imports if they exist
@@ -134,6 +137,7 @@ class wmvm {
         return this;
     }
     constructor(data, type) {
+        this.enableDbg = false;
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
             return;
