@@ -17,30 +17,37 @@ ops[Binaryen.UnaryId] = ex => {
     switch (opId) {
         case Binaryen.NegFloat32:
         case Binaryen.NegFloat64:
+            vm.dbg(`interpret/operations unary: ${opSource} * -1`);
             opSource *= -1;
             break;
         case Binaryen.AbsFloat32:
         case Binaryen.AbsFloat64:
+            vm.dbg(`interpret/operations unary: abs(${opSource})`);
             opSource = Math.abs(opSource);
             break;
         case Binaryen.CeilFloat32:
         case Binaryen.CeilFloat64:
+            vm.dbg(`interpret/operations unary: ceil(${opSource})`);
             opSource = Math.ceil(opSource);
             break;
         case Binaryen.FloorFloat32:
         case Binaryen.FloorFloat64:
+            vm.dbg(`interpret/operations unary: floor(${opSource})`);
             opSource = Math.floor(opSource);
             break;
         case Binaryen.TruncFloat32:
         case Binaryen.TruncFloat64:
+            vm.dbg(`interpret/operations unary: trunc(${opSource})`);
             opSource = Math.trunc(opSource);
             break;
         case Binaryen.SqrtFloat32:
         case Binaryen.SqrtFloat64:
+            vm.dbg(`interpret/operations unary: sqrt(${opSource})`);
             opSource = Math.sqrt(opSource);
             break;
         case Binaryen.EqZInt32: // Equals 0
         case Binaryen.EqZInt64:
+        vm.dbg(`interpret/operations unary: (${opSource} == 0)`);
             opSource = (opSource == 0);
             break;
         case Binaryen.ExtendSInt32:
@@ -69,11 +76,13 @@ ops[Binaryen.UnaryId] = ex => {
         case Binaryen.PromoteFloat32:
         case Binaryen.ReinterpretInt64:
             // Do nothing, these instructions are only useful in a strictly typed VM
+            vm.dbg(`interpret/operations unary: type-strict op on "${opSource}", ignore`);
             break;
         default:
-            vm.dbg(`interpret/operations: unary: unknown unary operation ${opId}`);
+            vm.dbg(`interpret/operations unary: unknown unary operation ${opId}`);
             break;
     }
+    vm.dbg(`interpret/operations unary: \t=> ${opSource}`);
     return {
         value: opSource
     };
