@@ -293,6 +293,10 @@ class wmvm {
     }
     runMain() {
         this.interpreter = new ExpressionInterpreter(this);
+        if (this.isEmcc) {
+            // This module is an emscripten module - the stack needs to be initialized before _main() is called
+            this.remoteCall('establishStackSpace', [0, 100000]);
+        }
         this.interpreter.call(this._main);
     }
     remoteCall(fnName, args) {
