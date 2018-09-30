@@ -175,4 +175,7 @@ memio[Binaryen.StoreId] = ex => {
             break;
     }
 }
+memio[Binaryen.DropId] = ex => {
+    //
+}
 module.exports = memio;
