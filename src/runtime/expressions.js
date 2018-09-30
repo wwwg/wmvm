@@ -50,31 +50,49 @@ let parse = (expr, vm) => {
     if (rexpr.children) {
         for (let i = 0; i < rexpr.children.length; ++i) {
             rexpr.children[i] = parse(rexpr.children[i], vm);
+            rexpr.children[i].parent = rexpr;
         }
     }
     // Call operands
     if (rexpr.operands) {
         for (let i = 0; i < rexpr.operands.length; ++i) {
             rexpr.operands[i] = parse(rexpr.operands[i], vm);
+            rexpr.operands[i].parent = rexpr;
         }
     }
 
-    if (rexpr.condition) 
+    if (rexpr.condition) {
         rexpr.condition = parse(rexpr.condition, vm);
-    if (rexpr.ifTrue)
+        rexpr.condition.parent = rexpr;
+    }
+    if (rexpr.ifTrue) {
         rexpr.ifTrue = parse(rexpr.ifTrue, vm);
-    if (rexpr.ifFalse)
+        rexpr.ifTrue.parent = rexpr;
+    }
+    if (rexpr.ifFalse) {
         rexpr.ifFalse = parse(rexpr.ifFalse, vm);
-    if (rexpr.body)
+        rexpr.ifFalse.parent = rexpr;
+    }
+    if (rexpr.body) {
         rexpr.body = parse(rexpr.body, vm);
-    if (rexpr.left)
+        rexpr.body.parent = rexpr;
+    }
+    if (rexpr.left) {
         rexpr.left = parse(rexpr.left, vm);
-    if (rexpr.right)
+        rexpr.left.parent = rexpr;
+    }
+    if (rexpr.right) {
         rexpr.right = parse(rexpr.right, vm);
-    if (rexpr.ptr)
+        rexpr.right.parent = rexpr;
+    }
+    if (rexpr.ptr) {
         rexpr.ptr = parse(rexpr.ptr, vm);
-    if (rexpr.target && typeof rexpr.target === 'number')
+        rexpr.ptr.parent = rexpr;
+    }
+    if (rexpr.target && typeof rexpr.target === 'number') {
         rexpr.target = parse(rexpr.target, vm);
+        rexpr.target.parent = rexpr;
+    }
     if (rexpr.target && typeof rexpr.target === 'string') {
         if (!vm.fnMap[rexpr.target]) {
             vm.dbg('parse: Discovered function: "' + rexpr.target + '"');
@@ -84,8 +102,10 @@ let parse = (expr, vm) => {
         }
     }
     if (rexpr.value && typeof rexpr.value === 'number') {
-        if (rexpr.id !== Binaryen.ConstId)
+        if (rexpr.id !== Binaryen.ConstId) {
             rexpr.value = parse(rexpr.value, vm);
+            rexpr.value.parent = rexpr;
+        }
     }
 
     return rexpr;
