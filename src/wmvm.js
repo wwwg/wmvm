@@ -350,5 +350,13 @@ class wmvm {
         }
         return out;
     }
+    memoryAccessi32(ptr, signed) {
+        let view = new DataView(this.mem.buffer, ptr);
+        if (signed) {
+            return view.getInt32(0);
+        } else {
+            return view.getUint32(0);
+        }
+    }
 }
 module.exports = wmvm;
