@@ -241,6 +241,7 @@ ops[Binaryen.BinaryId] = ex => {
             vm.dbg("interpret/operations binary: WARN: unknown binary op, returning null");
             return null;
     }
+    vm.dbg(`interpret/operations binary: \t=> ${out}`);
     return {
         value: out
     }
