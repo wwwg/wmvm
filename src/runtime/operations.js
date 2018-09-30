@@ -238,7 +238,7 @@ ops[Binaryen.BinaryId] = ex => {
             out = Math.max(left, right);
             break;
         default:
-            vm.dbg("interpret/operations binary: WARN: unknown binary op, returning null");
+            vm.dbg(`interpret/operations binary: WARN: unknown binary op "${opId}", returning null`);
             return null;
     }
     vm.dbg(`interpret/operations binary: \t=> ${out}`);
