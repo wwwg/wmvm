@@ -20,7 +20,7 @@ memio[Binaryen.GetLocalid] = ex => {
 memio[Binaryen.GetGlobalId] = ex => {
     let vm = ex.vm,
         globalName = ex.name;
-    if (typeof vm.globals[globalName] === 'undefined') {
+    if (!(typeof vm.globals[globalName] === 'undefined')) {
         vm.dbg(`interpret/memio: get_global "${globalName}"`);
         return {
             type: (vm.globals[globalName].type || 1),
