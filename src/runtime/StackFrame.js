@@ -18,11 +18,16 @@ module.exports = class DynamicStackFrame {
         if (!fn.isImport) {
             // map of local names to their values
             this.localMap = {};
-            let vars = fn.info.vars;
-            for (let i = 0; i < vars.length; ++i) {
-                if (args && typeof args[i] !== 'undefined') {
+            let localCount = fn.info.vars.length + fn.info.params.length,
+                vars = fn.info.vars,
+                params = fn.info.params;
+            if (args.length !== params.length) {
+                console.log(`wmvm/stackframe: argument mismatch! bad things will happen!`);
+            }
+            for (let i = 0; i < localCount; ++i) {
+                if (i < params.length) {
                     this.localMap[i] = {
-                        type: vars[i],
+                        type: params[i],
                         value: args[i]
                     }
                 } else {
