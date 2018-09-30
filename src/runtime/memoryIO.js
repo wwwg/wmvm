@@ -181,6 +181,7 @@ memio[Binaryen.DropId] = ex => {
         res = ip.interpret(ex.value);
     if (!res || (typeof res.value === 'undefined')) {
         vm.dbg("memio/drop: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        vm.stack.printStackTrace();
         return;
     }
     return res;
