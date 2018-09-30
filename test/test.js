@@ -53,7 +53,9 @@ const wmvm = require('../src/wmvm.js'),
                 } else if (format.includes('%s')) {
                     formatArg = this.memoryAccessString(ptr1, true);
                 } else {
-                    console.log("runtime: not printf-ing unknown format");
+                    console.log("runtime: not printf-ing unknown format:");
+                    console.log(format);
+                    console.log(`(argPtr: ${formatArg})`);
                     return 0;
                 }
                 let out = util.format(format, formatArg);
@@ -65,6 +67,6 @@ const wmvm = require('../src/wmvm.js'),
 
 let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.addImports(imports)
-    .enableDebug()
+    // .enableDebug()
     .link()
     .runMain();
