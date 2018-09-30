@@ -43,4 +43,14 @@ controlFlow[Binaryen.IfId] = ex => {
         }
     }
 }
+controlFlow[Binaryen.CallId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter;
+    vm.dbg(`controlFlow/call: call "${ex.target}" with ${ex.operands.length} operands`);
+    let fn = vm.lookupFunction(ex.target);
+    if (!fn) {
+        vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", symbol doesn't point to a function!`);
+        return;
+    }
+}
 module.exports = controlFlow;
