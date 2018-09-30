@@ -30,10 +30,12 @@ module.exports = class VirtualStack extends Array {
             let frame = this[i];
             this.vm.dbg(`\tframe #${i}:`);
             this.vm.dbg(`\t\tfunction: "${frame.fn.name}"`);
-            this.vm.dbg(`\t\tlocals: ${frame.fn.info.vars.length + frame.fn.info.params.length}`);
-            this.vm.dbg(`\t\tisReturned: ${frame.isReturned}`);
-            this.vm.dbg(`\t\treturnedValue: ${frame.returnedValue}`);
-            this.vm.dbg(`\t\targs: ${(frame.arguments || '(none)')}`);
+            this.vm.dbg(`\t\tisImport: ${frame.fn.isImport}`);
+            this.vm.dbg(`\t\ttotal locals: ${frame.fn.info.vars.length + frame.fn.info.params.length}`);
+            this.vm.dbg(`\t\tparams: ${frame.fn.info.params.length}`);
+            this.vm.dbg(`\t\is returned: ${frame.isReturned}`);
+            this.vm.dbg(`\t\treturn value: ${frame.returnedValue}`);
+            this.vm.dbg(`\t\targuments: ${(frame.arguments || '(none)')}`);
         }
     }
 }
