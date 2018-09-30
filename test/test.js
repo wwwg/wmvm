@@ -42,12 +42,13 @@ const wmvm = require('../src/wmvm.js'),
         {
             "module": "env",
             "name": "_printf",
-            "value": function(formatPtr, arg1ptr) {
-                console.log(`runtime: _printf(${formatPtr}, ${arg1ptr})`);
-                let formatStr = getWasmString(this, formatPtr),
-                    argStr = getWasmString(this, arg1ptr);
-                console.log(formatStr);
-                console.log(argStr);
+            "value": function(formatPtr, ptr1) {
+                console.log(`runtime: _printf(${formatPtr}, ${ptr1})`);
+                let format = this.memoryAccessString(formatPtr),
+                    formatArg;
+                if (format.includes('%d')) {
+                    formatArg = this.memoryAccessInt32(ptr1, true);
+                }
                 return 1;
             }
         }
