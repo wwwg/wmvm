@@ -351,7 +351,7 @@ class wmvm {
         }
         return out;
     }
-    memoryAccessInt8(ptr, signed) {
+    memoryAccessInt8(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
             return view.getInt8(0);
@@ -362,7 +362,7 @@ class wmvm {
     memoryAccessByte(ptr) {
         return this.memoryAccessInt8(ptr, false);
     }
-    memoryAccessInt32(ptr, signed) {
+    memoryAccessInt32(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
             return view.getInt32(0);
