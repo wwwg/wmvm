@@ -44,7 +44,7 @@ memio[Binaryen.SetLocalId] = ex => {
     }
     let res = ip.interpret(ex.value);
     if (!res) {
-        vm.dbg("interpret: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
+        vm.dbg("interpret/memio set_local: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
         frame.setLocal(ex.index, 0x0);
         return;
     }
@@ -62,7 +62,7 @@ memio[Binaryen.SetGlobalId] = ex => {
         setName = ex.name,
         result = ip.interpret(ex.value);
     if (!result || !result.value) {
-        vm.dbg("interpret: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
+        vm.dbg("interpret/memio set_global: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
         vm.globals[setName] = 0x0;
         return;
     } else {
