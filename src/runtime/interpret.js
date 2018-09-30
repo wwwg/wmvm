@@ -41,7 +41,9 @@ class ExpressionInterpreter {
             if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
                 returnValue = this.vm.stack.currentFrame.returnedValue;
             }
+            // add to stack history - for debugging
             this.vm.stack.history.push(this.vm.stack.currentFrame);
+            // pop the frame
             this.vm.stack.popFrame(fn);
             return {
                 type: fn.info.result,
