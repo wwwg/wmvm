@@ -11,17 +11,25 @@ module.exports = class DynamicStackFrame {
             this.localMap[index].value = value;
         }
     }
-    constructor(fn) {
+    constructor(fn, args) {
         this.fn = fn;
         this.returnedValue = null;
+        this.arguments = args;
         if (!fn.isImport) {
             // map of local names to their values
             this.localMap = {};
             let vars = fn.info.vars;
             for (let i = 0; i < vars.length; ++i) {
-                this.localMap[i] = {
-                    type: vars[i],
-                    value: 0
+                if (args && typeof args[i] !== 'undefined') {
+                    this.localMap[i] = {
+                        type: vars[i],
+                        value: args[i]
+                    }
+                } else {
+                    this.localMap[i] = {
+                        type: vars[i],
+                        value: 0
+                    }
                 }
             }
         } else {
