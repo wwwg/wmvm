@@ -2,7 +2,8 @@ const Binaryen = require('binaryen');
 let controlFlow = {};
 controlFlow[Binaryen.BlockId] = ex => {
     let vm = ex.vm,
-        ip = ex.interpreter;
+        ip = ex.interpreter,
+        res;
     // vm.dbg(`interpreting blk "${ex.name}"`);
     // interpret children consecutively
     for (let i = 0; i < ex.children.length; ++i) {
@@ -12,7 +13,7 @@ controlFlow[Binaryen.BlockId] = ex => {
             vm.dbg(`controlFlow/block: Stop intrepreting function body - stack frame is returned`);
             return;
         }
-        ip.interpret(child);
+        res = ip.interpret(child);
     }
 }
 controlFlow[Binaryen.IfId] = ex => {
