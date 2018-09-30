@@ -44,6 +44,7 @@ const wmvm = require('../src/wmvm.js'),
             "name": "_printf",
             "value": function(arg1, arg2) {
                 console.log(`runtime: _printf(${arg1}, ${arg2})`);
+                return 1;
             }
         }
     ];
