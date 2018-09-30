@@ -128,8 +128,7 @@ controlFlow[Binaryen.BreakId] = ex => {
 }
 controlFlow[Binaryen.ReturnId] = ex => {
     let vm = ex.vm,
-        ip = ex.interpreter;
-    vm.stack.currentFrame.isReturned = true;
+        ip = ex.interpreter; 
     if (ex.value) {
         let res = ip.interpret(ex.value);
         if (!res || typeof res.value === 'undefined') {
@@ -140,10 +139,12 @@ controlFlow[Binaryen.ReturnId] = ex => {
             };
         }
         vm.dbg(`controlFlow/return: return stack frame of fn "${vm.stack.currentFrame.fn.name}" with retval "${res.value}"`);
+        vm.stack.currentFrame.isReturned = true;
         vm.stack.currentFrame.returnedValue = res.value;
         return res;
     } else {
         vm.dbg(`controlFlow/return: returning with no value`);
+        vm.stack.currentFrame.isReturned = true;
         vm.stack.currentFrame.returnedValue = undefined;
     }
 }
