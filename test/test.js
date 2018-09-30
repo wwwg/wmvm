@@ -4,7 +4,7 @@ const wmvm = require('../src/wmvm.js'),
         let memory = vm.mem,
             i = ptr,
             out = '';
-        while (i != 0) {
+        while (memory[i] != 0) {
             out += String.fromCharCode(memory[i]);
             ++i;
         }
@@ -52,8 +52,12 @@ const wmvm = require('../src/wmvm.js'),
         {
             "module": "env",
             "name": "_printf",
-            "value": function(format, arg1) {
-                console.log(`runtime: _printf(${arg1}, ${arg2})`);
+            "value": function(formatPtr, arg1ptr) {
+                console.log(`runtime: _printf(${formatPtr}, ${arg1ptr})`);
+                let formatStr = getWasmString(this, formatPtr),
+                    argStr = getWasmString(this, arg1ptr);
+                console.log(formatStr);
+                console.log(argStr);
                 return 1;
             }
         }
