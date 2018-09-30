@@ -215,25 +215,25 @@ ops[Binaryen.BinaryId] = ex => {
             vm.dbg("operations/binary: (l % r)");
             out = left % right;
             break;
-        case ShlInt32:
-        case ShlInt64:
+        case Binaryen.ShlInt32:
+        case Binaryen.ShlInt64:
             vm.dbg("operations/binary: (l << r)");
             out = left << right;
             break;
-        case ShrUInt32:
-        case ShrSInt32:
-        case ShrUInt64:
-        case ShrSInt64:
+        case Binaryen.ShrUInt32:
+        case Binaryen.ShrSInt32:
+        case Binaryen.ShrUInt64:
+        case Binaryen.ShrSInt64:
             vm.dbg("operations/binary: (l >> r)");
             out = left >> right;
             break;
-        case MinFloat32:
-        case MinFloat64:
+        case Binaryen.MinFloat32:
+        case Binaryen.MinFloat64:
             vm.dbg("operations/binary: min(l,r)");
             out = Math.min(left, right);
             break;
-        case MaxFloat32:
-        case MaxFloat64:
+        case Binaryen.MaxFloat32:
+        case Binaryen.MaxFloat64:
             vm.dbg("operations/binary: min(l,r)");
             out = Math.max(left, right);
             break;
