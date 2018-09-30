@@ -75,6 +75,17 @@ controlFlow[Binaryen.CallId] = ex => {
 controlFlow[Binaryen.LoopId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
+    vm.dbg(`controlFlow/loop: initializing loop "${ex.name}"`);
+    // enable the loop on the loopMap
+    vm.loopMap[ex.name] = true;
+    while (true) {
+        // loops are infinite until broken
+        ip.interpret(ex.body);
+        // if the loop is disabled on the vm's map, it needs to break
+        if (!vm.loopMap) {
+            break;
+        }
+    }
 }
 controlFlow[Binaryen.BreakId] = ex => {
     let vm = ex.vm,
