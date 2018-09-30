@@ -45,6 +45,7 @@ const wmvm = require('../src/wmvm.js'),
             "name": "_printf",
             "value": function(formatPtr, ptr1) {
                 // super basic printf which you should never practically use
+                this.stack.printStackTrace();
                 let format = this.memoryAccessString(formatPtr),
                     formatArg;
                 if (format.includes('%d')) {
