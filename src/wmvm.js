@@ -204,6 +204,7 @@ class wmvm {
         
         this.dbg('construct: Input parsed successfully');
     }
+    // Primary API methods
     link(overrideMain) {
         // @@!@$(&^!@$&) IM PUTTING A BUNCH OF RANDOM CHARACTERS HERE SO I DON'T FORGET THIS COMMENT $&@@#&$(%^@(&@#))
 
@@ -328,6 +329,7 @@ class wmvm {
             this.dbg(`wmvm/remoteCall: "${fnName}" doesn't exist - ignoring`);
         }
     }
+    // helper functions for managing memory (very useful for imports)
     memoryAccessString(ptr) {
         // Gets a string from virtual memory and returns as a js string
         let i = ptr,
