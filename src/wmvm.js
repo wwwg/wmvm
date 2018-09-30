@@ -182,6 +182,7 @@ class wmvm {
         this.virtualImports = [];
         // Memory
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
+        this.memory = this.mem; // alias
         this.memPtrName = null;
         // Find initial memory
         let initialMemoryData = getInitialMemory(this.wast);
