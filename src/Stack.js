@@ -33,7 +33,7 @@ module.exports = class VirtualStack extends Array {
             this.vm.dbg(`\t\tlocals: ${frame.fn.info.vars.length + frame.fn.info.params.length}`);
             this.vm.dbg(`\t\tisReturned: ${frame.isReturned}`);
             this.vm.dbg(`\t\treturnedValue: ${frame.returnedValue}`);
-            this.vm.dbg(`\t\targs: ${frame.arguments}`);
+            this.vm.dbg(`\t\targs: ${(frame.arguments || '(none)')}`);
         }
     }
 }
