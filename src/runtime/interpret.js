@@ -18,7 +18,7 @@ class ExpressionInterpreter {
         expr.interpreter = this;
         if (this.vm.stack.currentFrame.isReturned) {
             // stop interpreting - this frame has returned
-            vm.dbg(`interpret: Stop intrepreting function body - stack frame is returned`);
+            this.vm.dbg(`interpret: Stop intrepreting function body - stack frame is returned`);
             return;
         }
         if (this.controlFlow[id]) {
