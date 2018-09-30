@@ -38,6 +38,13 @@ const wmvm = require('../src/wmvm.js'),
             "module": "env",
             "name": "tempDoublePtr",
             "value": 0.0
+        },
+        {
+            "module": "env",
+            "name": "_printf",
+            "value": function(arg1, arg2) {
+                console.log(`runtime: _printf(${arg1}, ${arg2})`);
+            }
         }
     ];
 
