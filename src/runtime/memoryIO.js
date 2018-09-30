@@ -108,7 +108,38 @@ memio[Binaryen.LoadId] = ex => {
     if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
         vm.dbg("memio/load: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
     }
-    // todo : finish load expression interpreting
+    let actualOffset = ptrRes + offset,
+        view = new DataView(vm.mem.buffer, actualOffset, size);
+    switch (size) {
+        case 1:
+            if (ex.isSigned) {
+                loadedBytes = view.getInt8(actualOffset);
+            } else {
+                loadedBytes = view.getUint8(actualOffset);
+            }
+            break;
+        case 2:
+            if (ex.isSigned) {
+                loadedBytes = view.getInt16(actualOffset);
+            } else {
+                loadedBytes = view.getUint16(actualOffset);
+            }
+            break;
+        case 4:
+            if (ex.isSigned) {
+                loadedBytes = view.getInt32(actualOffset);
+            } else {
+                loadedBytes = view.getUint32(actualOffset);
+            }
+            break;
+        case 8:
+            loadedBytes = view.getFloat64(actualOffset);
+            break;
+    }
+    vm.dbg(`memio/load: loaded ${size} bytes from offset ${actualOffset}, loadedBytes: ${loadedBytes}`);
+    return {
+        value: loadedBytes
+    }
 }
 memio[Binaryen.StoreId] = ex => {
     let vm = ex.vm,
