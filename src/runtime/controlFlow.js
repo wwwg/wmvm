@@ -21,5 +21,21 @@ controlFlow[Binaryen.IfId] = ex => {
         vm.dbg("controlFlow/if: WARN: interpret result value doesn't exist! the value expression probably isnt supported.");
         return null;
     }
+    // execute the actual conditional
+    if (res.value) {
+        // ifTrue
+        let ifTrueRes = ip.interpret(ex.ifTrue);
+        if (ifTrueRes && typeof ifTrueRes.value !== 'undefined') {
+            return ifTrueRes;
+        }
+    } else {
+        // ifFalse
+        if (ex.ifFalse) {
+            let ifFalseRes = ip.interpret(ex.ifTrue);
+            if (ifFalseRes && typeof ifFalseRes.value !== 'undefined') {
+                return ifFalseRes;
+            }
+        }
+    }
 }
 module.exports = controlFlow;
