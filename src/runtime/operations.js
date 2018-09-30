@@ -74,6 +74,9 @@ ops[Binaryen.UnaryId] = ex => {
             vm.dbg(`interpret/operations: unary: unknown unary operation ${opId}`);
             break;
     }
+    return {
+        value: opSource
+    };
 }
 ops[Binaryen.BinaryId] = ex => {
     let vm = ex.vm,
