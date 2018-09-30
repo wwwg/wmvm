@@ -192,6 +192,12 @@ class wmvm {
         this.dbg('construct: Input parsed successfully');
     }
     link(overrideMain) {
+        try {
+            this.module.getFunction('runPostSets');
+            this.isEmcc = true;
+        } catch (e) {
+            this.isEmcc = false;
+        }
         if (!overrideMain) {
                 this.dbg('link: Trying to find _main()...');
                 this._main = new MetaFunction(this, '_main');

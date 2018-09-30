@@ -6,7 +6,8 @@ const wmvm = require('../src/wmvm.js'),
             "name": "abortStackOverflow",
             "value": function(arg1) {
                 console.log(`runtime: abortStackOverflow called, arg1 is ${arg1}`);
-                console.log(this);
+                console.log(this.stack.length);
+                process.exit(0);
                 return 0;
             }
         },
