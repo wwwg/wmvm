@@ -5,7 +5,7 @@ memio[Binaryen.GetLocalid] = ex => {
         ip = ex.interpreter,
         frame = vm.stack.currentFrame,
         local = frame.getLocal(ex.index);
-    if (!local) {
+    if (typeof local === 'undefined') {
         vm.dbg("interpret: WARN: getLocal was called on a local that doesn't exist. Something is terribly wrong.");
         return {
             type: 0,
@@ -20,7 +20,7 @@ memio[Binaryen.GetLocalid] = ex => {
 memio[Binaryen.GetGlobalId] = ex => {
     let vm = ex.vm,
         globalName = ex.name;
-    if (vm.globals[globalName]) {
+    if (typeof vm.globals[globalName] === 'undefined') {
         vm.dbg(`interpret/memio: get_global "${globalName}"`);
         return {
             type: (vm.globals[globalName].type || 1),
@@ -48,7 +48,7 @@ memio[Binaryen.SetLocalId] = ex => {
         frame.setLocal(ex.index, 0x0);
         return;
     }
-    if (!res.value) {
+    if (typeof res.value === 'undefined') {
         vm.dbg("interpret/memio set_local: WARN: interpret result doesn't have a value, I can't set a local! setting it to NULL");
         frame.setLocal(ex.index, 0x0);
         return;
@@ -61,7 +61,7 @@ memio[Binaryen.SetGlobalId] = ex => {
         ip = ex.interpreter,
         setName = ex.name,
         result = ip.interpret(ex.value);
-    if (!result || !result.value) {
+    if (!result || typeof result.value === 'undefined') {
         vm.dbg("interpret/memio set_global: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
         vm.globals[setName] = 0x0;
         return;
