@@ -1,15 +1,5 @@
 const wmvm = require('../src/wmvm.js'),
     fs = require('fs'),
-    getWasmString = (vm, ptr) => {
-        let memory = vm.mem,
-            i = ptr,
-            out = '';
-        while (memory[i] != 0) {
-            out += String.fromCharCode(memory[i]);
-            ++i;
-        }
-        return out;
-    },
     imports = [
         {
             "module": "env",
