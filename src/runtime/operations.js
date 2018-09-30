@@ -89,6 +89,25 @@ ops[Binaryen.UnaryId] = ex => {
 }
 ops[Binaryen.BinaryId] = ex => {
     let vm = ex.vm,
-        ip = ex.interpreter;
+        ip = ex.interpreter,
+        opId = ex.op,
+        resl = ip.interpret(ex.left),
+        resr = ip.interpret(ex.right);
+    if (!resl) {
+        vm.dbg("interpret/operations binary: WARN: interpret(left) result doesn't exist! the value expression probably isnt supported.");
+        return null;
+    }
+    if (typeof resl.value === 'undefined') {
+        vm.dbg("interpret/operations binary: WARN: interpret(left) result value doesn't exist! the value expression probably isnt supported.");
+        return null;
+    }
+    if (!resr) {
+        vm.dbg("interpret/operations binary: WARN: interpret(right) result doesn't exist! the value expression probably isnt supported.");
+        return null;
+    }
+    if (typeof resr.value === 'undefined') {
+        vm.dbg("interpret/operations binary: WARN: interpret(right) result value doesn't exist! the value expression probably isnt supported.");
+        return null;
+    }
 }
 module.exports = ops;
