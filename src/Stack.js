@@ -23,4 +23,17 @@ module.exports = class VirtualStack extends Array {
     top() {
         return this[this.length - 1];
     }
+    printStackTrace() {
+        this.vm.dbg(`stack: stack trace:`);
+        this.vm.dbg(`\t${this.length} frames`);
+        for (let i = 0; i < this.length; ++i) {
+            let frame = this[i];
+            this.vm.dbg(`\tframe #${i}:`);
+            this.vm.dbg(`\t\tlocalMap:`);
+            this.vm.dbg(`\t\t${frame.localMap}`);
+            this.vm.dbg(`\t\tisReturned: ${frame.isReturned}`);
+            this.vm.dbg(`\t\teturnedValue: ${frame.returnedValue}`);
+            this.vm.dbg(`\t\targs: ${frame.arguments}`);
+        }
+    }
 }
