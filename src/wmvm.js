@@ -351,6 +351,14 @@ class wmvm {
         }
         return out;
     }
+    memoryAccessInt8(ptr, signed) {
+        let view = new DataView(this.mem.buffer, ptr);
+        if (signed) {
+            return view.getInt8(0);
+        } else {
+            return view.getUint8(0);
+        }
+    }
     memoryAccessInt32(ptr, signed) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
