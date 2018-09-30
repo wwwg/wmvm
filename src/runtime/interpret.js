@@ -13,7 +13,7 @@ class ExpressionInterpreter {
     }
     interpret(expr) {
         let id = expr.id;
-        this.vm.dbg(`interpret: interpret(${id})`);
+        // this.vm.dbg(`interpret: interpret(${id})`);
         expr.vm = this.vm;
         expr.interpreter = this;
         if (this.controlFlow[id]) {
