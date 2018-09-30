@@ -129,6 +129,12 @@ controlFlow[Binaryen.BreakId] = ex => {
 controlFlow[Binaryen.ReturnId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
-    // todo: parse return expressions
+    vm.stack.currentFrame.isReturned = true;
+    if (ex.value) {
+        //
+    } else {
+        vm.dbg(`controlFlow/return: returning with no value`);
+        vm.stack.currentFrame.returnedValue = undefined;
+    }
 }
 module.exports = controlFlow;
