@@ -108,5 +108,6 @@ memio[Binaryen.LoadId] = ex => {
     if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
         vm.dbg("memio/load: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
     }
+    // todo : finish load expression interpreting
 }
 module.exports = memio;
