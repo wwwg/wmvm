@@ -1,6 +1,6 @@
 const Binaryen = require('binaryen');
 let memio = {};
-memio[Binaryen.GetLocalid] = ex => {
+memio[Binaryen.GetLocalId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
         frame = vm.stack.currentFrame,
