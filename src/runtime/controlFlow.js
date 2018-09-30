@@ -15,6 +15,14 @@ controlFlow[Binaryen.BlockId] = ex => {
         }
         res = ip.interpret(child);
     }
+    if (ex.isFnBody && !vm.stack.currentFrame.isReturned) {
+        // Allow the last expression to fall through
+        if (!res || (typeof res.value === 'undefined')) {
+            vm.dbg(`controlFlow/block: last expression can't fall through, ignore`);
+            return;
+        }
+        return res;
+    }
 }
 controlFlow[Binaryen.IfId] = ex => {
     let vm = ex.vm,
