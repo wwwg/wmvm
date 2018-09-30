@@ -7,11 +7,11 @@ ops[Binaryen.UnaryId] = ex => {
         res = ip.interpret(ex.value);
     if (!res) {
         vm.dbg("operations/unary: WARN: interpret result doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     if (typeof res.value === 'undefined') {
         vm.dbg("operations/unary: WARN: interpret result value doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     let opSource = res.value;
     switch (opId) {
@@ -95,19 +95,19 @@ ops[Binaryen.BinaryId] = ex => {
         resr = ip.interpret(ex.right);
     if (!resl) {
         vm.dbg("operations/binary: WARN: interpret(left) result doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     if (typeof resl.value === 'undefined') {
         vm.dbg("operations/binary: WARN: interpret(left) result value doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     if (!resr) {
         vm.dbg("operations/binary: WARN: interpret(right) result doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     if (typeof resr.value === 'undefined') {
         vm.dbg("operations/binary: WARN: interpret(right) result value doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     let out = 0,
         left = resl.value,
@@ -239,7 +239,7 @@ ops[Binaryen.BinaryId] = ex => {
             break;
         default:
             vm.dbg(`operations/binary: WARN: unknown binary op "${opId}", returning null`);
-            return null;
+            return;
     }
     vm.dbg(`\t=> ${out}`);
     return {

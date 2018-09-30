@@ -24,7 +24,7 @@ class ExpressionInterpreter {
             return this.memio[id](expr);
         } else {
             this.vm.dbg(`interpret: WARN: I don't know how to interpret expression with id ${expr.id}`);
-            return null;
+            return;
         }
     }
     call(fn, args = []) {

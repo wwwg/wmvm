@@ -19,7 +19,7 @@ controlFlow[Binaryen.IfId] = ex => {
     }
     if (typeof res.value === 'undefined') {
         vm.dbg("controlFlow/if: WARN: interpret result value doesn't exist! the value expression probably isnt supported.");
-        return null;
+        return;
     }
     // execute the actual conditional
     vm.dbg(`controlFlow/if: if(${res.value})`);
@@ -58,11 +58,11 @@ controlFlow[Binaryen.CallId] = ex => {
                 res = ip.interpret(operand);
             if (!res) {
                 vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", operand ${i} has no result`);
-                return null;
+                return;
             }
             if (typeof res.value === 'undefined') {
                 vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", operand ${i} has no value`);
-                return null;
+                return;
             }
             vm.dbg(`\t=> ${res.value}`);
             callArgs.push(res.value);
