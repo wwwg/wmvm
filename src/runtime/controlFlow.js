@@ -51,6 +51,23 @@ controlFlow[Binaryen.CallId] = ex => {
     if (!fn) {
         vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", symbol doesn't point to a function!`);
         return;
+    } else {
+        vm.dbg(`controlFlow/call: interpret operands:`);
+        let callArgs = [];
+        for (let i = 0; i < ex.operands.length; ++i) {
+            let operand = ex.operands[i], // is an expression
+                res = ip.interpret(operand);
+            if (!res) {
+                vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", operand ${i} has no result`);
+                return null;
+            }
+            if (typeof res.value === 'undefined') {
+                vm.dbg(`controlFlow/call: CRITICAL: call failed on "${ex.target}", operand ${i} has no value`);
+                return null;
+            }
+            vm.dbg(`\t=> ${res.value}`);
+            callArgs.push(res.value);
+        }
     }
 }
 module.exports = controlFlow;
