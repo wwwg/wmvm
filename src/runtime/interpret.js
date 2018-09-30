@@ -32,19 +32,38 @@ class ExpressionInterpreter {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
         }
-        this.vm.stack.pushFrame(fn, args);
-        this.interpret(fn.body);
-        // frame can now be disposed of
-        let returnValue;
-        if (this.vm.stack.currentFrame.returnedValue) {
-            returnValue = this.vm.stack.currentFrame.returnedValue;
+        if (!fn.isImport) {
+            this.vm.stack.pushFrame(fn, args);
+            this.interpret(fn.body);
+            // frame can now be disposed of
+            let returnValue;
+            if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
+                returnValue = this.vm.stack.currentFrame.returnedValue;
+            }
+            this.vm.stack.history.push(this.vm.stack.currentFrame);
+            this.vm.stack.popFrame(fn);
+            return {
+                type: fn.info.result,
+                value: returnValue
+            };
+        } else {
+            let importReturn;
+            this.vm.stack.pushFrame(fn, args);
+            if (fn.importFunction) {
+                // Call the imported javascript function
+                let importReturn = fn.importFunction.apply(this.vm, args);  
+            } else {
+                this.vm.dbg(`interpret/call: CRITICAL: I can't call a non-existent import! attempting to ignore...`);
+                return;
+            }
+            this.vm.stack.history.push(this.vm.stack.currentFrame);
+            this.vm.stack.popFrame(fn);
+            if (typeof importReturn !== 'undefined') {
+                return {
+                    value: importReturn
+                }
+            }
         }
-        this.vm.stack.history.push(this.vm.stack.currentFrame);
-        this.vm.stack.popFrame(fn);
-        return {
-            type: fn.info.result,
-            value: returnValue
-        };
     }
 }
 module.exports = ExpressionInterpreter;
