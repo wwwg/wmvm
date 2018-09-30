@@ -169,6 +169,8 @@ class wmvm {
         this.fnMap = {};
         // A map of all globals
         this.globals = {};
+        // Map of all loops - used for asynchronous breaking
+        this.loopMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = [];
         // Memory
