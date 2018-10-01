@@ -8,7 +8,8 @@ const Binaryen = require("binaryen"),
     getFnNames = require('./parse/getFnNames');
     MetaFunction = expression.MetaFunction;
 
-const INITIAL_MEMORY_SIZE = 10000;
+// 4 pages
+const INITIAL_MEMORY_SIZE = 64000 * 4;
 class wmvm {
     dbg(...args) {
         /*
