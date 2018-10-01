@@ -439,5 +439,24 @@ class wmvm {
         fn.hasBreakpoint = true;
         return this;
     }
+    // allows a breakpoint at a function or block - functions have priority
+    breakpoint(expressionName) {
+        let fn = this.lookupFunction(expressionName);
+        if (!fn) {
+            // attempt to lookup block with that name
+            if (this.blockMap[expressionName]) {
+                // block exists! break there
+                this.blockMap[expressionName].hasBreakpoint = true;
+                return this;
+            } else {
+                // no expression with that name exists
+                console.log(`wmvm: failed to set breakpoint at "${expressionName}" - expression doesn't exist. ignoring`);
+                return this;
+            }
+        } else {
+            this.setBreakpoint(expressionName);
+            return this;
+        }
+    }
 }
 module.exports = wmvm;
