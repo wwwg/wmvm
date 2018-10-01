@@ -383,7 +383,7 @@ class wmvm {
         // Print it
         console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes):`);
         let rawHex = buf.toString('hex'),
-            outHex = '<',
+            outHex = '< ',
             byteIndex = 0;
         for (let i = 0; i < rawHex.length; ++i) {
             ++byteIndex;
