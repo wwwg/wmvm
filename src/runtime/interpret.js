@@ -12,6 +12,7 @@ class ExpressionInterpreter {
         this.memio = memio;
     }
     interpret(expr) {
+        this.vm.ip = expr;
         if (this.vm.paused) {
             this.vm.dbg(`interpret: haulting execution: vm is paused`);
             return;
