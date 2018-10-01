@@ -193,6 +193,10 @@ class wmvm {
         this.blockMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = [];
+        // Whether or not the interpreter will execute the next instruction
+        this.paused = false;
+        // The expression currently being interpreted
+        this.ip = this.instructionPointer = null;
         // Memory
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
         this.memory = this.mem; // alias
