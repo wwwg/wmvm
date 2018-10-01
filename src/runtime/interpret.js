@@ -35,6 +35,7 @@ class ExpressionInterpreter {
                 this.vm.didEmitBreak = true;
                 this.vm.emit('breakpointHit', expr);
             }
+            this.haltedExpressions.push(expr);
             return;
         }
         let id = expr.id;
