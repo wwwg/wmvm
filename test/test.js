@@ -57,6 +57,7 @@ const wmvm = require('../src/wmvm.js'),
                     console.log(format);
                     console.log(`(argPtr: ${formatArg})`);
                     console.log(`(called as: _printf(${formatPtr}, ${ptr1}))`);
+                    this.dumpMemory(0, 10);
                     return 0;
                 }
                 let out = util.format(format, formatArg);

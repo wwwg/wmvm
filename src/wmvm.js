@@ -381,8 +381,21 @@ class wmvm {
             buf[i - ptr] = this.memory[i];
         }
         // Print it
-        console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes)`);
-        console.log(buf.toString('hex'));
+        console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes):`);
+        let rawHex = buf.toString('hex'),
+            outHex = '<',
+            byteIndex = 0;
+        for (let i = 0; i < rawHex.length; ++i) {
+            ++byteIndex;
+            let c = rawHex[i];
+            outHex += c;
+            if (byteIndex == 2) {
+                // Append space every 2 characters
+                outHex += ' ';
+            }
+        }
+        outHex += '>';
+        console.log(outHex);
     }
 }
 module.exports = wmvm;
