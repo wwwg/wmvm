@@ -431,9 +431,12 @@ class wmvm {
     }
     setBreakpoint(fnName) {
         let fn = this.lookupFunction(fnName);
-        if (!fn)
-            return;
+        if (!fn) {
+            console.log(`wmvm: failed to set breakpoint at "${fnName}" - function doesn't exist in vm's function map. ignoring`);
+            return this;
+        }
         fn.hasBreakpoint = true;
+        return this;
     }
 }
 module.exports = wmvm;
