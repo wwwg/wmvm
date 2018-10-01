@@ -216,7 +216,7 @@ class wmvm {
         this.enableDbg = true;
         return this;
     }
-    link(overrideMain) {
+    link() {
         this.dbg(`link: linking functions found in parsedFnNames...`);
         for (let i = 0; i < this.parsedFnNames.length; ++i) {
             let fnName = this.parsedFnNames[i];
@@ -230,8 +230,8 @@ class wmvm {
         if (this.fnMap['_main'] && this.fnMap['establishStackSpace'] && this.fnMap['setThrew']) {
             // we can assume this an Emscripten module
             this.isEmcc = true;
+            this._main = this.fnMap._main;
         }
-        this.fnMap._main = this._main;
         this.dbg(`link: Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
 
         // Setup global map
