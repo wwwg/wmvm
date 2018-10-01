@@ -392,6 +392,7 @@ class wmvm {
             if (byteIndex == 2) {
                 // Append space every 2 characters
                 outHex += ' ';
+                byteIndex = 0;
             }
         }
         outHex += '>';
