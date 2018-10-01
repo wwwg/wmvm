@@ -57,7 +57,7 @@ const wmvm = require('../src/wmvm.js'),
                     console.log(format);
                     console.log(`(argPtr: ${formatArg})`);
                     console.log(`(called as: _printf(${formatPtr}, ${ptr1}))`);
-                    this.dumpMemory(0, 10);
+                    this.dumpMemory(0, 30);
                     return 0;
                 }
                 let out = util.format(format, formatArg);
@@ -71,5 +71,5 @@ let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.addImports(imports)
     .enableDebug()
     .link();
-vm.dumpMemory(0x0, 20);
+vm.dumpMemory(0x0, 30);
 vm.run();
