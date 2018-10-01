@@ -373,5 +373,16 @@ class wmvm {
         let view = new DataView(this.mem.buffer, ptr);
         return view.getFloat64(0);
     }
+    // util methods for debugging
+    dumpMemory(ptr, totalBytes) {
+        // Write memory to a node Buffer
+        let buf = new Buffer(totalBytes);
+        for (let i = ptr; i < (ptr + totalBytes); ++i) {
+            buf[i - ptr] = this.memory[i];
+        }
+        // Print it
+        console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes)`);
+        console.log(buf.toString('hex'));
+    }
 }
 module.exports = wmvm;
