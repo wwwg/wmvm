@@ -60,6 +60,7 @@ class ExpressionInterpreter {
         this.interpret(this.vm.blockMap[blkName]);
     }
     call(fn, args = []) {
+        // todo : don't mutate stack if a breakpoint is hit
         if (!fn instanceof MetaFunction) {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
