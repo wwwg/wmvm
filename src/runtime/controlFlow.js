@@ -158,4 +158,9 @@ controlFlow[Binaryen.ReturnId] = ex => {
 controlFlow[Binaryen.NopId] = ex => {
     ex.vm.dbg('controlFlow/nop: nop!');
 }
+controlFlow[Binaryen.CallIndirectId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter;
+    vm.unimplemented(`call_indirect and tables aren't supported yet, ignoring call_indirect`);
+}
 module.exports = controlFlow;
