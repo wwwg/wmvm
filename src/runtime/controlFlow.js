@@ -161,7 +161,12 @@ controlFlow[Binaryen.NopId] = ex => {
 }
 controlFlow[Binaryen.SwitchId] = ex => {
     let vm = ex.vm,
-        ip = ex.interpreter;
+        ip = ex.interpreter,
+        res = ip.interpret(ex.value);
+    if (!res || typeof res.value === 'undefined') {
+        vm.dbg(`controlFlow/switch: WARN: switch value doesn't exist, ignore`);
+        return;
+    }
 }
 controlFlow[Binaryen.CallIndirectId] = ex => {
     let vm = ex.vm,
