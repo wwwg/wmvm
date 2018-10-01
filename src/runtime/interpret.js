@@ -31,8 +31,10 @@ class ExpressionInterpreter {
         }
         if (this.vm.paused) {
             this.vm.dbg(`interpret: haulting execution: vm is paused`);
-            this.vm.didEmitBreak = true;
-            this.vm.emit('breakpointHit', expr);
+            if (!this.vm.didEmitBreak) {
+                this.vm.didEmitBreak = true;
+                this.vm.emit('breakpointHit', expr);
+            }
             return;
         }
         let id = expr.id;
