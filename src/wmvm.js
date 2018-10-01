@@ -429,6 +429,10 @@ class wmvm extends EventEmitter {
         // Execution stopped on the instruction pointer, so the expression ip points to hasn't been executed yet
         let expr = this.ip;
         this.interpreter.interpret(expr);
+        // execution is halted in the middle of a function body, completeCall() makes sure the function is executed properly
+        if (this.interpreter.haltedCall) {
+            this.interpreter.completeCall();
+        }
         this.dbg(`resumeExecution: restarted interpreter`);
     }
     resume() { this.resumeExecution(); }

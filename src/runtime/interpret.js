@@ -73,6 +73,7 @@ class ExpressionInterpreter {
                 // todo : make sure this works
                 // execution was halted - don't mutate the stack!
                 this.vm.dbg(`interpret/call: detected pause, aborting to prevent stack mutation`);
+                this.haltedCall = true;
                 return;
             }
             // frame can now be disposed of
@@ -109,6 +110,22 @@ class ExpressionInterpreter {
                 }
             }
         }
+    }
+    // when the vm pauses during a call, it must be completed
+    completeCall() {
+        this.haltedCall = false;
+        let returnValue;
+        if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
+            returnValue = this.vm.stack.currentFrame.returnedValue;
+        } else if (fallthroughStatement) {
+            returnValue = fallthroughStatement;
+        }
+        this.vm.stack.history.push(this.vm.stack.currentFrame);
+        this.vm.stack.popFrame(fn);
+        return {
+            type: fn.info.result,
+            value: returnValue
+        };
     }
 }
 module.exports = ExpressionInterpreter;
