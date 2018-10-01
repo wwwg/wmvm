@@ -158,6 +158,10 @@ controlFlow[Binaryen.ReturnId] = ex => {
 controlFlow[Binaryen.NopId] = ex => {
     ex.vm.dbg('controlFlow/nop: nop!');
 }
+controlFlow[Binaryen.SwitchId] = ex => {
+    let vm = ex.vm,
+        ip = ex.interpreter;
+}
 controlFlow[Binaryen.CallIndirectId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter;
