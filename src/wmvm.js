@@ -421,5 +421,12 @@ class wmvm {
         this.dbg(`pauseExecution: paused flag set, waiting for interpreter.`);
         this.paused = true;
     }
+    resumeExecution() {
+        this.paused = false;
+        // Execution stopped on the instruction pointer, so the expression ip points to hasn't been executed yet
+        let expr = this.ip;
+        this.interpreter.interpret(expr);
+        this.dbg(`resumeExecution: restarted interpreter`);
+    }
 }
 module.exports = wmvm;
