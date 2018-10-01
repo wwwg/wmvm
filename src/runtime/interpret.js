@@ -10,6 +10,7 @@ class ExpressionInterpreter {
         this.controlFlow = controlFlow;
         this.operations = operations;
         this.memio = memio;
+        this.haltedExpressions = [];
     }
     interpret(expr) {
         if (!expr) {

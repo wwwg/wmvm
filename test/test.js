@@ -72,4 +72,8 @@ vm.addImports(imports)
     .enableDebug()
     .link()
     .breakpoint('_doubleValue')
-    .run();
+    .run()
+    .on('breakpointHit', obj => {
+        console.log('breakpoint hit on object');
+        this.resume();
+    });
