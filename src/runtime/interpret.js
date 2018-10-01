@@ -69,6 +69,12 @@ class ExpressionInterpreter {
             this.vm.stack.pushFrame(fn, args);
             fn.body.isFnBody = true;
             let fallthroughStatement = this.interpret(fn.body);
+            if (this.vm.paused) {
+                // todo : make sure this works
+                // execution was halted - don't mutate the stack!
+                this.vm.dbg(`interpret/call: detected pause, aborting to prevent stack mutation`);
+                return;
+            }
             // frame can now be disposed of
             let returnValue;
             if (typeof this.vm.stack.currentFrame.returnedValue !== 'undefined') {
