@@ -429,6 +429,7 @@ class wmvm {
         this.interpreter.interpret(expr);
         this.dbg(`resumeExecution: restarted interpreter`);
     }
+    resume() { this.resumeExecution(); }
     setBreakpoint(fnName) {
         let fn = this.lookupFunction(fnName);
         if (!fn) {
