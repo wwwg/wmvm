@@ -155,4 +155,7 @@ controlFlow[Binaryen.ReturnId] = ex => {
         vm.stack.currentFrame.returnedValue = undefined;
     }
 }
+controlFlow[Binaryen.NopId] = ex => {
+    ex.vm.dbg('controlFlow/nop: nop!');
+}
 module.exports = controlFlow;
