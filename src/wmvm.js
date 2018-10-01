@@ -24,6 +24,10 @@ class wmvm {
         console.log.apply(console, args);
        }
     }
+    unimplemented(...args) {
+        args.unshift('wmvm.unimplemented:');
+        console.log.apply(console,args);
+    }
     lookupFunction(symbol) {
         // Returns the MetaFunction the symbol points to, and locates imports if they exist
         if (this.fnMap[symbol]) {
