@@ -417,6 +417,7 @@ class wmvm {
         outAscii += '>';
         console.log(outAscii);
     }
+    // Control flow manipulation
     pauseExecution() {
         this.dbg(`pauseExecution: paused flag set, waiting for interpreter.`);
         this.paused = true;
@@ -427,6 +428,9 @@ class wmvm {
         let expr = this.ip;
         this.interpreter.interpret(expr);
         this.dbg(`resumeExecution: restarted interpreter`);
+    }
+    breakFunction(fnName) {
+        //
     }
 }
 module.exports = wmvm;
