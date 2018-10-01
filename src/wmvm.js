@@ -289,7 +289,14 @@ class wmvm {
         }
         // This module is an emscripten module - the stack needs to be initialized before _main() is called
         this.remoteCall('establishStackSpace', [0, 100000]);
-        this.interpreter.call(this._main);
+        // everything is ready (hopefully) - call main
+        this.mainReturnValue = null;
+        if (this.fnMap['_main']) {
+            this.mainReturnValue = this.remoteCall('_main');
+        } else {
+            throw new Error(`wmvm.run(): Module appears to be Emscripten-compiled but _main() doesn't exist!`);
+        }
+        return this;
     }
     remoteCall(fnName, args = []) {
         // call a wasm function from javascript, regardless of whether or not it's an export
