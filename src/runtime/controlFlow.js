@@ -167,6 +167,21 @@ controlFlow[Binaryen.SwitchId] = ex => {
         vm.dbg(`controlFlow/switch: WARN: switch value doesn't exist, ignore`);
         return;
     }
+    let index = res.value,
+        name;
+    if (ex.names[index]) {
+        // Jump to this name
+        name = ex.names[index];
+    } else {
+        // Jump to default name
+        name = ex.defaultName;
+    }
+    if (vm.blockMap[name]) {
+        vm.dbg(`controlFlow/switch: jmp to "${name}"`);
+        ip.jmp(name);
+    } else {
+        vm.dbg(`controlFlow/switch: can't jump to nonexistent block "${name}"`);
+    }
 }
 controlFlow[Binaryen.CallIndirectId] = ex => {
     let vm = ex.vm,
