@@ -70,10 +70,6 @@ const wmvm = require('../src/wmvm.js'),
 let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.addImports(imports)
     .enableDebug()
-    .link()
-    .breakpoint('_doubleValue')
-    .run()
-    .on('breakpointHit', obj => {
-        console.log('breakpoint hit on object');
-        this.resume();
-    });
+    .link();
+vm.dumpMemory(0x0, 20)
+    .run();
