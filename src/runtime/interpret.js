@@ -32,6 +32,13 @@ class ExpressionInterpreter {
             return;
         }
     }
+    jmp(blkName) {
+        if (!this.vm.blockMap[blkName]) {
+            this.vm.dbg(`interpret/jmp: can't jmp to block "${blkName}" - doesn't exist`);
+            return;
+        }
+        this.interpret(this.vm.blockMap[blkName]);
+    }
     call(fn, args = []) {
         if (!fn instanceof MetaFunction) {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
