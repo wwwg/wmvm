@@ -30,6 +30,8 @@ class ExpressionInterpreter {
         }
         if (this.vm.paused) {
             this.vm.dbg(`interpret: haulting execution: vm is paused`);
+            this.vm.didEmitBreak = true;
+            this.vm.emit('breakpointHit', expr);
             return;
         }
         let id = expr.id;
@@ -74,6 +76,10 @@ class ExpressionInterpreter {
                 // execution was halted - don't mutate the stack!
                 this.vm.dbg(`interpret/call: detected pause, aborting to prevent stack mutation`);
                 this.haltedCall = true;
+                if (!this.vm.didEmitBreak) {
+                    this.vm.didEmitBreak = true;
+                    this.vm.emit('breakpointHit', fn);
+                }
                 return;
             }
             // frame can now be disposed of

@@ -426,6 +426,7 @@ class wmvm extends EventEmitter {
     }
     resumeExecution() {
         this.paused = false;
+        this.didEmitBreak = false;
         // Execution stopped on the instruction pointer, so the expression ip points to hasn't been executed yet
         let expr = this.ip;
         this.interpreter.interpret(expr);
