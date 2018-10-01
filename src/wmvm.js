@@ -280,7 +280,9 @@ class wmvm {
         this.dbg(`link: Linking finished`);
         return this;
     }
-    runMain() {
+    // Run the wasm module
+    // NOTE: this method will only work if the module is Emscripten-compiled
+    run() {
         this.interpreter = new ExpressionInterpreter(this);
         if (this.isEmcc) {
             // This module is an emscripten module - the stack needs to be initialized before _main() is called
