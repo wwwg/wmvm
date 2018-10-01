@@ -11,7 +11,7 @@ const Binaryen = require("binaryen"),
 
 // 4 pages
 const INITIAL_MEMORY_SIZE = 64000 * 4;
-class wmvm {
+class wmvm extends EventEmitter {
     dbg(...args) {
         /*
         let arg1 = args[0];
@@ -144,6 +144,7 @@ class wmvm {
         return this;
     }
     constructor(data, type) {
+        super();
         this.enableDbg = false;
         if (!data) {
             throw new TypeError("Invalid arguents for wmvm constructor");
