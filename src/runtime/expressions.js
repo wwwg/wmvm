@@ -9,6 +9,7 @@ class MetaFunction {
             return;
         }
         this.exists = true;
+        this.hasBreakpoint = false; // execution will be halted if this flag is set
         this.module = vm.module;
         this.info = Binaryen.getFunctionInfo(this.fptr);
         this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
