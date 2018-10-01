@@ -12,6 +12,10 @@ class ExpressionInterpreter {
         this.memio = memio;
     }
     interpret(expr) {
+        if (!expr) {
+            this.vm.dbg(`interpret: expression doesn't exist, ignoring`);
+            return;
+        }
         this.vm.ip = expr;
         if (this.vm.paused) {
             this.vm.dbg(`interpret: haulting execution: vm is paused`);
