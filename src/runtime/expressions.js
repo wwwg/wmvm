@@ -46,7 +46,10 @@ let parse = (expr, vm) => {
         rexpr = expr;
     }
     // vm.dbg(rexpr);
-    // block
+    // blocks
+    if (expr.id === Binaryen.BlockId) {
+        vm.blockMap[expr.name] = expr;
+    }
     if (rexpr.children) {
         for (let i = 0; i < rexpr.children.length; ++i) {
             rexpr.children[i] = parse(rexpr.children[i], vm);
