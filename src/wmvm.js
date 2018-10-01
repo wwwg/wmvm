@@ -189,6 +189,8 @@ class wmvm {
         this.globals = {};
         // Map of all loops - used for asynchronous breaking
         this.loopMap = {};
+        // Map of all blocks - used for jump tables
+        this.blockMap = {};
         // A table of virtual imports for the binary to call
         this.virtualImports = [];
         // Memory
