@@ -53,6 +53,11 @@ class ExpressionInterpreter {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
         }
+        if (fn.hasBreakpoint) {
+            this.vm.dbg(`function breakpoint hit at "${fn.name}"`);
+            this.vm.paused = true;
+            return;
+        }
         if (!fn.isImport) {
             this.vm.stack.pushFrame(fn, args);
             fn.body.isFnBody = true;
