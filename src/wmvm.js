@@ -383,7 +383,7 @@ class wmvm {
         // Print it
         console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes):`);
         let rawHex = buf.toString('hex'),
-            outHex = '< ',
+            outHex = 'HEX: < ',
             byteIndex = 0;
         for (let i = 0; i < rawHex.length; ++i) {
             ++byteIndex;
@@ -397,6 +397,21 @@ class wmvm {
         }
         outHex += '>';
         console.log(outHex);
+        let outAscii = 'TXT: < ';
+        for (let i = ptr; i < (ptr + totalBytes); ++i) {
+            let byte = this.memory[i],
+                c = String.fromCharCode(byte);
+            if (byte === 0x0) {
+                outAscii += `\\0 `;
+            } else if (byte === 0xa) {
+                outAscii += `\\n `;
+            } else {
+                outAscii += c;
+                outAscii += '  ';
+            }
+        }
+        outAscii += '>';
+        console.log(outAscii);
     }
 }
 module.exports = wmvm;
