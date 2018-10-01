@@ -298,8 +298,8 @@ class wmvm {
         }
         return this;
     }
+    // call a wasm function from javascript, regardless of whether or not it's an export
     remoteCall(fnName, args = []) {
-        // call a wasm function from javascript, regardless of whether or not it's an export
         if (!this.interpreter) {
             // runMain() wasn't called - thats okay
             this.interpreter = new ExpressionInterpreter(this);
