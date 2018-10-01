@@ -71,5 +71,5 @@ let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.addImports(imports)
     .enableDebug()
     .link();
-vm.dumpMemory(0x0, 20)
-    .run();
+vm.dumpMemory(0x0, 20);
+vm.run();
