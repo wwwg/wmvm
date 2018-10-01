@@ -1,11 +1,12 @@
 const Binaryen = require("binaryen"),
     expression = require("./runtime/expressions"),
     getInitialMemory = require('./parse/getInitialMemory'),
-    Stack = require('./Stack');
+    Stack = require('./Stack'),
     ExpressionInterpreter = require('./runtime/interpret'),
+    EventEmitter = require('events'),
     getImports = require('./parse/parseImports'),
     getGlobals = require('./parse/parseGlobals'),
-    getFnNames = require('./parse/getFnNames');
+    getFnNames = require('./parse/getFnNames'),
     MetaFunction = expression.MetaFunction;
 
 // 4 pages
