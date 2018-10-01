@@ -220,11 +220,15 @@ class wmvm {
         this.dbg(`link: linking functions found in parsedFnNames...`);
         for (let i = 0; i < this.parsedFnNames.length; ++i) {
             let fnName = this.parsedFnNames[i];
-            this.fnMap[fnName] = new MetaFunction(this, fnName);
-            if (this.fnMap[fnName].exists) {
-                this.dbg(`link: find function "${fnName}"`);
+            if (!this.fnMap[fnName]) {
+                this.fnMap[fnName] = new MetaFunction(this, fnName);
+                if (this.fnMap[fnName].exists) {
+                    this.dbg(`link: find function "${fnName}"`);
+                } else {
+                    this.dbg(`link: WARN: failed to find function "${fnName}" despite it being in parsedFnNames`);
+                }
             } else {
-                this.dbg(`link: WARN: failed to find function "${fnName}" despite it being in parsedFnNames`);
+                this.dbg(`link: skipping function "${fnName}" - already exists`);
             }
         }
         if (this.fnMap['_main'] && this.fnMap['establishStackSpace'] && this.fnMap['setThrew']) {
