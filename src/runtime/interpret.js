@@ -12,6 +12,10 @@ class ExpressionInterpreter {
         this.memio = memio;
     }
     interpret(expr) {
+        if (this.vm.paused) {
+            this.vm.dbg(`interpret: haulting execution: vm is paused`);
+            return;
+        }
         let id = expr.id;
         // this.vm.dbg(`interpret: interpret(${id})`);
         expr.vm = this.vm;
