@@ -377,7 +377,7 @@ class wmvm {
         let view = new DataView(this.mem.buffer, ptr);
         return view.getFloat64(0);
     }
-    // util methods for debugging
+    // debugging methods
     dumpMemory(ptr, totalBytes) {
         // Write memory to a node Buffer
         let buf = new Buffer(totalBytes);
@@ -416,6 +416,10 @@ class wmvm {
         }
         outAscii += '>';
         console.log(outAscii);
+    }
+    pauseExecution() {
+        this.dbg(`pauseExecution: paused flag set, waiting for interpreter.`);
+        this.paused = true;
     }
 }
 module.exports = wmvm;
