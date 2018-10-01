@@ -17,6 +17,17 @@ class ExpressionInterpreter {
             return;
         }
         this.vm.ip = expr;
+        if (expr.hasBreakpoint) {
+            this.vm.dbg(`interpret: hit breakpoint on expression with id ${expr.id}, signaling for pause`);
+            this.vm.paused = true;
+        }
+        if (expr.id === Binaryen.CallId) {
+            let fn = this.vm.lookupFunction(expr.target);
+            if (fn.hasBreakpoint) {
+                this.vm.dbg(`interpret: breakpoint hit at call("${fn.name}"), signaling for pause`);
+                this.vm.paused = true;
+            }
+        }
         if (this.vm.paused) {
             this.vm.dbg(`interpret: haulting execution: vm is paused`);
             return;
@@ -52,11 +63,6 @@ class ExpressionInterpreter {
         if (!fn instanceof MetaFunction) {
             this.vm.dbg(`interpret: I can't interpret a function that isn't a function!`);
             return 0;
-        }
-        if (fn.hasBreakpoint) {
-            this.vm.dbg(`function breakpoint hit at "${fn.name}"`);
-            this.vm.paused = true;
-            return;
         }
         if (!fn.isImport) {
             this.vm.stack.pushFrame(fn, args);
