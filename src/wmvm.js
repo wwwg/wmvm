@@ -291,7 +291,7 @@ class wmvm {
         this.remoteCall('establishStackSpace', [0, 100000]);
         this.interpreter.call(this._main);
     }
-    remoteCall(fnName, args) {
+    remoteCall(fnName, args = []) {
         // call a wasm function from javascript, regardless of whether or not it's an export
         if (!this.interpreter) {
             // runMain() wasn't called - thats okay
