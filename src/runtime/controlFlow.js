@@ -4,7 +4,8 @@ controlFlow[Binaryen.BlockId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
         res;
-    // vm.dbg(`interpreting blk "${ex.name}"`);
+    // Add/update this block to the blockMap 
+    vm.blockMap[ex.name] = ex;
     // interpret children consecutively
     for (let i = 0; i < ex.children.length; ++i) {
         let child = ex.children[i];
