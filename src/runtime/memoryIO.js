@@ -156,7 +156,7 @@ memio[Binaryen.StoreId] = ex => {
         return;
     }
     // The actual offset for virtual linear memory is pointer + offset
-    let actualOffset = ex.offset + ptrRes.value,
+    let vmPtr = ptrRes.value,
         storeData = valueRes.value,
         view = new DataView(vm.mem.buffer, actualOffset, size);
     vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${actualOffset.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}" / raw ptr "${ptrRes.value}"`);
