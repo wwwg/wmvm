@@ -23,7 +23,7 @@ class wmvm extends EventEmitter {
         }
         */
        if (!args[0].includes('memio/store')) {
-           // return;
+           return;
        }
        args[0] = "wmvm.dbg:" + args[0];
        if (this.enableDbg) {
