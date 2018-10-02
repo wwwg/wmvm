@@ -113,27 +113,27 @@ memio[Binaryen.LoadId] = ex => {
     switch (size) {
         case 1:
             if (ex.isSigned) {
-                loadedBytes = view.getInt8(actualOffset);
+                loadedBytes = view.getInt8(actualOffset, true);
             } else {
-                loadedBytes = view.getUint8(actualOffset);
+                loadedBytes = view.getUint8(actualOffset, true);
             }
             break;
         case 2:
             if (ex.isSigned) {
-                loadedBytes = view.getInt16(actualOffset);
+                loadedBytes = view.getInt16(actualOffset, true);
             } else {
-                loadedBytes = view.getUint16(actualOffset);
+                loadedBytes = view.getUint16(actualOffset, true);
             }
             break;
         case 4:
             if (ex.isSigned) {
-                loadedBytes = view.getInt32(actualOffset);
+                loadedBytes = view.getInt32(actualOffset, true);
             } else {
-                loadedBytes = view.getUint32(actualOffset);
+                loadedBytes = view.getUint32(actualOffset, true);
             }
             break;
         case 8:
-            loadedBytes = view.getFloat64(actualOffset);
+            loadedBytes = view.getFloat64(actualOffset, true);
             break;
     }
     vm.dbg(`memio/load: loaded ${size} bytes from offset ${actualOffset}, loadedBytes: ${loadedBytes}`);
@@ -158,20 +158,20 @@ memio[Binaryen.StoreId] = ex => {
     // The actual offset for virtual linear memory is pointer + offset
     let vmPtr = ptrRes.value,
         storeData = valueRes.value,
-        view = new DataView(vm.mem.buffer, actualOffset, size);
-    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${actualOffset.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}" / raw ptr "${ptrRes.value}"`);
+        view = new DataView(vm.mem.buffer, vmPtr, size);
+    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${vmPtr.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}" / raw ptr "${ptrRes.value}"`);
     switch (size) {
         case 1:
-            view.setUint8(0, storeData);
+            view.setUint8(0, storeData, true);
             break;
         case 2:
-            view.setUint16(0, storeData);
+            view.setUint16(0, storeData, true);
             break;
         case 4:
-            view.setUint32(0, storeData);
+            view.setUint32(0, storeData, true);
             break;
         case 8:
-            view.setFloat64(0, storeData);
+            view.setFloat64(0, storeData, true);
             break;
     }
 }
