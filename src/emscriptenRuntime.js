@@ -35,6 +35,10 @@ module.exports = [
     },
     {
         // DYNAMICTOP_PTR
+        // dynamic area handled by sbrk
+        "module": "env",
+        "name": "DYNAMICTOP_PTR",
+        "value": 0x0
     },
     {
         // tempDoublePtr
