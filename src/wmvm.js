@@ -236,6 +236,12 @@ class wmvm extends EventEmitter {
         return this;
     }
     link() {
+        if (this.parsedFnNames.includes('_main') &&
+            this.parsedFnNames.includes('establishStackSpace') &&
+            this.parsedFnNames.includes('setThrew')) {
+                // we can assume this an Emscripten module
+                this.isEmcc = true;
+        }
         if (this.memPtrName) {
             // memptr is an import too
             this.parsedGlobals.push({
@@ -258,9 +264,7 @@ class wmvm extends EventEmitter {
                 this.dbg(`link: skipping function "${fnName}" - already exists`);
             }
         }
-        if (this.fnMap['_main'] && this.fnMap['establishStackSpace'] && this.fnMap['setThrew']) {
-            // we can assume this an Emscripten module
-            this.isEmcc = true;
+        if (this.fnMap['_main']) {
             this._main = this.fnMap._main;
         }
         this.dbg(`link: Discovered ${Object.keys(this.fnMap).length} functions required for runtime.`);
