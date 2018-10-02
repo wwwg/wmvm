@@ -13,6 +13,13 @@ module.exports = [
     },
     {
         // ABORT
+        "module": "env",
+        "name": "ABORT",
+        "value": function(abortValue) {
+            console.warn(`Emscripten runtime: ABORT() called:`);
+            console.warn(`ABORT(${abortValue})`);
+            this.pauseExecution();
+        }
     },
     {
         // NaN
