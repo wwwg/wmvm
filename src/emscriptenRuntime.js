@@ -40,6 +40,9 @@ const ABORT = function(code) {
     },
     {
         // tempDoublePtr
+        "module": "env",
+        "name": "tempDoublePtr",
+        "value": (1024 + 5504)
     },
     {
         // _printf
