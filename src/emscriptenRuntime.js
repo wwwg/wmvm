@@ -6,7 +6,28 @@ const ABORT = function(code) {
 }, abortStackOverflow = function(code) {
     console.warn(`Emscripten runtime: abortStackOverflow(${code}) called, something horrible has happened`);
     ABORT.apply(this, arguments);
-}, importTable = [
+}, printf = function(...args) {
+    // super basic printf for testing which you should never practically use
+    this.stack.printStackTrace();
+    let format = this.memoryAccessString(args[0]),
+        formatArg;
+    if (format.includes('%d')) {
+        formatArg = this.memoryAccessInt32(args[1], true);
+    } else if (format.includes('%s')) {
+        formatArg = this.memoryAccessString(args[1], true);
+    } else {
+        console.log("runtime: not printf-ing unknown format:");
+        console.log(format);
+        console.log(`(argPtr: ${formatArg})`);
+        console.log(`(called as: _printf(${args[0]}, ${args[1]}))`);
+        this.dumpMemory(0, 30);
+        return 0;
+    }
+    let out = util.format(format, formatArg);
+    process.stdout.write(out);
+    return 1;
+},
+importTable = [
     {
         // abortStackOverflow
         "module": "env",
