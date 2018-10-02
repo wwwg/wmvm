@@ -4,5 +4,5 @@ const wmvm = require('../src/wmvm.js'),
 let vm = new wmvm(fs.readFileSync('test/emcc.wasm'));
 vm.enableDebug()
     .link();
-vm.dumpMemory(0x0, 30);
+vm.dumpMemory(1024, 30);
 vm.run();

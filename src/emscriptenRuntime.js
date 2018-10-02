@@ -23,7 +23,7 @@ const ABORT = function(code) {
         console.log(format);
         console.log(`(argPtr: ${formatArg})`);
         console.log(`(called as: _printf(${args[0]}, ${args[1]}))`);
-        this.dumpMemory(0, 30);
+        this.dumpMemory(1024, 30);
         return 0;
     }
     let out = util.format(format, formatArg);
