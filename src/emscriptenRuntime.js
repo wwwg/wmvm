@@ -73,7 +73,11 @@ importTable = [
         "value": 1024
     },
     {
-        // _printf
+        // printf
+        // todo : write a real printf function
+        "module": "env",
+        "name": "_printf",
+        "value": printf
     }
 ];
 module.exports = importTable;
