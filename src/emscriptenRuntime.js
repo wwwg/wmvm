@@ -10,6 +10,7 @@ const ABORT = function(code) {
     console.warn(`Emscripten runtime: abortStackOverflow(${code}) called, something horrible has happened`);
     ABORT.apply(this, arguments);
 }, printf = function(...args) {
+    this.dumpMemory(1024, 30);
     // super basic printf for testing which you should never practically use
     this.stack.printStackTrace();
     let format = this.memoryAccessString(args[0]),
@@ -23,7 +24,7 @@ const ABORT = function(code) {
         console.log(format);
         console.log(`(argPtr: ${formatArg})`);
         console.log(`(called as: _printf(${args[0]}, ${args[1]}))`);
-        this.dumpMemory(1024, 30);
+        // this.dumpMemory(1024, 30);
         return 0;
     }
     let out = util.format(format, formatArg);
