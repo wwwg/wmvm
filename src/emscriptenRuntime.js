@@ -3,6 +3,13 @@
 module.exports = [
     {
         // abortStackOverflow
+        "module": "env",
+        "name": "abortStackOverflow",
+        "value": function(abortValue) {
+            console.warn(`Emscripten runtime: a stack overflow has occured`);
+            console.warn(`abort(${abortValue})`);
+            this.pauseExecution();
+        }
     },
     {
         // ABORT
