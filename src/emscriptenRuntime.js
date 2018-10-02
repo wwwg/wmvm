@@ -12,6 +12,7 @@ const ABORT = function(code) {
 }, printf = function(...args) {
     this.dumpMemory(1024, 30);
     // super basic printf for testing which you should never practically use
+    console.log(`called as: _printf(${args[0]}, ${args[1]}, ${args[2]})`);
     this.stack.printStackTrace();
     let format = this.memoryAccessString(args[0]),
         formatArg;
@@ -22,8 +23,6 @@ const ABORT = function(code) {
     } else {
         console.log("runtime: not printf-ing unknown format:");
         console.log(format);
-        console.log(`(argPtr: ${formatArg})`);
-        console.log(`(called as: _printf(${args[0]}, ${args[1]}))`);
         // this.dumpMemory(1024, 30);
         return 0;
     }
