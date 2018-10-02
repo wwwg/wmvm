@@ -12,7 +12,7 @@ const ABORT = function(code) {
 }, printf = function(...args) {
     this.dumpMemory(1024, 30);
     // super basic printf for testing which you should never practically use
-    console.log(`called as: _printf(${args[0]}, ${args[1]}, ${args[2]})`);
+    console.log(`called as: _printf(0x${(args[0]).toString(16)}, 0x${(args[1]).toString(16)})`);
     this.stack.printStackTrace();
     let format = this.memoryAccessString(args[0]),
         formatArg;
