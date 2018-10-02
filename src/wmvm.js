@@ -235,6 +235,14 @@ class wmvm extends EventEmitter {
         return this;
     }
     link() {
+        if (this.memPtrName) {
+            // memptr is an import too
+            this.parsedGlobals.push({
+                name: this.memPtrName,
+                isConst: false,
+                importName: this.memPtrName
+            });
+        }
         this.dbg(`link: linking functions found in parsedFnNames...`);
         for (let i = 0; i < this.parsedFnNames.length; ++i) {
             let fnName = this.parsedFnNames[i];
@@ -267,13 +275,12 @@ class wmvm extends EventEmitter {
                     value: global.value
                 }
             } else {
-                // static import
+                // import
                 let mappedParsedImport = null;
                 for (let i = 0; i < this.parsedImports.length; ++i) {
                     let parsedImport = this.parsedImports[i];
                     if (parsedImport.importedAs == '$' + global.importName) {
                         mappedParsedImport = parsedImport;
-                        break;
                     }
                 }
                 if (!mappedParsedImport) {
@@ -283,11 +290,7 @@ class wmvm extends EventEmitter {
                         iname = mappedParsedImport.name,
                         virtualImport = this.lookupVirtualImport(imodule, iname);
                     if (!virtualImport) {
-                        this.dbg(`link: WARN: link: failed to lookup variable import ${iname} for global ${global.name}, setting to NULL`);
-                        this.globals[global.name] = {
-                            type: 1,
-                            value: 0x0
-                        }
+                        this.dbg(`link: WARN: link: failed to lookup variable import ${iname} for global ${global.name}, bad things may happen!`);
                     } else {
                         this.dbg(`link: linked import ${iname} / module ${imodule} to global ${global.name}`);
                         this.globals[global.name] = {
