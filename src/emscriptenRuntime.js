@@ -1,25 +1,23 @@
 // A standalone runtime library for wasm binaries
 // All Emscripten-compiled libraries require Emscripten's runtime library to work, it's usually provided in the "glue" file Emscripten generates.
-module.exports = [
+const ABORT = function(code) {
+    console.warn(`ABORT(${abortValue})`);
+    this.pauseExecution();
+}, abortStackOverflow = function(code) {
+    console.warn(`Emscripten runtime: abortStackOverflow(${code}) called, something horrible has happened`);
+    ABORT.apply(this, arguments);
+}, importTable = [
     {
         // abortStackOverflow
         "module": "env",
         "name": "abortStackOverflow",
-        "value": function(abortValue) {
-            console.warn(`Emscripten runtime: a stack overflow has occured`);
-            console.warn(`abort(${abortValue})`);
-            this.pauseExecution();
-        }
+        "value": abortStackOverflow
     },
     {
         // ABORT
         "module": "env",
         "name": "ABORT",
-        "value": function(abortValue) {
-            console.warn(`Emscripten runtime: ABORT() called:`);
-            console.warn(`ABORT(${abortValue})`);
-            this.pauseExecution();
-        }
+        "value": ABORT
     },
     {
         // NaN
@@ -46,4 +44,5 @@ module.exports = [
     {
         // _printf
     }
-]
+];
+module.exports = importTable;
