@@ -13,7 +13,7 @@ memio[Binaryen.GetLocalId] = ex => {
         }
     } else {
         local.isGetLocal = true;
-        vm.dbg(`memio/get_local "${ex.index}"`);
+        vm.dbg(`memio/get_local "${ex.index}" => "${local.value}"`);
         return local;
     }
 }
@@ -21,7 +21,7 @@ memio[Binaryen.GetGlobalId] = ex => {
     let vm = ex.vm,
         globalName = ex.name;
     if (!(typeof vm.globals[globalName] === 'undefined')) {
-        vm.dbg(`memio/get_global "${globalName}"`);
+        vm.dbg(`memio/get_global "${globalName}" => "${vm.globals[globalName].value}"`);
         return {
             type: (vm.globals[globalName].type || 1),
             value: vm.globals[globalName].value
@@ -53,7 +53,7 @@ memio[Binaryen.SetLocalId] = ex => {
         frame.setLocal(ex.index, 0x0);
         return;
     }
-    vm.dbg(`memio/set_local: "${ex.index}" => ${res.value}`);
+    vm.dbg(`memio/set_local: local_${ex.index} = ${res.value}`);
     frame.setLocal(ex.index, res.value);
 }
 memio[Binaryen.SetGlobalId] = ex => {
@@ -67,7 +67,7 @@ memio[Binaryen.SetGlobalId] = ex => {
         return;
     } else {
         if (vm.globals[globalName]) {
-            vm.dbg(`memio/set_global: "${globalName}" => ${result.value}`);
+            vm.dbg(`memio/set_global: global_${globalName} = ${result.value}`);
             vm.globals[globalName].value = result.value;
         } else {
             vm.dbg(`interpret: WARN: set_global was called on "${globalName}", which doesn't exist. ignoring.`);
