@@ -159,7 +159,7 @@ memio[Binaryen.StoreId] = ex => {
     let actualOffset = ex.offset + ptrRes.value,
         storeData = valueRes.value,
         view = new DataView(vm.mem.buffer, actualOffset, size);
-    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${actualOffset.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}"`);
+    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${actualOffset.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}" / raw ptr "${ptrRes.value}"`);
     switch (size) {
         case 1:
             view.setUint8(0, storeData);
