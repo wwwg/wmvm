@@ -23,9 +23,15 @@ module.exports = [
     },
     {
         // NaN
+        "module": "global",
+        "name": "NaN",
+        "value": NaN
     },
     {
         // Infinity
+        "module": "global",
+        "name": "Infinity",
+        "value": Infinity
     },
     {
         // DYNAMICTOP_PTR
