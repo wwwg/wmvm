@@ -374,9 +374,9 @@ class wmvm extends EventEmitter {
     memoryAccessInt8(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
-            return view.getInt8(0);
+            return view.getInt8(0, true);
         } else {
-            return view.getUint8(0);
+            return view.getUint8(0, true);
         }
     }
     memoryAccessByte(ptr) {
@@ -385,18 +385,18 @@ class wmvm extends EventEmitter {
     memoryAccessInt32(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
-            return view.getInt32(0);
+            return view.getInt32(0, true);
         } else {
-            return view.getUint32(0);
+            return view.getUint32(0, true);
         }
     }
     memoryAccessFloat32(ptr) {
         let view = new DataView(this.mem.buffer, ptr);
-        return view.getFloat32(0);
+        return view.getFloat32(0, true);
     }
     memoryAccessFloat64(ptr) {
         let view = new DataView(this.mem.buffer, ptr);
-        return view.getFloat64(0);
+        return view.getFloat64(0, true);
     }
     // debugging methods
     dumpMemory(ptr, totalBytes) {
