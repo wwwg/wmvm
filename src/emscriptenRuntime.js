@@ -45,6 +45,13 @@ const ABORT = function(code) {
         "value": (1024 + 5504)
     },
     {
+        // memoryBase
+        // address where globals begin
+        "module": "env",
+        "name": "memoryBase",
+        "value": 1024
+    },
+    {
         // _printf
     }
 ];
