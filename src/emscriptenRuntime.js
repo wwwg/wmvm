@@ -1,5 +1,8 @@
 // A standalone runtime library for wasm binaries
 // All Emscripten-compiled libraries require Emscripten's runtime library to work, it's usually provided in the "glue" file Emscripten generates.
+const fs = require('fs'),
+    util = require('util');
+
 const ABORT = function(code) {
     console.warn(`ABORT(${abortValue})`);
     this.pauseExecution();
