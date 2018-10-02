@@ -216,7 +216,7 @@ class wmvm extends EventEmitter {
             this.memPtrName = initialMemoryData.ptr;
             for (let i = 0; i < initialMemoryData.mem.length; ++i) {
                 let byte = initialMemoryData.mem.charCodeAt(i);
-                this.mem[i] = byte;
+                this.mem[i + INITIAL_MEMORY_OFFSET] = byte;
             }
             this.dbg('construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
             /*
