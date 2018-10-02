@@ -240,7 +240,12 @@ class wmvm extends EventEmitter {
             this.parsedFnNames.includes('establishStackSpace') &&
             this.parsedFnNames.includes('setThrew')) {
                 // we can assume this an Emscripten module
+                this.dbg(`link: this is an Emscripten module`);
                 this.isEmcc = true;
+        }
+        if (this.isEmcc) {
+            this.dbg(`link: linking Emscripten runtime`);
+            this.addImports(emscriptenRuntime);
         }
         if (this.memPtrName) {
             // memptr is an import too
