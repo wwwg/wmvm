@@ -217,10 +217,12 @@ class wmvm extends EventEmitter {
                 this.mem[i] = byte;
             }
             this.dbg('construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
+            /*
             this.globals[this.memPtrName] = {
                 type: 1,
                 value: 0
             }
+            */
         }
         // stack
         this.stack = new Stack(this);
