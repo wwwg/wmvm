@@ -7,6 +7,7 @@ const Binaryen = require("binaryen"),
     getImports = require('./parse/parseImports'),
     getGlobals = require('./parse/parseGlobals'),
     getFnNames = require('./parse/getFnNames'),
+    emscriptenRuntime = require('./emscriptenRuntime'),
     MetaFunction = expression.MetaFunction;
 
 // 4 pages
