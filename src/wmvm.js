@@ -16,18 +16,18 @@ const INITIAL_MEMORY_SIZE = 64000 * 4,
     INITIAL_MEMORY_OFFSET = 1024;
 class wmvm extends EventEmitter {
     dbg(...args) {
-    let arg1 = args[0];
-    // Filter everything but critical information and warnings
-    if (arg1.includes('WARN') || arg1.includes('CRITICAL')) {
+        let arg1 = args[0];
+        // Filter everything but critical information and warnings
+        if (arg1.includes('WARN') || arg1.includes('CRITICAL')) {
+            console.log.apply(console, args);
+        }
+        if (!args[0].includes('memio/store')) {
+            // return;
+        }
+        args[0] = "wmvm.dbg:" + args[0];
+        if (this.enableDbg) {
         console.log.apply(console, args);
-    }
-    if (!args[0].includes('memio/store')) {
-        // return;
-    }
-    args[0] = "wmvm.dbg:" + args[0];
-    if (this.enableDbg) {
-    console.log.apply(console, args);
-    }
+        }
     }
     unimplemented(...args) {
         args.unshift('wmvm.unimplemented:');

@@ -11,6 +11,40 @@ const Binaryen = require("binaryen"),
     MetaFunction = expression.MetaFunction;
 
 class DynamicLinker {
+    dynamicLookup(symbol) {
+        let vm = this.vm;
+        // Returns the MetaFunction the symbol points to, and locates imports if they exist
+        if (vm.fnMap[symbol]) {
+            let fn = vm.fnMap[symbol];
+            if (fn.isImport) {
+                if (fn.virtualImport) {
+                    // function has a virtual import mapped to it, return it
+                    return fn;
+                } else {
+                    let mappedImport = vm.lookupVirtualImport(fn.importModule, fn.name);
+                    if (!mappedImport) {
+                        vm.dbg(`lookupFunction: CRITICAL: failed to resolve import function "${fn.name}"`);
+                        return null;
+                    }
+                    if (!mappedImport.isFn) {
+                        vm.dbg(`lookupFunction: looked up an import function that isn't a function: "${fn.name}"`);
+                        return null;
+                    }
+                    if (!fn.virtualImport) {
+                        vm.dbg(`lookupFunction: mapped new import function "${fn.name}" to it's respective import`);
+                        fn.virtualImport = mappedImport;
+                    }
+                    return fn;
+                }
+            } else {
+                vm.dbg(`lookupFunction: successfully resolved local function "${fn.name}"`);
+                return fn;
+            }
+        } else {
+            vm.dbg(`lookupFunction: CRITICAL: failed to resolve function from symbol "${symbol}"`);
+            return null;
+        }
+    }
     constructor(vm) {
         this.vm = vm;
     }
