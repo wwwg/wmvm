@@ -187,8 +187,13 @@ class wmvm extends EventEmitter {
         this.parsedGlobals = getGlobals(this.wast);
         this.parsedFnNames = getFnNames(this.wast);
 
-        // start doing vm things once input parsing is taken care of
         this.module.dbg = this.dbg.bind(this);
+
+        // start doing vm things once input parsing is taken care of
+
+        // Create a linker
+        this.linker = new Linker(this);
+
         // A map of all currently parsed functions
         this.fnMap = {};
         // A map of all globals
