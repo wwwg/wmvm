@@ -83,12 +83,12 @@ memio[Binaryen.ConstId] = ex => {
         return {
             value: ex.value
         };
-    } else if (ex.value.low) {
+    } else if (typeof ex.value.low !== 'undefined') {
         vm.dbg(`memio/const: low => ${ex.value.low}`);
         return {
             value: ex.value.low
         };
-    } else if (ex.value.high) {
+    } else if (typeof ex.value.high !== 'undefined') {
         vm.dbg(`memio/const: high => ${ex.value.high}`);
         return {
             value: ex.value.high
