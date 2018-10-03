@@ -70,6 +70,13 @@ importTable = [
         "value": 0x0
     },
     {
+        // STACK_MAX
+        // max size of the stack
+        "module": "env",
+        "name": "STACK_MAX",
+        "value": 5242880
+    },
+    {
         // tempDoublePtr
         "module": "env",
         "name": "tempDoublePtr",
