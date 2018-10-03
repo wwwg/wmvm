@@ -66,21 +66,7 @@ class wmvm extends EventEmitter {
         return this;
     }
     setImport(mod, name, value, type = null) {
-        for (let i = 0; i < this.virtualImports.length; ++i) {
-            let _import = this.virtualImports[i];
-            if (_import.name == name && _import.module == mod) {
-                if (_import.isFn) {
-                    _import.jsFunc = value;
-                } else {
-                    _import.value = value;
-                    if (type) {
-                        _import.type = type;
-                    }
-                }
-                return this;
-            }
-        }
-        this.dbg(`setImport: failed to update import "${name}" in "${mod}", ignoring`);
+        this.linker.updateImport(mod, name, value, type);
         return this;
     }
     constructor(data, type) {
