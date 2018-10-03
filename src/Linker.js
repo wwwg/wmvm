@@ -29,6 +29,18 @@ class DynamicLinker {
         vm.dbg(`addImportFunction: added import "${fnName}" in import module "${moduleName}"`);
         return;
     }
+    linkImportVariable(moduleName, name, value, type = null) {
+        let vm = this.vm,
+            virtualImport = {
+                module: moduleName,
+                name: name,
+                value: value,
+                type: type,
+                isFn: false
+            };
+        vm.virtualImports.push(virtualImport);
+        vm.dbg(`addImportVariable: added variable import "${name}" / module "${moduleName}", value: ${value}`);
+    }
     dynamicImportLookup(mod, name) {
         let vm = this;
         // Lookup a virtual import
