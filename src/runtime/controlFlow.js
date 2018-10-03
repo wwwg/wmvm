@@ -165,7 +165,7 @@ controlFlow[Binaryen.SwitchId] = ex => {
         res = ip.interpret(ex.value);
     if (!res || typeof res.value === 'undefined') {
         vm.dbg(`controlFlow/switch: WARN: switch value doesn't exist, ignore`);
-        vm.dbg(`controlFlow/switch: expression: ${ex.names.length} names / defaultName: "${ex.defaultName}"`);
+        vm.dbg(`controlFlow/switch: expression: ${ex.names.length} names / defaultName: "${ex.defaultName}" / value: ${res}`);
         return;
     }
     let index = res.value,
