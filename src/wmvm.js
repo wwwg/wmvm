@@ -241,7 +241,7 @@ class wmvm extends EventEmitter {
         return this;
     }
     link() {
-        // todo: add linker call
+        this.linker.linkVm();
         return this;
     }
     // Run the wasm module
