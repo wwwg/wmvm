@@ -162,7 +162,6 @@ controlFlow[Binaryen.NopId] = ex => {
     return {
         value: 0x0
     }
-    }
 }
 controlFlow[Binaryen.SwitchId] = ex => {
     let vm = ex.vm,
