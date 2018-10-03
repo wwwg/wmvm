@@ -186,7 +186,7 @@ controlFlow[Binaryen.SwitchId] = ex => {
         vm.dbg(`controlFlow/switch: jmp to "${name}"`);
         ip.jmp(name);
     } else {
-        vm.dbg(`controlFlow/switch: can't jump to nonexistent block "${name}"`);
+        vm.dbg(`controlFlow/switch: WARN: can't jump to nonexistent block "${name}"`);
     }
 }
 controlFlow[Binaryen.CallIndirectId] = ex => {
