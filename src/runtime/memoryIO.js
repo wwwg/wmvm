@@ -109,9 +109,9 @@ memio[Binaryen.LoadId] = ex => {
     if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
         vm.dbg("memio/load: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
     }
-    let actualOffset = ptrRes.value,
-        view = new DataView(vm.mem.buffer, actualOffset, size);
+    let actualOffset = ptrRes.value;
     vm.dbg(`memio/load: loading 0x${size.toString(16)} bytes from offset 0x${actualOffset.toString(16)} / isSigned: ${ex.isSigned}`);
+    let view = new DataView(vm.mem.buffer, actualOffset, size);
     switch (size) {
         case 1:
             if (ex.isSigned) {
