@@ -162,19 +162,14 @@ controlFlow[Binaryen.NopId] = ex => {
 controlFlow[Binaryen.SwitchId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
-        res = ip.interpret(ex.value);
-    vm.dbg('=== START SWITCH CONDITION PARSE ===');
-    let conditionRes;
-    if (ex.condition) {
+        valueRes = ip.interpret(ex.value),
         conditionRes = ip.interpret(ex.condition);
-    }
-    vm.dbg('=== END SWITCH CONDITION PARSE ===');
-    if (!res || typeof res.value === 'undefined') {
-        vm.dbg(`controlFlow/switch: WARN: switch value doesn't exist, ignore`);
-        vm.dbg(`controlFlow/switch: expression: ${ex.names.length} names / defaultName: "${ex.defaultName}" / value: ${res}`);
+    if (!conditionRes || typeof conditionRes.value === 'undefined') {
+        vm.dbg(`controlFlow/switch: WARN: switch condition doesn't exist, ignore`);
+        vm.dbg(`controlFlow/switch: expression: ${ex.names.length} names / defaultName: "${ex.defaultName}" / value: ${conditionRes}`);
         return;
     }
-    let index = res.value,
+    let index = conditionRes.value,
         name;
     if (ex.names[index]) {
         // Jump to this name
