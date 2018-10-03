@@ -97,14 +97,6 @@ let parse = (expr, vm) => {
         rexpr.target = parse(rexpr.target, vm);
         rexpr.target.parent = rexpr;
     }
-    if (rexpr.target && typeof rexpr.target === 'string') {
-        if (!vm.fnMap[rexpr.target]) {
-            vm.dbg('parse: Discovered function: "' + rexpr.target + '"');
-            vm.fnMap[rexpr.target] = new MetaFunction(vm, rexpr.target);
-        } else {
-            vm.dbg(`parse: Found already discovered function "${rexpr.target}"`);
-        }
-    }
     if (rexpr.value && typeof rexpr.value === 'number') {
         if (rexpr.id !== Binaryen.ConstId) {
             rexpr.value = parse(rexpr.value, vm);
