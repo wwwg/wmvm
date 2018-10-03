@@ -38,14 +38,8 @@ class wmvm extends EventEmitter {
         return this.linker.dynamicLookup(symbol);
     }
     lookupVirtualImport(mod, name) {
-        for (let i = 0; i < this.virtualImports.length; ++i) {
-            let _import = this.virtualImports[i];
-            if (_import.name == name && _import.module == mod) {
-                return _import;
-            }
-        }
-        this.dbg(`lookupVirtualImport: failed lookup import "${name}" in "${mod}"`);
-        return null;
+        // Returns the import pointed to by mod.name
+        return this.linker.dynamicImportLookup(mod, name);
     }
     addImportFunction(moduleName, fnName, fn) {
         // Static imports have to be added before the vm starts
