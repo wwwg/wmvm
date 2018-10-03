@@ -221,10 +221,13 @@ ops[Binaryen.BinaryId] = ex => {
             out = left << right;
             break;
         case Binaryen.ShrUInt32:
-        case Binaryen.ShrSInt32:
         case Binaryen.ShrUInt64:
+            vm.dbg(`operations/binary: zero_fill_right_shift(${left},${right})`);
+            out = left >>> right;
+            break;
+        case Binaryen.ShrSInt32:
         case Binaryen.ShrSInt64:
-            vm.dbg(`operations/binary: right_shift(${left},${right})`);
+            vm.dbg(`operations/binary: sign_propagating_right_shift(${left},${right})`);
             out = left >> right;
             break;
         case Binaryen.MinFloat32:
