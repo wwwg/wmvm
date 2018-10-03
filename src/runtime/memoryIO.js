@@ -114,27 +114,27 @@ memio[Binaryen.LoadId] = ex => {
     switch (size) {
         case 1:
             if (ex.isSigned) {
-                loadedBytes = view.getInt8(actualOffset, true);
+                loadedBytes = view.getInt8(0, true);
             } else {
-                loadedBytes = view.getUint8(actualOffset, true);
+                loadedBytes = view.getUint8(0, true);
             }
             break;
         case 2:
             if (ex.isSigned) {
-                loadedBytes = view.getInt16(actualOffset, true);
+                loadedBytes = view.getInt16(0, true);
             } else {
-                loadedBytes = view.getUint16(actualOffset, true);
+                loadedBytes = view.getUint16(0, true);
             }
             break;
         case 4:
             if (ex.isSigned) {
-                loadedBytes = view.getInt32(actualOffset, true);
+                loadedBytes = view.getInt32(0, true);
             } else {
-                loadedBytes = view.getUint32(actualOffset, true);
+                loadedBytes = view.getUint32(0, true);
             }
             break;
         case 8:
-            loadedBytes = view.getFloat64(actualOffset, true);
+            loadedBytes = view.getFloat64(0, true);
             break;
     }
     vm.dbg(`memio/load: loaded ${size} bytes from offset ${actualOffset}, loadedBytes: ${loadedBytes}`);
