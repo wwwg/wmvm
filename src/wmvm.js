@@ -12,9 +12,6 @@ const Binaryen = require("binaryen"),
     Linker = require('./Linker'),
     MetaFunction = expression.MetaFunction;
 
-// 4 pages
-const INITIAL_MEMORY_SIZE = 64000 * 4,
-    INITIAL_MEMORY_OFFSET = 1024;
 class wmvm extends EventEmitter {
     dbg(...args) {
         /*

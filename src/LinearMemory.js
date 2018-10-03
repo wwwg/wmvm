@@ -4,3 +4,6 @@ class LinearMemory extends Uint8Array {
         this.init = initializer;
     }
 }
+// 4 pages of memory by default
+LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;
+LinearMemory.INITIAL_MEMORY_OFFSET = 1024;
