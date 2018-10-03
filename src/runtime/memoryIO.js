@@ -95,6 +95,7 @@ memio[Binaryen.ConstId] = ex => {
         };
     } else {
         vm.dbg(`memio/const: WARN: unknown const value`);
+        vm.dbg(ex.value);
         return;
     }
 }
