@@ -12,9 +12,8 @@ class MetaFunction {
         this.hasBreakpoint = false; // execution will be halted if this flag is set
         this.module = vm.module;
         this.info = Binaryen.getFunctionInfo(this.fptr);
-        this.typeInfo = Binaryen.getFunctionTypeInfo(this.info.type);
-        this.returnType = this.typeInfo.result;
-        this.parameterTypes = this.typeInfo.params;
+        this.returnType = this.info.result;
+        this.parameterTypes = this.info.params;
         this.name = this.info.name;
         this.bodyptr = this.info.body;
         if (!this.bodyptr) {
