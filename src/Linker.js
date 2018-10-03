@@ -11,6 +11,18 @@ const Binaryen = require("binaryen"),
     MetaFunction = expression.MetaFunction;
 
 class DynamicLinker {
+    dynamicImportLookup(mod, name) {
+        let vm = this;
+        // Lookup a virtual import
+        for (let i = 0; i < vm.virtualImports.length; ++i) {
+            let _import = vm.virtualImports[i];
+            if (_import.name == name && _import.module == mod) {
+                return _import;
+            }
+        }
+        vm.dbg(`lookupVirtualImport: failed lookup import "${name}" in "${mod}"`);
+        return null;
+    }
     dynamicLookup(symbol) {
         let vm = this.vm;
         // Returns the MetaFunction the symbol points to, and locates imports if they exist
