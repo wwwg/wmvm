@@ -63,7 +63,7 @@ class wmvm extends EventEmitter {
                 return fn;
             }
         } else {
-            this.dbg(`lookupFunction: CRITICAL: failed to resolve function "${fn.name}"`);
+            this.dbg(`lookupFunction: CRITICAL: failed to resolve function from symbol "${symbol}"`);
             return null;
         }
     }
