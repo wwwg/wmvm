@@ -111,6 +111,7 @@ memio[Binaryen.LoadId] = ex => {
     }
     let actualOffset = ptrRes.value,
         view = new DataView(vm.mem.buffer, actualOffset, size);
+    vm.dbg(`memio/load: loading 0x${size.toString(16)} bytes from offset 0x${actualOffset.toString(16)} / isSigned: ${ex.isSigned}`);
     switch (size) {
         case 1:
             if (ex.isSigned) {
@@ -137,7 +138,7 @@ memio[Binaryen.LoadId] = ex => {
             loadedBytes = view.getFloat64(0, true);
             break;
     }
-    vm.dbg(`memio/load: loaded ${size} bytes from offset ${actualOffset}, loadedBytes: ${loadedBytes}`);
+    vm.dbg(`memio/load: loaded 0x${loadedBytes.toString(16)} from pointer 0x${actualOffset.toString(16)}`);
     return {
         value: loadedBytes
     }
