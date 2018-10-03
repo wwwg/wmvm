@@ -237,12 +237,14 @@ class wmvm extends EventEmitter {
         return this;
     }
     link() {
-        if (this.parsedFnNames.includes('_main') &&
-            this.parsedFnNames.includes('establishStackSpace') &&
-            this.parsedFnNames.includes('setThrew')) {
+        for (let i = 0; i < this.parsedImports.length; ++i) {
+            let _import = this.parsedImports[i];
+            if (_import.module && _import.module === 'env') {
                 // we can assume this an Emscripten module
-                this.dbg(`link: this is an Emscripten module`);
+                this.dbg(`link: this is (probably) an Emscripten module`);
                 this.isEmcc = true;
+                break;
+            }
         }
         if (this.isEmcc) {
             this.dbg(`link: linking Emscripten runtime`);
