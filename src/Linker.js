@@ -14,7 +14,7 @@ class DynamicLinker {
     constructor(vm) {
         this.vm = vm;
     }
-    vmLink() {
+    linkVm() {
         let vm = this.vm;
         for (let i = 0; i < vm.parsedImports.length; ++i) {
             let _import = vm.parsedImports[i];
