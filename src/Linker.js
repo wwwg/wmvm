@@ -58,7 +58,7 @@ class DynamicLinker {
         vm.dbg(`addImportVariable: added variable import "${name}" / module "${moduleName}", value: ${value}`);
     }
     dynamicImportLookup(mod, name) {
-        let vm = this;
+        let vm = this.vm;
         // Lookup a virtual import
         for (let i = 0; i < vm.virtualImports.length; ++i) {
             let _import = vm.virtualImports[i];
