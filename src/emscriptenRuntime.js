@@ -63,6 +63,13 @@ importTable = [
         "value": 0x0
     },
     {
+        // STACKTOP
+        // pointer to the top of the stack
+        "module": "env",
+        "name": "STACKTOP",
+        "value": 0x0
+    },
+    {
         // tempDoublePtr
         "module": "env",
         "name": "tempDoublePtr",
