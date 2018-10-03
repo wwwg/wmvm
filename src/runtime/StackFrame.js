@@ -18,7 +18,7 @@ module.exports = class DynamicStackFrame {
         this.arguments = args;
         if (!fn.isImport) {
             // map of local names to their values
-            this.localMap = {};
+            this.localMap = [];
             let localCount = fn.info.vars.length + fn.info.params.length,
                 vars = fn.info.vars,
                 params = fn.info.params;
