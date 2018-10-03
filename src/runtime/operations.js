@@ -117,50 +117,50 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.AddInt64:
         case Binaryen.AddFloat32:
         case Binaryen.AddFloat64:
-            vm.dbg("operations/binary: add(l,r)");
+            vm.dbg(`operations/binary: add(${left},${right})`);
             out = left + right;
             break;
         case Binaryen.SubInt32:
         case Binaryen.SubInt64:
         case Binaryen.SubFloat32:
         case Binaryen.SubFloat64:
-            vm.dbg("operations/binary: sub(l,r)");
+            vm.dbg(`operations/binary: sub(${left},${right})`);
             out = left - right;
             break;
         case Binaryen.XorInt64:
         case Binaryen.XorInt32:
-            vm.dbg("operations/binary: xor(l,r)");
+            vm.dbg(`operations/binary: xor(${left},${right})`);
             out = left ^ right;
             break;
         case Binaryen.OrInt64:
         case Binaryen.OrInt32:
-            vm.dbg("operations/binary: or(l,r)");
+            vm.dbg(`operations/binary: or(${left},${right})`);
             out = left || right;
             break;
         case Binaryen.MulInt32:
         case Binaryen.MulInt64:
         case Binaryen.MulFloat32:
         case Binaryen.MulFloat64:
-            vm.dbg("operations/binary: mul(l,r)");
+            vm.dbg(`operations/binary: mul(${left},${right})`);
             out = left * right;
             break;
         case Binaryen.EqInt32:
         case Binaryen.EqInt64:
         case Binaryen.EqFloat32:
         case Binaryen.EqFloat64:
-            vm.dbg("operations/binary: (l == r)");
+            vm.dbg(`operations/binary: eq(${left},${right})`);
             out = left == right;
             break;
         case Binaryen.NeInt32:
         case Binaryen.NeInt64:
         case Binaryen.NeFloat32:
         case Binaryen.NeFloat64:
-            vm.dbg("operations/binary: (l != r)");
+            vm.dbg(`operations/binary: neq(${left},${right})`);
             out = left != right;
             break;
         case Binaryen.AndInt32:
         case Binaryen.AndInt64:
-            vm.dbg("operations/binary: (l && r)");
+            vm.dbg(`operations/binary: AND(${left},${right})`);
             out = left && right;
             break;
         case Binaryen.LeSInt64:
@@ -169,7 +169,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.LeFloat32:
         case Binaryen.LeFloat64:
         case Binaryen.LeUInt64:
-            vm.dbg("operations/binary: (l <= r)");
+            vm.dbg(`operations/binary: less_than_eq_to(${left},${right})`);
             out = left <= right;
             break;
         case Binaryen.LtUInt32:
@@ -177,7 +177,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.LtSInt64:
         case Binaryen.LtFloat32:
         case Binaryen.LtFloat64:
-            vm.dbg("operations/binary: (l < r)");
+            vm.dbg(`operations/binary: less_than(${left},${right})`);
             out = left < right;
             break;
         case Binaryen.DivSInt32:
@@ -186,7 +186,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.DivUInt64:
         case Binaryen.DivFloat32:
         case Binaryen.DivFloat64:
-            vm.dbg("operations/binary: div(l,r)");
+            vm.dbg(`operations/binary: div(${left},${right})`);
             out = left / right;
             break;
         case Binaryen.GtSInt64:
@@ -196,7 +196,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.GtSInt32:
         case Binaryen.GtUInt32:
         case Binaryen.LtUInt64:
-            vm.dbg("operations/binary: (l > r)");
+            vm.dbg(`operations/binary: greater_than(${left},${right})`);
             out = left > right;
             break;
         case Binaryen.GeSInt64:
@@ -205,36 +205,36 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.GeFloat32:
         case Binaryen.GeUInt32:
         case Binaryen.GeUInt64:
-            vm.dbg("operations/binary: (l >= r)");
+            vm.dbg(`operations/binary: greater_than_eq_to(${left},${right})`);
             out = left >= right;
             break;
         case Binaryen.RemSInt64:
         case Binaryen.RemUInt64:
         case Binaryen.RemSInt32:
         case Binaryen.RemUInt32:
-            vm.dbg("operations/binary: (l % r)");
+            vm.dbg(`operations/binary: mod(${left},${right})`);
             out = left % right;
             break;
         case Binaryen.ShlInt32:
         case Binaryen.ShlInt64:
-            vm.dbg("operations/binary: (l << r)");
+            vm.dbg(`operations/binary: left_shift(${left},${right})`);
             out = left << right;
             break;
         case Binaryen.ShrUInt32:
         case Binaryen.ShrSInt32:
         case Binaryen.ShrUInt64:
         case Binaryen.ShrSInt64:
-            vm.dbg("operations/binary: (l >> r)");
+            vm.dbg(`operations/binary: right_shift(${left},${right})`);
             out = left >> right;
             break;
         case Binaryen.MinFloat32:
         case Binaryen.MinFloat64:
-            vm.dbg("operations/binary: min(l,r)");
+            vm.dbg(`operations/binary: min(${left},${right})`);
             out = Math.min(left, right);
             break;
         case Binaryen.MaxFloat32:
         case Binaryen.MaxFloat64:
-            vm.dbg("operations/binary: min(l,r)");
+            vm.dbg(`operations/binary: max(${left},${right})`);
             out = Math.max(left, right);
             break;
         default:
