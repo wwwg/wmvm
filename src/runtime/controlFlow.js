@@ -175,6 +175,8 @@ controlFlow[Binaryen.SwitchId] = ex => {
     }
     let index = topmostStackVar.value,
         name;
+    console.log(valueRes);
+    console.log(conditionRes);
     if (ex.names[index]) {
         // Jump to this name
         name = ex.names[index];
