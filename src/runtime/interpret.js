@@ -24,6 +24,9 @@ class ExpressionInterpreter {
         }
         if (expr.id === Binaryen.CallId) {
             let fn = this.vm.lookupFunction(expr.target);
+            if (!fn) {
+                return;
+            }
             if (fn.hasBreakpoint) {
                 this.vm.dbg(`interpret: breakpoint hit at call("${fn.name}"), signaling for pause`);
                 this.vm.paused = true;
