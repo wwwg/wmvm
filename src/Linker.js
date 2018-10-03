@@ -11,6 +11,22 @@ const Binaryen = require("binaryen"),
     MetaFunction = expression.MetaFunction;
 
 class DynamicLinker {
+    updateImport(mod, name, value, type) {
+        for (let i = 0; i < this.vm.virtualImports.length; ++i) {
+            let _import = this.vm.virtualImports[i];
+            if (_import.name == name && _import.module == mod) {
+                if (_import.isFn) {
+                    _import.jsFunc = value;
+                } else {
+                    _import.value = value;
+                    if (type) {
+                        _import.type = type;
+                    }
+                }
+            }
+        }
+        this.vm.dbg(`setImport: failed to update import "${name}" in "${mod}", ignoring`);
+    }
     linkImportFunction(moduleName, fnName, fn) {
         let vm = this.vm;
         // Static imports have to be added before the vm starts
