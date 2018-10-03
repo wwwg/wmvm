@@ -158,6 +158,11 @@ controlFlow[Binaryen.ReturnId] = ex => {
 }
 controlFlow[Binaryen.NopId] = ex => {
     ex.vm.dbg('controlFlow/nop: nop!');
+    // nops have a 0 value
+    return {
+        value: 0x0
+    }
+    }
 }
 controlFlow[Binaryen.SwitchId] = ex => {
     let vm = ex.vm,
