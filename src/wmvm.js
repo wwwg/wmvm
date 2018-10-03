@@ -8,6 +8,7 @@ const Binaryen = require("binaryen"),
     getGlobals = require('./parse/parseGlobals'),
     getFnNames = require('./parse/getFnNames'),
     emscriptenRuntime = require('./emscriptenRuntime'),
+    LinearMemory = require('./LinearMemory'),
     Linker = require('./Linker'),
     MetaFunction = expression.MetaFunction;
 
