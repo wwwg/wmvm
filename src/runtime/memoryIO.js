@@ -156,11 +156,10 @@ memio[Binaryen.StoreId] = ex => {
         vm.dbg("memio/store: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
         return;
     }
-    // The actual offset for virtual linear memory is pointer + offset
     let vmPtr = ptrRes.value,
         storeData = valueRes.value,
         view = new DataView(vm.mem.buffer, vmPtr, size);
-    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${vmPtr.toString(16)} / data: "0x${storeData.toString(16)}" / align "${ex.align}" / raw ptr "${ptrRes.value}"`);
+    vm.dbg(`memio/store: storing ${size} bytes at virtual memory offset 0x${vmPtr.toString(16)} / data 0x${storeData.toString(16)} / align ${ex.align} / raw ptr 0x${ptrRes.value.toString(16)}`);
     switch (size) {
         case 1:
             view.setUint8(0, storeData, true);
