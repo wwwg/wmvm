@@ -1,3 +1,15 @@
+const Binaryen = require("binaryen"),
+    expression = require("./runtime/expressions"),
+    getInitialMemory = require('./parse/getInitialMemory'),
+    Stack = require('./Stack'),
+    ExpressionInterpreter = require('./runtime/interpret'),
+    EventEmitter = require('events'),
+    getImports = require('./parse/parseImports'),
+    getGlobals = require('./parse/parseGlobals'),
+    getFnNames = require('./parse/getFnNames'),
+    emscriptenRuntime = require('./emscriptenRuntime'),
+    MetaFunction = expression.MetaFunction;
+
 class DynamicLinker {
     constructor(vm) {
         this.vm = vm;
