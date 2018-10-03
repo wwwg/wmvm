@@ -135,7 +135,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.OrInt64:
         case Binaryen.OrInt32:
             vm.dbg(`operations/binary: or(${left},${right})`);
-            out = left || right;
+            out = left | right;
             break;
         case Binaryen.MulInt32:
         case Binaryen.MulInt64:
@@ -161,7 +161,7 @@ ops[Binaryen.BinaryId] = ex => {
         case Binaryen.AndInt32:
         case Binaryen.AndInt64:
             vm.dbg(`operations/binary: AND(${left},${right})`);
-            out = left && right;
+            out = left & right;
             break;
         case Binaryen.LeSInt64:
         case Binaryen.LeSInt32:
