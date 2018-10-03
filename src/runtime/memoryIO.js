@@ -13,7 +13,7 @@ memio[Binaryen.GetLocalId] = ex => {
         }
     } else {
         local.isGetLocal = true;
-        vm.dbg(`memio/get_local "${ex.index}" => "${local.value}"`);
+        vm.dbg(`memio/get_local local_${ex.index} is ${local.value}`);
         return local;
     }
 }
@@ -21,7 +21,7 @@ memio[Binaryen.GetGlobalId] = ex => {
     let vm = ex.vm,
         globalName = ex.name;
     if (!(typeof vm.globals[globalName] === 'undefined')) {
-        vm.dbg(`memio/get_global "${globalName}" => "${vm.globals[globalName].value}"`);
+        vm.dbg(`memio/get_global global_${globalName} is ${vm.globals[globalName].value}`);
         return {
             type: (vm.globals[globalName].type || 1),
             value: vm.globals[globalName].value
