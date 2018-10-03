@@ -43,9 +43,9 @@ class wmvm extends EventEmitter {
     }
     addImport(moduleName, name, value, type = null) {
         if (value instanceof Function) {
-            this.addImportFunction(moduleName, name, value);
+            this.linker.linkImportFunction(moduleName, name, value);
         } else {
-            this.addImportVariable(moduleName, name, value, type);
+            this.linker.linkImportVariable(moduleName, name, value, type);
         }
         return this;
     }
