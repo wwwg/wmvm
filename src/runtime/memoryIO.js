@@ -109,7 +109,7 @@ memio[Binaryen.LoadId] = ex => {
     if (!ptrRes || (typeof ptrRes.value === 'undefined')) {
         vm.dbg("memio/load: WARN: interpret result doesn't exist! the value expression probably isnt supported, setting to NULL");
     }
-    let actualOffset = ptrRes + offset,
+    let actualOffset = ptrRes.value,
         view = new DataView(vm.mem.buffer, actualOffset, size);
     switch (size) {
         case 1:
