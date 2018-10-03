@@ -41,18 +41,6 @@ class wmvm extends EventEmitter {
         // Returns the import pointed to by mod.name
         return this.linker.dynamicImportLookup(mod, name);
     }
-    addImportVariable(moduleName, name, value, type = null) {
-        let virtualImport = {
-            module: moduleName,
-            name: name,
-            value: value,
-            type: type,
-            isFn: false
-        }
-        this.virtualImports.push(virtualImport);
-        this.dbg(`addImportVariable: added variable import "${name}" / module "${moduleName}", value: ${value}`);
-        return this;
-    }
     addImport(moduleName, name, value, type = null) {
         if (value instanceof Function) {
             this.addImportFunction(moduleName, name, value);
