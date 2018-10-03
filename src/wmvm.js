@@ -208,7 +208,7 @@ class wmvm extends EventEmitter {
         this.paused = false;
         // The expression currently being interpreted
         this.ip = this.instructionPointer = null;
-        // Memory
+        // Wasm linear memory
         this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
         this.memory = this.mem; // alias
         this.memPtrName = null;
