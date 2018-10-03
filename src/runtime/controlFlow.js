@@ -167,13 +167,13 @@ controlFlow[Binaryen.SwitchId] = ex => {
     let vm = ex.vm,
         ip = ex.interpreter,
         valueRes = ip.interpret(ex.value),
-        conditionRes = ip.interpret(ex.condition);
-    if (!conditionRes || typeof conditionRes.value === 'undefined') {
-        vm.dbg(`controlFlow/switch: WARN: switch condition doesn't exist, ignore`);
-        vm.dbg(`controlFlow/switch: expression: ${ex.names.length} names / defaultName: "${ex.defaultName}" / value: ${conditionRes}`);
+        conditionRes = ip.interpret(ex.condition),
+        topmostStackVar = vm.stack.currentFrame.localMap[(vm.stack.currentFrame.localMap.length - 1)];
+    if (!topmostStackVar || typeof topmostStackVar.value === 'undefined') {
+        vm.dbg(`controlFlow/switch: WARN: topmost stack variable doesn't exist! attempting to ignore.`);
         return;
     }
-    let index = conditionRes.value,
+    let index = topmostStackVar.value,
         name;
     if (ex.names[index]) {
         // Jump to this name
