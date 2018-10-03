@@ -11,6 +11,24 @@ const Binaryen = require("binaryen"),
     MetaFunction = expression.MetaFunction;
 
 class DynamicLinker {
+    linkImportFunction(moduleName, fnName, fn) {
+        let vm = this.vm;
+        // Static imports have to be added before the vm starts
+        if (!fn instanceof Function) {
+            vm.dbg(`addImportFunction: failed to add import "${fnName}" - fn isn't a function`);
+            return;
+        }
+        fn = fn.bind(vm);
+        let virtualImport = {
+            module: moduleName,
+            name: fnName,
+            isFn: true,
+            jsFunc: fn
+        }
+        vm.virtualImports.push(virtualImport);
+        vm.dbg(`addImportFunction: added import "${fnName}" in import module "${moduleName}"`);
+        return;
+    }
     dynamicImportLookup(mod, name) {
         let vm = this;
         // Lookup a virtual import
