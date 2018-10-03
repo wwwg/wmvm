@@ -202,6 +202,29 @@ class wmvm extends EventEmitter {
             this.dbg(`wmvm/remoteCall: "${fnName}" doesn't exist - ignoring`);
         }
     }
+    // Bind a wasm function to a javascript function
+    bindCall(fnName) {
+        if (!this.interpreter) {
+            // runMain() wasn't called - thats okay
+            this.interpreter = new ExpressionInterpreter(this);
+        }
+        let fn,
+            vm = this;
+        if (this.fnMap[fnName]) {
+            fn = this.fnMap[fnName];
+        } else {
+            this.dbg(`wmvm/bindCall: "${fnName}" doesn't exist - ignoring`);
+        }
+        return (function() {
+            let args = Array.from(arguments),
+                result = this.interpreter.call(fn, args);
+            if (result && result.value) {
+                return result.value;
+            } else {
+                return null;
+            }
+        });
+    }
     // helper functions for managing memory (very useful for imports)
     memoryAccessString(ptr) {
         // Gets a string from virtual memory and returns as a js string
