@@ -1,3 +1,10 @@
+// hexdump isn't mandatory, but try to require() it
+let hexdump;
+try {
+    hexdump = require('hexdump-nodejs');
+} catch(e) {
+    hexdump = null;
+}
 class LinearMemory extends Uint8Array {
     constructor(vm, initializer) {
         super(LinearMemory.INITIAL_MEMORY_SIZE);
