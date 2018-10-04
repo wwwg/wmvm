@@ -4,5 +4,8 @@
     "dependencies": {
         "binaryen": "*",
         "@webassemblyjs/wast-parser": "*"
+    },
+    "devDependencies": {
+        "hexdump-nodejs": "*"
     }
 }
