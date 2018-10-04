@@ -6,16 +6,16 @@ try {
     hexdump = null;
 }
 class LinearMemory extends Uint8Array {
-    constructor(vm, initializerString = '', offset) {
+    constructor(vm, offset) {
         super(LinearMemory.INITIAL_MEMORY_SIZE);
         if (offset === null || typeof offset === 'undefined') {
             vm.dbg('LinearMemory/construct: WARN: linear memory offset doesn\'t exist, aborting');
             return;
         }
         this.vm = vm;
-        this.initString = initializerString;
-        for (let i = 0; i < initializerString.length; ++i) {
-            let byte = initializerString.charCodeAt(i);
+        this.initString = vm.initialMemoryData.mem;
+        for (let i = 0; i < this.initString.length; ++i) {
+            let byte = this.initString.charCodeAt(i);
             this[offset + i] = byte;
         }
         vm.dbg('LinearMemory/construct: Sucessfully set initial memory');

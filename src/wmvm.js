@@ -161,7 +161,7 @@ class wmvm extends EventEmitter {
             let offsetGlobal = this.getGlobal(this.memPtrName);
             if (!offsetGlobal) {
                 this.dbg(`intializeMemory: WARN: memory offset global/import doesnt seem to exist, using 0x0`);
-                initalOffset = 0x0;
+                initalOffset = 0;
             }
 
         }
