@@ -153,7 +153,9 @@ class wmvm extends EventEmitter {
         return this;
     }
     initializeMemory() {
-        // todo
+        if (!this.memPtrName) {
+            //
+        }
     }
     // Run the wasm module
     // NOTE: this method will only work if the module is Emscripten-compiled
