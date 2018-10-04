@@ -152,6 +152,9 @@ class wmvm extends EventEmitter {
         this.linker.linkVm();
         return this;
     }
+    initializeMemory() {
+        // todo
+    }
     // Run the wasm module
     // NOTE: this method will only work if the module is Emscripten-compiled
     run() {
