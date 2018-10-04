@@ -54,6 +54,10 @@ class LinearMemory extends Uint8Array {
             return view.getUint32(0, true);
         }
     }
+    accessFloat32(ptr) {
+        let view = new DataView(this.buffer, ptr);
+        return view.getFloat32(0, true);
+    }
 }
 // 4 pages of memory by default
 LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;

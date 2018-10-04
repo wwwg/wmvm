@@ -206,10 +206,6 @@ class wmvm extends EventEmitter {
             }
         });
     }
-    memoryAccessFloat32(ptr) {
-        let view = new DataView(this.mem.buffer, ptr);
-        return view.getFloat32(0, true);
-    }
     memoryAccessFloat64(ptr) {
         let view = new DataView(this.mem.buffer, ptr);
         return view.getFloat64(0, true);
