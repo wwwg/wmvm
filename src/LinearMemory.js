@@ -76,7 +76,7 @@ class LinearMemory extends Uint8Array {
             let byte = this[i];
             arr.push(byte);
         }
-        let buf = Buffer,from(arr);
+        let buf = Buffer.from(arr);
         return hexdump(buf);
     }
 }
