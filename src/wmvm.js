@@ -135,7 +135,6 @@ class wmvm extends EventEmitter {
         // Wasm linear memory
         this.mem = new LinearMemory(this, initialMemoryData);
         this.memory = this.mem; // alias
-        this.memPtrName = null;
         // stack
         this.stack = new Stack(this);
         
