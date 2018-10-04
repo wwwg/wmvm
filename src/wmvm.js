@@ -69,6 +69,12 @@ class wmvm extends EventEmitter {
         this.linker.updateImport(mod, name, value, type);
         return this;
     }
+    getGlobal(name) {
+        if (this.globals[name]) {
+            return this.globals[name];
+        }
+        return null;
+    }
     constructor(data, type) {
         super();
         this.enableDbg = false;
