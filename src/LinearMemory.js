@@ -1,6 +1,6 @@
 class LinearMemory extends Uint8Array {
     constructor(vm, initializer) {
-        super();
+        super(LinearMemory.INITIAL_MEMORY_SIZE);
         this.vm = vm;
         this.init = initializer;
         if (!initializer.mem || !initializer.ptr) {
