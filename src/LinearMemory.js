@@ -70,6 +70,10 @@ class LinearMemory extends Uint8Array {
         return view.getFloat64(0, true);
     }
     dump(ptr, totalBytes) {
+        if (!hexdump) {
+            this.vm.dbg(`LinearMemory/dump: hexdump not found, not dumping memory`);
+            return;
+        }
         // dump the section to an array
         let arr = [];
         for (let i = ptr; i < (totalBytes + ptr); ++i) {
