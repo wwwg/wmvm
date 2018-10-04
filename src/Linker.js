@@ -149,7 +149,7 @@ class DynamicLinker {
         vm.dbg(`link: Discovered ${Object.keys(vm.fnMap).length} functions required for runtime.`);
 
         // Setup global map
-        // vm is in the linking routine because static imports are sometimes required by globals
+        // this is in the linking routine because static imports are sometimes required by globals
         for (let i = 0; i < vm.parsedGlobals.length; ++i) {
             let global = vm.parsedGlobals[i];
             if (global.isConst) {
