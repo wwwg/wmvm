@@ -124,8 +124,7 @@ class wmvm extends EventEmitter {
 
         // Create a linker
         this.linker = new Linker(this);
-
-        // A map of all currently parsed functions
+        // A map of all currently parsed functions 
         this.fnMap = {};
         // A map of all globals
         this.globals = {};
