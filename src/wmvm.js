@@ -130,28 +130,12 @@ class wmvm extends EventEmitter {
         this.paused = false;
         // The expression currently being interpreted
         this.ip = this.instructionPointer = null;
+        // Create linear memory
+        let initialMemoryData = getInitialMemory(this.wast);
         // Wasm linear memory
-        this.mem = new Uint8Array(INITIAL_MEMORY_SIZE);
+        this.mem = new LinearMemory(this, initialMemoryData);
         this.memory = this.mem; // alias
         this.memPtrName = null;
-        // Find initial memory
-        let initialMemoryData = getInitialMemory(this.wast);
-        if (!initialMemoryData.mem || !initialMemoryData.ptr) {
-            this.dbg('construct: Failed to find initial memory in module, ignoring');
-        } else {
-            this.memPtrName = initialMemoryData.ptr;
-            for (let i = 0; i < initialMemoryData.mem.length; ++i) {
-                let byte = initialMemoryData.mem.charCodeAt(i);
-                this.mem[i + LinearMemory.INITIAL_MEMORY_OFFSET] = byte;
-            }
-            this.dbg('construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
-            /*
-            this.globals[this.memPtrName] = {
-                type: 1,
-                value: 0
-            }
-            */
-        }
         // stack
         this.stack = new Stack(this);
         
