@@ -3,6 +3,7 @@ const wmvm = require('../src/wmvm.js'),
 
 let vm = new wmvm(fs.readFileSync('test/binaries/test2.wasm'));
 vm.enableDebug()
-    .link();
+    .link()
+    .initializeMemory();
 console.log(vm.memory.dump(1024, 30));
 // vm.run();
