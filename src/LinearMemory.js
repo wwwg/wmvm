@@ -25,7 +25,16 @@ class LinearMemory extends Uint8Array {
         }
         return out;
     }
-
+    accessStringRaw(ptr) {
+        // Gets a string from virtual memory and returns as a js byte array
+        let i = ptr,
+            out = [];
+        while (this[i] != 0) {
+            out.push(this[i]);
+            ++i;
+        }
+        return out;
+    }
 }
 // 4 pages of memory by default
 LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;

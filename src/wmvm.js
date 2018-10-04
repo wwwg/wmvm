@@ -206,16 +206,6 @@ class wmvm extends EventEmitter {
             }
         });
     }
-    memoryAccessStringRaw(ptr) {
-        // Gets a string from virtual memory and returns as a js byte array
-        let i = ptr,
-            out = [];
-        while (this.mem[i] != 0) {
-            out.push(this.mem[i]);
-            ++i;
-        }
-        return out;
-    }
     memoryAccessInt8(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {
