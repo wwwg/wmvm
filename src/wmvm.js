@@ -206,46 +206,6 @@ class wmvm extends EventEmitter {
             }
         });
     }
-    // debugging methods
-    dumpMemory(ptr, totalBytes) {
-        // Write memory to a node Buffer
-        let buf = new Buffer(totalBytes);
-        for (let i = ptr; i < (ptr + totalBytes); ++i) {
-            buf[i - ptr] = this.memory[i];
-        }
-        // Print it
-        console.log(`dumpMemory: 0x${ptr.toString(16)} to 0x${((ptr + totalBytes).toString(16))} (${totalBytes} bytes):`);
-        let rawHex = buf.toString('hex'),
-            outHex = 'HEX: < ',
-            byteIndex = 0;
-        for (let i = 0; i < rawHex.length; ++i) {
-            ++byteIndex;
-            let c = rawHex[i];
-            outHex += c;
-            if (byteIndex == 2) {
-                // Append space every 2 characters
-                outHex += ' ';
-                byteIndex = 0;
-            }
-        }
-        outHex += '>';
-        console.log(outHex);
-        let outAscii = 'TXT: < ';
-        for (let i = ptr; i < (ptr + totalBytes); ++i) {
-            let byte = this.memory[i],
-                c = String.fromCharCode(byte);
-            if (byte === 0x0) {
-                outAscii += `\\0 `;
-            } else if (byte === 0xa) {
-                outAscii += `\\n `;
-            } else {
-                outAscii += c;
-                outAscii += '  ';
-            }
-        }
-        outAscii += '>';
-        console.log(outAscii);
-    }
     // Control flow manipulation
     pauseExecution() {
         this.dbg(`pauseExecution: paused flag set, waiting for interpreter.`);
