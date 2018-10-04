@@ -206,9 +206,6 @@ class wmvm extends EventEmitter {
             }
         });
     }
-    memoryAccessByte(ptr) {
-        return this.memoryAccessInt8(ptr, false);
-    }
     memoryAccessInt32(ptr, signed = true) {
         let view = new DataView(this.mem.buffer, ptr);
         if (signed) {

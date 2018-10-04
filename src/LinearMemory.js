@@ -43,6 +43,9 @@ class LinearMemory extends Uint8Array {
             return view.getUint8(0, true);
         }
     }
+    accessByte(ptr) {
+        return this.accessInt8(ptr, false);
+    }
 }
 // 4 pages of memory by default
 LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;
