@@ -206,17 +206,6 @@ class wmvm extends EventEmitter {
             }
         });
     }
-    // helper functions for managing memory (very useful for imports)
-    memoryAccessString(ptr) {
-        // Gets a string from virtual memory and returns as a js string
-        let i = ptr,
-            out = '';
-        while (this.mem[i] != 0) {
-            out += String.fromCharCode(this.mem[i]);
-            ++i;
-        }
-        return out;
-    }
     memoryAccessStringRaw(ptr) {
         // Gets a string from virtual memory and returns as a js byte array
         let i = ptr,

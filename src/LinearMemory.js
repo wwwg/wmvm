@@ -14,6 +14,18 @@ class LinearMemory extends Uint8Array {
             vm.dbg('LinearMemory/construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
         }
     }
+    // utility functions
+    accessString(ptr) {
+        // Gets a string from virtual memory and returns as a js string
+        let i = ptr,
+            out = '';
+        while (this[i] != 0) {
+            out += String.fromCharCode(this[i]);
+            ++i;
+        }
+        return out;
+    }
+
 }
 // 4 pages of memory by default
 LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;
