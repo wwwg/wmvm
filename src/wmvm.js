@@ -137,8 +137,8 @@ class wmvm extends EventEmitter {
         // The expression currently being interpreted
         this.ip = this.instructionPointer = null;
         // Create linear memory
-        let initialMemoryData = getInitialMemory(this.wast);
-        this.memPtrName = initializer.ptr;
+        this.initialMemoryData = getInitialMemory(this.wast);
+        this.memPtrName = this.initialMemoryData.ptr;
         // Wasm linear memory
         this.mem = new LinearMemory(this, initialMemoryData);
         this.memory = this.mem; // alias
