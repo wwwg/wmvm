@@ -116,7 +116,7 @@ class wmvm extends EventEmitter {
         this.parsedFnNames = getFnNames(this.wast);
         // Parse initial linear memory
         this.initialMemoryData = getInitialMemory(this.wast);
-        this.memPtrName = this.initialMemoryData.ptr = null;
+        this.memPtrName = null;
 
         this.module.dbg = this.dbg.bind(this);
 
