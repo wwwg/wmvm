@@ -13,7 +13,6 @@ class LinearMemory extends Uint8Array {
         if (!initializer.mem || !initializer.ptr) {
             vm.dbg('LinearMemory/construct: Failed to find initial memory in module, ignoring');
         } else {
-            vm.memPtrName = initializer.ptr;
             for (let i = 0; i < initializer.mem.length; ++i) {
                 let byte = initializer.mem.charCodeAt(i);
                 this[i + LinearMemory.INITIAL_MEMORY_OFFSET] = byte;
