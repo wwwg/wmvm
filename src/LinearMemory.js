@@ -6,8 +6,12 @@ try {
     hexdump = null;
 }
 class LinearMemory extends Uint8Array {
-    constructor(vm, initializer) {
+    constructor(vm, initializerString = '', offset) {
         super(LinearMemory.INITIAL_MEMORY_SIZE);
+        if (offset === null || typeof offset === 'undefined') {
+            vm.dbg('LinearMemory/construct: WARN: linear memory offset doesn\'t exist, aborting');
+            return;
+        }
         this.vm = vm;
         this.init = initializer;
         if (!initializer.mem || !initializer.ptr) {
@@ -85,5 +89,4 @@ class LinearMemory extends Uint8Array {
 }
 // 4 pages of memory by default
 LinearMemory.INITIAL_MEMORY_SIZE = 64000 * 4;
-LinearMemory.INITIAL_MEMORY_OFFSET = 1024;
 module.exports = LinearMemory;
