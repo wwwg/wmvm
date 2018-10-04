@@ -162,8 +162,10 @@ class wmvm extends EventEmitter {
             if (!offsetGlobal) {
                 this.dbg(`intializeMemory: WARN: memory offset global/import doesnt seem to exist, using 0x0`);
                 initalOffset = 0;
+            } else {
+                initalOffset = offsetGlobal.value;
+                this.dbg(`intializeMemory: using memory offset 0x${initalOffset.toString(16)}`);
             }
-
         }
     }
     // Run the wasm module
