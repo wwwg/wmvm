@@ -167,6 +167,7 @@ class wmvm extends EventEmitter {
                 this.dbg(`intializeMemory: using memory offset 0x${initalOffset.toString(16)}`);
             }
         }
+        return this;
     }
     // Run the wasm module
     // NOTE: this method will only work if the module is Emscripten-compiled
