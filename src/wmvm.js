@@ -114,6 +114,9 @@ class wmvm extends EventEmitter {
         this.parsedImports = getImports(this.wast);
         this.parsedGlobals = getGlobals(this.wast);
         this.parsedFnNames = getFnNames(this.wast);
+        // Parse initial linear memory
+        this.initialMemoryData = getInitialMemory(this.wast);
+        this.memPtrName = this.initialMemoryData.ptr = null;
 
         this.module.dbg = this.dbg.bind(this);
 
@@ -136,9 +139,6 @@ class wmvm extends EventEmitter {
         this.paused = false;
         // The expression currently being interpreted
         this.ip = this.instructionPointer = null;
-        // Parse initial linear memory
-        this.initialMemoryData = getInitialMemory(this.wast);
-        this.memPtrName = this.initialMemoryData.ptr = null;
         // stack
         this.stack = new Stack(this);
         
