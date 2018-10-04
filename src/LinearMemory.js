@@ -13,16 +13,12 @@ class LinearMemory extends Uint8Array {
             return;
         }
         this.vm = vm;
-        this.init = initializer;
-        if (!initializer.mem || !initializer.ptr) {
-            vm.dbg('LinearMemory/construct: Failed to find initial memory in module, ignoring');
-        } else {
-            for (let i = 0; i < initializer.mem.length; ++i) {
-                let byte = initializer.mem.charCodeAt(i);
-                this[i + LinearMemory.INITIAL_MEMORY_OFFSET] = byte;
-            }
-            vm.dbg('LinearMemory/construct: Sucessfully set initial memory with pointer name "' + this.memPtrName + '"');
+        this.initString = initializerString;
+        for (let i = 0; i < initializerString.length; ++i) {
+            let byte = initializerString.charCodeAt(i);
+            this[offset + i] = byte;
         }
+        vm.dbg('LinearMemory/construct: Sucessfully set initial memory');
     }
     // utility functions
     accessString(ptr) {
